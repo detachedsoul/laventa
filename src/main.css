@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .fr {
+        @apply text-xl relative top-1
+    }
+
+    .header {
+        @apply font-DMSerifDisplay font-bold
+    }
+}
