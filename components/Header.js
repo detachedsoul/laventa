@@ -11,6 +11,7 @@ const Header = () => {
 	const pathname = usePathname();
 	const [isOpen, setIsOpen] = useState(false);
 	const [drodownIsOpen, setDropdownIsOpen] = useState(false);
+	const [theme, setTheme] = useState('light');
 
 	const handleNavToggle = () => { setIsOpen(() => !isOpen) };
 	const handleDropdownToggle = () => { setDropdownIsOpen(() => !drodownIsOpen) };
@@ -24,8 +25,32 @@ const Header = () => {
 		setDropdownIsOpen(() => false);
 	}, [pathname]);
 
+	useEffect(() => {
+		if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+			document.documentElement.classList.add('dark');
+			localStorage.setItem('theme', 'dark');
+			setTheme(() => localStorage.getItem('theme'));
+		} else {
+			document.documentElement.classList.add('light');
+			localStorage.setItem('theme', 'light');
+			setTheme(() => localStorage.getItem('theme'));
+		}
+	}, []);
+
+	const toggleTheme = () => {
+		if (localStorage.theme === 'dark') {
+			document.documentElement.classList.replace('dark', 'light');
+			localStorage.setItem('theme', 'light');
+			setTheme(() => localStorage.getItem('theme'));
+		} else {
+			document.documentElement.classList.replace('light', 'dark');
+			localStorage.setItem('theme', 'dark');
+			setTheme(() => localStorage.getItem('theme'));
+		}
+	};
+
 	return (
-		<header className="flex items-center gap-4 justify-between bg-white p-4 sticky top-0 z-50 lg:py-3">
+		<header className="flex items-center gap-4 justify-between bg-white py-5 sticky top-0 z-[1024] border-b border-slate-200 lg:py-3 px-[5%] dark:bg-slate-900 dark:text-slate-200 dark:border-slate-50/[0.06]">
 			<button
 				className="lg:hidden lg:not-sr-only"
 				aria-label="Navbar toggle button"
@@ -34,7 +59,7 @@ const Header = () => {
 				<i className="fr fi-rr-menu-burger"></i>
 			</button>
 
-			<Link href="/">
+			<Link className="hidden not-sr-only lg:inline-block" href="/">
 				<Image
 					className="w-16 h-auto"
 					src={Logo}
@@ -44,7 +69,7 @@ const Header = () => {
 			</Link>
 
 			<nav
-				className={`bg-white absolute top-0 left-0 flex flex-col gap-4 p-4 w-full z-50 transition-transform duration-500 ease-linear lg:static lg:p-0 lg:bg-transparent lg:w-auto min-h-screen lg:min-h-0 ${
+				className={`bg-white absolute top-0 left-0 flex flex-col gap-4 p-4 w-full z-[1024] transition-transform duration-500 ease-linear lg:static lg:p-0 lg:bg-transparent lg:w-auto min-h-screen lg:min-h-0 dark:bg-slate-900 ${
 					isOpen
 						? "translate-y-0"
 						: "-translate-y-full lg:translate-y-0"
@@ -65,7 +90,13 @@ const Header = () => {
 					</button>
 				</div>
 
-				<ul className={`flex flex-col gap-4 overscroll-contain min-h-[calc(100vh-7rem)] lg:min-h-0 lg:flex-row ${drodownIsOpen ? "overflow-y-auto" : "overflow-y-hidden"}`}>
+				<ul
+					className={`flex flex-col gap-10 overscroll-contain min-h-[calc(100vh-6.5rem)] lg:min-h-0 lg:flex-row custom-scrollbar ${
+						drodownIsOpen
+							? "overflow-y-auto  lg:overflow-y-hidden"
+							: "overflow-y-hidden"
+					}`}
+				>
 					{links.map((link, id) => (
 						<li
 							className={`${link.isDropdown ? "relative" : ""}`}
@@ -74,10 +105,10 @@ const Header = () => {
 							{link.isDropdown ? (
 								<>
 									<button
-										className={`flex items-center gap-4 w-full bg-gradient-to-r rounded-lg px-4 py-3 relative lg:pt-1 lg:px-3 lg:pb-1.5 lg:gap-3 ${
+										className={`flex items-center gap-4 w-full relative px-4 lg:px-0 lg:gap-3 ${
 											drodownIsOpen
-												? "from-rose-500/80 to-rose-500/90 text-white"
-												: "hover:from-rose-500/80 hover:to-rose-500/90 hover:text-white"
+												? "text-rose-500 dark:text-sky-500"
+												: "hover:text-rose-500 dark:hover:text-sky-500"
 										}`}
 										type="button"
 										onClick={handleDropdownToggle}
@@ -88,13 +119,13 @@ const Header = () => {
 									</button>
 
 									<div
-										className={`bg-white shadow-dropdown absolute p-4 w-full rounded-lg transition-transform ease-linear duration-500 z-50 flex flex-col gap-4 lg:p-8 lg:fixed lg:w-auto origin-top top-[calc(100%+1rem)] lg:left-0 lg:right-0 ${
+										className={`bg-slate-50 lg:bg-white lg:shadow-dropdown absolute p-4 w-full z-[1024] rounded-lg transition-transform ease-linear duration-500 flex flex-col gap-4 lg:p-8 lg:fixed lg:w-auto origin-top top-[calc(100%+1.5rem)] lg:left-0 lg:right-0 dark:bg-slate-800 ${
 											drodownIsOpen
 												? "translate-y-0"
 												: "-translate-y-[150%]"
 										}`}
 									>
-										<h3 className="header text-xl lg:text-xl border-b border-gray-400 pb-2">
+										<h3 className="header text-xl border-b border-gray-400 pb-2">
 											Categories
 										</h3>
 
@@ -103,13 +134,13 @@ const Header = () => {
 												(category, id) => (
 													<li key={id}>
 														<Link
-															className="flex gap-4 items-start w-full transition-all ease-linear bg-gradient-to-r hover:from-rose-500/80 hover:to-rose-500/90 rounded-lg p-4 lg:gap-3 group"
+															className="flex gap-4 items-start w-full transition-all ease-linear bg-gradient-to-r hover:from-rose-500/80 hover:to-rose-500/90 rounded-lg p-4 lg:gap-3 dark:hover:from-sky-500/80 dark:hover:to-sky-500/90 dark:hover:text-white group"
 															href={
 																category.route
 															}
 														>
 															<i
-																className={`fr ${category.icon} bg-slate-100 rounded-lg px-4 pt-4 pb-2`}
+																className={`fr ${category.icon} bg-slate-200 lg:bg-slate-100 rounded-lg px-4 pt-4 pb-2 dark:bg-slate-900`}
 															></i>
 
 															<div className="flex flex-col gap-0.5 transition-all ease-linear group-hover:text-white">
@@ -134,10 +165,10 @@ const Header = () => {
 								</>
 							) : (
 								<Link
-									className={`flex items-center gap-4 w-full bg-gradient-to-r rounded-lg px-4 py-3 relative lg:pt-1 lg:px-3 lg:pb-1.5 lg:gap-3 ${
+									className={`flex items-center gap-4 w-full px-4 lg:px-0  lg:gap-3 ${
 										pathname === link.route
-											? "from-rose-500/80 to-rose-500/90 text-white"
-											: "hover:from-rose-500/80 hover:to-rose-500/90 hover:text-white"
+											? "text-rose-500 dark:text-sky-500"
+											: "hover:text-rose-500 dark:hover:text-sky-500"
 									}`}
 									href={link.route}
 								>
@@ -152,8 +183,15 @@ const Header = () => {
 			</nav>
 
 			<div className="flex items-center gap-4">
-				<button aria-label="Theme switcher">
-					<i className="fr fi-rr-moon"></i>
+				<button
+					aria-label="Theme switcher"
+					onClick={() => toggleTheme()}
+				>
+					<i
+						className={`fr ${
+							theme === "dark" ? "fi-rr-sun" : "fi-rr-moon"
+						}`}
+					></i>
 				</button>
 
 				<Link href="/search" aria-label="Search bar toggle button">

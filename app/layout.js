@@ -1,6 +1,10 @@
+"use client";
+
 import "@assets/uicons-regular-rounded/css/uicons-regular-rounded.min.css";
+import ContextProvider from "@components/ContextProvider";
 import Header from "@components/Header";
 import localFont from "@next/font/local";
+import {useEffect, useContext} from "react";
 import "./globals.css";
 
 const GTWalsheimPro = localFont({
@@ -19,25 +23,29 @@ const DMSerifDisplay = localFont({
 });
 
 const Layout = ({ children }) => {
-	return (
-		<html lang="en">
-			<head>
-				<meta name="author" content="Wisdom Ojimah" />
-				<meta
-					name="viewport"
-					content="width=device-width, initial-scale=1"
-				/>
-				<link rel="icon" href="/favicon.svg" />
-			</head>
-			<head />
+	const context = useContext(ContextProvider);
 
-			<body
-				className={`antialiased scroll-smooth overscroll-contain selection:bg-rose-500 selection:text-white text-lg font-GTWalsheimPro leading-normal tracking-wider ${GTWalsheimPro.variable} ${DMSerifDisplay.variable} break-words [word-break:break-word] [word-wrap:break-word] lg:text-base transform-gpu overscroll-contain`}
-			>
-				<Header />
-				{children}
-			</body>
-		</html>
+	return (
+		<ContextProvider.Provider value={{...context}}>
+			<html lang="en">
+				<head>
+					<meta name="author" content="Wisdom Ojimah" />
+					<meta
+						name="viewport"
+						content="width=device-width, initial-scale=1"
+					/>
+					<link rel="icon" href="/favicon.svg" />
+				</head>
+				<head />
+
+				<body
+					className={`bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-200 antialiased scroll-smooth overscroll-contain selection:bg-rose-500 selection:text-white text-lg font-GTWalsheimPro leading-normal tracking-wider ${GTWalsheimPro.variable} ${DMSerifDisplay.variable} break-words [word-break:break-word] [word-wrap:break-word] lg:text-base transform-gpu overscroll-contain`}
+				>
+					<Header />
+					{children}
+				</body>
+			</html>
+		</ContextProvider.Provider>
 	);
 };
 

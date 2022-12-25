@@ -3,7 +3,7 @@ const links = [
 		route: "/",
 		label: "Home",
 		isDropdown: false,
-		icon: "fi-rr-home",
+		icon: "fi-rr-bank",
 	},
 	{
 		route: "/",

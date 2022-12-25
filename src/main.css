@@ -8,6 +8,15 @@
     }
 
     .header {
-        @apply font-DMSerifDisplay font-bold
+        @apply font-DMSerifDisplay font-bold leading-loose tracking-wide dark:text-white
     }
+
+        .custom-scrollbar {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
 }
