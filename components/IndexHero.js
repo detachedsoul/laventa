@@ -1,6 +1,6 @@
 "use client";
 
-import heroImage from "@assets/img/hero-image.png";
+import heroImage from "@assets/img/hero-image.svg";
 import Image from "next/image";
 
 const IndexHero = () => {
@@ -15,10 +15,10 @@ const IndexHero = () => {
 	}
 
 	return (
-		<div className="grid gap-12 grid-cols-1 pt-12 items-center lg:grid-cols-2 min-h-[80vh] px-[5%] lg:pt-8 lg:pr-0">
+		<div className="grid gap-12 grid-cols-1 pt-12 items-center lg:grid-cols-2 min-h-screen pb-20 px-[3%] lg:pt-8 lg:pr-0 bg-sky-100">
 			<div className="space-y-4">
-				<h1 className="header text-5xl">
-					Every <span className="text-rose-500">Purchase</span> Will Be Made With <span className="text-sky-500">Pleasure</span>
+				<h1 className="main-header">
+					Every <span className="font-bold">Purchase</span> Will Be Made With <span className="font-bold">Pleasure</span>
 				</h1>
 
 				<p>
@@ -26,7 +26,7 @@ const IndexHero = () => {
                     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
 				</p>
 
-                <button className="rounded-full bg-rose-500 text-white py-3 lg:py-2 px-4 bg-gradient-to-r from-rose-500/80 to-sky-500/90 hover:from-sky-500/80 hover:to-rose-500/90 transition-colors ease-linear duration-500" type="button" onClick={scrollToNewArrivals}>
+                <button className="rounded-full text-white py-3 lg:py-2 px-4 bg-sky-600 transition-colors ease-linear duration-500" type="button" onClick={scrollToNewArrivals}>
                     Start Shopping <i className="fr fi-rr-arrow-small-down top-1.5"></i>
                 </button>
 			</div>

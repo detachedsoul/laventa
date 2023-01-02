@@ -50,7 +50,7 @@ const Header = () => {
 	};
 
 	return (
-		<header className="flex items-center gap-4 justify-between bg-white py-5 sticky top-0 z-[1024] border-b border-slate-200 lg:py-3 px-[5%] dark:bg-slate-900 dark:text-slate-200 dark:border-slate-50/[0.06]">
+		<header className="flex items-center gap-4 justify-between bg-white py-5 sticky top-0 z-[1024] border-b border-slate-200 lg:py-3 px-[3%] dark:bg-slate-900 dark:text-slate-200 dark:border-slate-50/[0.06]">
 			<button
 				className="lg:hidden lg:not-sr-only"
 				aria-label="Navbar toggle button"

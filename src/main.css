@@ -8,15 +8,23 @@
     }
 
     .header {
-        @apply font-DMSerifDisplay font-bold leading-loose tracking-wide dark:text-white
+        @apply font-DMSerifDisplay font-medium tracking-wider
     }
 
-        .custom-scrollbar {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
+    .main-header {
+        @apply text-5xl leading-[3.5rem] header
+    }
 
-        .custom-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
+    .custom-scrollbar {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .add-to-cart {
+        @apply bg-rose-500 text-white text-center text-base rounded-md py-1.5 px-4 transition-colors ease-in-out duration-500 block w-full hover:bg-rose-400 focus:bg-rose-400
+    }
 }

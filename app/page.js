@@ -6,7 +6,7 @@ const Page = () => {
     return (
 		<>
 			<IndexHero />
-			<main className="space-y-20 py-20 px-[5%] scroll-mt-4" id="new-arrivals">
+			<main className="space-y-20 pt-18 pb-20 px-[3%] relative scroll-mt-20" id="new-arrivals">
 				<NewArrivals />
 				<IndexCategories />
 			</main>
