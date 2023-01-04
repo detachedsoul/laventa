@@ -39,7 +39,7 @@ const ScrollIndicator = ({parentElement, totalSlides, perPage, slidesArray}) => 
 
     return (
         copyArr.map((slides, index) => (
-            <span className={`rounded-full inline-block transition-all ease-linear duration-300 cursor-pointer ${currentSlide === (index+1) ? 'py-2 px-5 lg:py-1 lg:px-3 bg-rose-500' : 'p-2 lg:p-1 bg-gray-500'}`} onClick={() => slide((index+1))} key={index}></span>
+            <span className={`rounded-full inline-block transition-all ease-linear duration-300 cursor-pointer ${currentSlide === (index+1) ? 'py-1 px-5 lg:px-3 bg-rose-500' : 'p-2 lg:p-1 bg-gray-500'}`} onClick={() => slide((index+1))} key={index}></span>
         ))
     );
 };

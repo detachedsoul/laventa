@@ -4,7 +4,7 @@ import "@assets/uicons-regular-rounded/css/uicons-regular-rounded.min.css";
 import ContextProvider from "@components/ContextProvider";
 import Header from "@components/Header";
 import localFont from "@next/font/local";
-import {useEffect, useContext} from "react";
+import {useContext} from "react";
 import "./globals.css";
 
 const GTWalsheimPro = localFont({
@@ -15,7 +15,7 @@ const GTWalsheimPro = localFont({
 });
 
 const DMSerifDisplay = localFont({
-	src: "../assets/fonts/DMSerifDisplay.ttf",
+	src: "../assets/fonts/Satoshi.ttf",
 	variable: "--font-dm-serif-display",
 	display: "swap",
 	preload: true,

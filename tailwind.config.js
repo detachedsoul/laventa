@@ -13,9 +13,12 @@ module.exports = {
 			},
 			backgroundImage: {
 				hero: "linear-gradient(180deg, #E5EFFF 0%, rgba(229, 239, 255, 0.262661) 83.7%, rgba(229, 239, 255, 0) 100%)",
-				// product-hover: "linear-gradient(rgba(0, 0,))"
 			}
 		},
 	},
-	plugins: [],
+	plugins: [
+		require("@tailwindcss/forms")({
+			strategy: "class"
+		})
+	],
 };

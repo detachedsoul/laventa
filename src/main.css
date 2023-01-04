@@ -3,12 +3,23 @@
 @tailwind utilities;
 
 @layer components {
+    select option {
+        @apply text-lg;
+        font-family: inherit;
+        font: -moz-pull-down-menu;
+        font-size: inherit;
+    }
+
+    .select {
+        @apply focus:ring-1 focus:ring-rose-300 focus:ring-offset-2 border border-slate-200 rounded-md focus:border-slate-200 focus:ring-offset-white
+    }
+
     .fr {
         @apply text-xl relative top-1
     }
 
     .header {
-        @apply font-DMSerifDisplay font-medium tracking-wider
+        @apply font-DMSerifDisplay font-bold tracking-wider
     }
 
     .main-header {
@@ -25,6 +36,6 @@
     }
 
     .add-to-cart {
-        @apply bg-rose-500 text-white text-center text-base rounded-md py-1.5 px-4 transition-colors ease-in-out duration-500 block w-full hover:bg-rose-400 focus:bg-rose-400
+        @apply bg-rose-500 text-white text-center text-base rounded-md py-3 px-4 transition-colors ease-in-out duration-500 block w-full hover:bg-rose-400 focus:bg-rose-400 lg:py-2
     }
 }
