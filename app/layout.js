@@ -6,6 +6,7 @@ import "@assets/uicons-regular-rounded/css/uicons-regular-rounded.min.css";
 import ContextProvider from "@components/ContextProvider";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
+import SplitNewsletter from "@components/SplitNewsletter";
 import localFont from "@next/font/local";
 import {useContext} from "react";
 import "./globals.css";
@@ -42,10 +43,11 @@ const Layout = ({ children }) => {
 				<head />
 
 				<body
-					className={`bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-200 antialiased scroll-smooth overscroll-contain selection:bg-rose-500 selection:text-white text-lg font-GTWalsheimPro leading-normal tracking-wider ${GTWalsheimPro.variable} ${satoshi.variable} break-words [word-break:break-word] [word-wrap:break-word] lg:text-base transform-gpu overscroll-contain`}
+					className={ `bg-white text-slate-900 dark:bg-brand-black dark:text-white antialiased scroll-smooth overscroll-contain selection:bg-brand-red selection:text-white text-lg font-GTWalsheimPro leading-normal tracking-wider ${GTWalsheimPro.variable} ${satoshi.variable} break-words [word-break:break-word] [word-wrap:break-word] transform-gpu overscroll-contain` }
 				>
 					<Header />
 					{children}
+					<SplitNewsletter />
 					<Footer />
 				</body>
 			</html>

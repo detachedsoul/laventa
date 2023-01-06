@@ -50,7 +50,7 @@ const Header = () => {
 	};
 
 	return (
-		<header className="flex items-center gap-4 justify-between bg-white py-5 sticky top-0 z-[1024] border-b border-slate-200 lg:py-3 px-[3%] dark:bg-slate-900 dark:text-slate-200 dark:border-slate-50/[0.06]">
+		<header className="flex items-center gap-4 justify-between bg-white py-5 sticky top-0 z-[1024] border-b border-slate-200 lg:py-3 px-[3%] dark:bg-brand-black dark:text-white dark:border-slate-50/[0.06]">
 			<button
 				className="lg:hidden lg:not-sr-only"
 				aria-label="Navbar toggle button"
@@ -69,7 +69,7 @@ const Header = () => {
 			</Link>
 
 			<nav
-				className={`bg-white absolute top-0 left-0 flex flex-col gap-4 p-4 w-full z-[1024] transition-transform duration-500 ease-linear lg:static lg:p-0 lg:bg-transparent lg:w-auto min-h-screen lg:min-h-0 dark:bg-slate-900 ${
+				className={ `bg-white absolute top-0 left-0 flex flex-col gap-4 p-4 w-full z-[1024] transition-transform duration-500 ease-linear lg:static lg:p-0 lg:bg-transparent lg:w-auto min-h-screen lg:min-h-0 dark:bg-transparent ${
 					isOpen
 						? "translate-y-0"
 						: "-translate-y-full lg:translate-y-0"
@@ -107,8 +107,8 @@ const Header = () => {
 									<button
 										className={`flex items-center gap-4 w-full relative px-4 lg:px-0 lg:gap-3 ${
 											drodownIsOpen
-												? "text-rose-500 dark:text-sky-500"
-												: "hover:text-rose-500 dark:hover:text-sky-500"
+											? "text-brand-red dark:text-slate-200"
+											: "hover:text-brand-red dark:hover:text-slate-300"
 										}`}
 										type="button"
 										onClick={handleDropdownToggle}
@@ -119,7 +119,7 @@ const Header = () => {
 									</button>
 
 									<div
-										className={`bg-slate-50 lg:bg-white lg:shadow-dropdown absolute p-4 w-full z-[1024] rounded-lg transition-transform ease-linear duration-500 flex flex-col gap-4 lg:p-8 lg:fixed lg:w-auto origin-top top-[calc(100%+1.5rem)] lg:left-0 lg:right-0 dark:bg-slate-800 ${
+										className={ `bg-slate-50 lg:bg-white lg:shadow-dropdown absolute p-4 w-full z-[1024] rounded-lg transition-transform ease-linear duration-500 flex flex-col gap-4 lg:p-8 lg:fixed lg:w-auto origin-top top-[calc(100%+1.5rem)] lg:left-0 lg:right-0 dark:bg-brand-black ${
 											drodownIsOpen
 												? "translate-y-0"
 												: "-translate-y-[150%]"
@@ -134,7 +134,7 @@ const Header = () => {
 												(category, id) => (
 													<li key={id}>
 														<Link
-															className="flex gap-4 items-start w-full transition-all ease-linear bg-gradient-to-r hover:from-rose-500/80 hover:to-rose-500/90 rounded-lg p-4 lg:gap-3 dark:hover:from-sky-500/80 dark:hover:to-sky-500/90 dark:hover:text-white group"
+															className="flex gap-4 items-start w-full transition-all ease-linear bg-gradient-to-r hover:from-brand-red/80 hover:to-brand-red/90 rounded-lg p-4 lg:gap-3 dark:hover:from-sky-500/80 dark:hover:to-sky-500/90 dark:hover:text-white group"
 															href={
 																category.route
 															}
@@ -167,8 +167,8 @@ const Header = () => {
 								<Link
 									className={`flex items-center gap-4 w-full px-4 lg:px-0  lg:gap-3 ${
 										pathname === link.route
-											? "text-rose-500 dark:text-sky-500"
-											: "hover:text-rose-500 dark:hover:text-sky-500"
+											? "text-brand-red dark:text-slate-300"
+											: "hover:text-brand-red dark:hover:text-slate-300"
 									}`}
 									href={link.route}
 								>

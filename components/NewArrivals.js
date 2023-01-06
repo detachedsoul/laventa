@@ -28,7 +28,7 @@ const NewArrivals = () => {
 	return (
 		isReady
 			&&
-		<section className="space-y-12 bg-white shadow-2xl rounded-xl pt-[5%] px-[5%] pb-[10%] relative -translate-y-[8vh] lg:-translate-y-[10vh] -mb-[calc(10vh)] lg:px-[3%] lg:pt-[3%] lg:pb-[5%] dark:text-slate-900">
+		<section className="space-y-12 bg-white shadow-card rounded-xl pt-[5%] px-[5%] pb-[10%] relative -translate-y-[8vh] lg:-translate-y-[10vh] -mb-[calc(10vh)] lg:px-[3%] lg:pt-[3%] lg:pb-[5%] dark:text-slate-900">
 			<div className="text-center place-items-center place-content-center grid gap-1">
 				<h2 className="header text-3xl">
 					New Arrivals
@@ -41,19 +41,19 @@ const NewArrivals = () => {
 			<div className="flex gap-8 items-stretch whitespace-nowrap overflow-y-auto custom-scrollbar snap-x snap-mandatory scroll-smooth min-w-full" ref={container}>
 				{newArrivals.map((arrivals, index) => (
 					<article className="min-w-full snap-always lg:min-w-[calc(33.3333333%-1.34rem)] snap-center" key={index}>
-						<div className="relative h-[220px] rounded-lg group">
+						<div className="relative h-[250px] rounded-lg group lg:h-[220px]">
 							<Image className="rounded-lg object-center aspect-square object-cover" src={arrivals.productImage} fill quality={100} alt={arrivals.productName} />
 
-							<div className="absolute flex gap-5 place-content-center place-items-center h-full left-0 w-full rounded-lg bg-black/50 p-4 opacity-0 transition ease-in-out duration-500 group-hover:opacity-100 group-focus:opacity-100">
-								<span className="bg-white rounded-full py-1 px-[0.55rem] lg:px-2 cursor-pointer absolute right-4 top-4 transition ease-in-out duration-500 hover:text-rose-500" aria-label="Star product">
-									<i className="fr fi-rr-heart text-base top-[0.18rem] -right-[0.05rem]"></i>
+							<div className="absolute flex gap-5 place-content-center place-items-center h-full left-0 w-full rounded-lg bg-black/50 p-4 opacity-0 transition ease-in-out duration-500 group-hover:opacity-100 group-focus:opacity-100 dark:text-slate-900">
+								<span className="bg-white rounded-full py-1 px-[0.58rem] lg:px-2 cursor-pointer absolute right-4 top-4 transition ease-in-out duration-500 hover:text-brand-red" aria-label="Star product">
+									<i className="fr fi-rr-heart text-base top-[0.20rem] -right-[0.05rem]"></i>
 								</span>
 
-								<button className="bg-white rounded-lg py-2.5 px-4 transition ease-in-out duration-500 hover:text-rose-500" aria-label="Quick view of product details">
+								<button className="bg-white rounded-lg py-2.5 px-4 transition-colors ease-in-out duration-500 hover:text-brand-red" aria-label="Quick view of product details">
 									<i className="fr fi-rr-eye text-base top-0.5"></i>
 								</button>
 
-								<button className="bg-white rounded-lg py-2.5 px-4 transition ease-in-out duration-500 hover:text-rose-500" aria-label="Add product to cart">
+								<button className="bg-white rounded-lg py-2.5 px-4 transition-colors ease-in-out duration-500 hover:text-brand-red" aria-label="Add product to cart">
 									<i className="fr fi-rr-shopping-cart text-base top-0.5"></i>
 								</button>
 							</div>
@@ -61,9 +61,10 @@ const NewArrivals = () => {
 
 						<div className="flex flex-col gap-6 p-3">
 							<div className="flex flex-col gap-0.5">
-								<p className="text-base">
+								<Link className="transition-colors duration-500 ease-in-out hover:text-rose-500 inline-block text-base" href="/">
 									{arrivals.category}
-								</p>
+								</Link>
+
 								<Link className="transition-colors duration-500 ease-in-out hover:text-rose-500 inline-block text-lg" href="/">
 									<h3 className="font-bold">
 										{arrivals.productName}
@@ -76,21 +77,21 @@ const NewArrivals = () => {
 									{arrivals.inStock ? (
 										arrivals.discount.isDiscount ? (
 											<>
-												<span className="text-sky-500 font-mono font-semibold bg-sky-100 rounded-md px-2 py-1">
+												<span className="text-brand-dark-sky font-mono font-semibold bg-sky-100 rounded-md px-2 py-1">
 													${arrivals.discount.currentPrice}
 												</span>
 
-												<del className="text-rose-500 font-mono font-semibold bg-rose-100 rounded-md px-2 py-1">
+												<del className="text-brand-dark-rose font-mono font-semibold bg-rose-100 rounded-md px-2 py-1">
 													${arrivals.discount.oldPrice}
 												</del>
 											</>
 										) : (
-											<span className="text-sky-500 font-mono font-semibold bg-sky-100 rounded-md px-2 py-1">
+											<span className="text-brand-dark-sky font-mono font-semibold bg-sky-100 rounded-md px-2 py-1">
 												${arrivals.discount.currentPrice}
 											</span>
 										)
 									) : (
-										<span className="font-mono font-semibold rounded-md py-1 text-slate-700">
+										<span className="font-semibold rounded-md py-1 text-brand-red text-xl header">
 											Out of stock!
 										</span>
 									)}
@@ -106,19 +107,12 @@ const NewArrivals = () => {
 							</div>
 
 							<div className="flex flex-col gap-2">
-								{arrivals.inStock ? (
-									<button className="add-to-cart" type="button">
+								<button className={`add-to-cart ${!arrivals.inStock ? 'cursor-not-allowed pointer-events-none select-none bg-rose-400' : ''}`} type="button">
 									<i className="fr fi-rr-shopping-cart text-base top-0.5 mr-2"></i>
-										Add to Cart
-									</button>
-								) : (
-									<button className="add-to-cart cursor-not-allowed bg-rose-400 hover:bg-rose-400 focus:bg-rose-400" type="button">
-									<i className="fr fi-rr-shopping-cart text-base top-0.5 mr-2"></i>
-										Add to Cart
-									</button>
-								)}
+									Add to Cart
+								</button>
 
-								<button className="add-to-cart bg-transparent text-slate-900 hover:bg-transparent focus:bg-transparent hover:text-rose-500" type="button">
+								<button className="add-to-cart bg-transparent text-slate-900 hover:bg-transparent focus:bg-transparent hover:text-rose-500 dark:text-rose-500 dark:hover:text-rose-600" type="button">
 									<i className="fr fi-rr-eye text-base top-0.5 mr-2"></i>
 									Quick View
 								</button>

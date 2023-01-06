@@ -40,39 +40,8 @@ const Footer = () => {
     ]
 
     return (
-        <>
-
-        <footer className="bg-slate-800 text-slate-200 mt-[50%] sm:mt-[10%]">
-            <div className="bg-white text-slate-900 px-[6%] mr-[6%] py-12 rounded-lg grid place-content-center relative left-[3%] right-[3%] -translate-y-1/2 z-30 shadow-[rgba(0,0,0,0.03)_0px_0.25rem_0.5625rem_-0.0625rem,rgba(0,0,0,0.05)_0px_0.275rem_1.25rem_-0.0625rem]">
-                <div className="text-center grid gap-8">
-                    <div className="grid gap-3">
-                        <h3 className="header text-3xl">
-                            Never miss a drop!
-                        </h3>
-
-                        <p>
-                            Subscribe to our ultra-exclusive drop list and be the first to know about upcoming drops.
-                        </p>
-                    </div>
-
-                    <form className="flex flex-nowrap lg:w-4/5 lg:mx-auto" method="POST">
-                        <label className="rounded-l-lg py-0.5 pl-3 pr-1 bg-white text-slate-900 flex items-center w-full border border-slate-200" htmlFor="footer-newsletter">
-                            <i className="fr fi-rr-envelope top-0.5 text-base"></i>
-                            <input className="bg-white py-2 input-form w-full" type="email" id="footer-newsletter" placeholder="Your email" aria-describedby="newsletter-subscription" required />
-                        </label>
-
-                        <button className="rounded-r-lg bg-rose-500 px-3 shrink-0 text-white hover:bg-rose-400 focus:bg-rose-400" type="submit">
-                            Subscribe
-                        </button>
-                    </form>
-
-                    <small className="-mt-5 mx-auto block lg:w-4/5" id="newsletter-subscription">
-                        *Receive early discount offers, updates and new products info.
-                    </small>
-                </div>
-            </div>
-
-            <div className="grid gap-12 pb-20 px-[3%] -mt-[20vh] sm:-mt-[25vh] lg:-mt-[15vh]">
+        <footer className="bg-slate-800 text-slate-200 pt-20">
+            <div className="grid gap-12 pb-20 px-[3%]">
                 <div className="grid gap-8 items-start lg:grid-cols-12 lg:justify-items-end lg:gap-[2fr]">
                     <div className="grid gap-4 lg:col-span-4">
                         <h4 className="header text-xl text-white">
@@ -85,7 +54,7 @@ const Footer = () => {
                                 <input className="bg-white py-2 input-form w-full" type="email" id="footer-newsletter" placeholder="Your email" aria-describedby="subscribe-goal" required />
                             </label>
 
-                            <button className="rounded-r-lg bg-rose-500 px-3 shrink-0 text-white hover:bg-rose-400 focus:bg-rose-400" type="submit">
+                            <button className="rounded-r-lg bg-brand-red px-3 shrink-0 text-white hover:bg-rose-900 focus:bg-rose-900" type="submit">
                                 Subscribe
                             </button>
                         </form>
@@ -165,7 +134,7 @@ const Footer = () => {
 
             <div className="flex flex-wrap items-center bg-slate-900 text-slate-200 justify-between gap-8 py-10 px-[3%]">
                 <p className="text-center text-base">
-                    &copy; 2023. All rights reserved. Designed with <i className="fr fi-rr-heart text-rose-500 text-base"></i> by <Link className="hover:underline focus:underline decoration-wavy underline-offset-4 decoration-rose-500 decoration-from-font transition-all duration-500 ease-in-out" href="https://github.com/detachedsoul" target="_blank" rel="noreferrer noopenenr">Wisdom Ojimah</Link>
+                    &copy; 2023. All rights reserved. Designed with <i className="fr fi-rr-heart text-brand-red text-base"></i> by <Link className="hover:underline focus:underline decoration-wavy underline-offset-4 decoration-brand-red decoration-from-font transition-all duration-500 ease-in-out text-[#faadba]" href="https://github.com/detachedsoul" target="_blank" rel="noreferrer noopenenr">Wisdom Ojimah</Link>
                 </p>
 
                 <div className="text-center mx-auto lg:mx-0">
@@ -173,7 +142,6 @@ const Footer = () => {
                 </div>
             </div>
         </footer>
-        </>
     );
 };
 
