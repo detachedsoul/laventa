@@ -28,7 +28,7 @@ const NewArrivals = () => {
 	return (
 		isReady
 			&&
-		<section className="space-y-12 bg-white shadow-2xl rounded-xl pt-[5%] px-[5%] pb-[10%] relative -translate-y-[8vh] lg:-translate-y-[10vh] -mb-[calc(10vh)] lg:px-[3%] lg:pt-[3%] lg:pb-[5%]">
+		<section className="space-y-12 bg-white shadow-2xl rounded-xl pt-[5%] px-[5%] pb-[10%] relative -translate-y-[8vh] lg:-translate-y-[10vh] -mb-[calc(10vh)] lg:px-[3%] lg:pt-[3%] lg:pb-[5%] dark:text-slate-900">
 			<div className="text-center place-items-center place-content-center grid gap-1">
 				<h2 className="header text-3xl">
 					New Arrivals

@@ -11,7 +11,11 @@
     }
 
     .select {
-        @apply focus:ring-1 focus:ring-rose-300 focus:ring-offset-2 border border-slate-200 rounded-md focus:border-slate-200 focus:ring-offset-white
+        @apply focus:ring-1 focus:ring-rose-300 focus:ring-offset-2 border border-slate-200 rounded-md focus:border-slate-200 focus:ring-offset-white dark:border-slate-100/[0.06] dark:ring-offset-slate-900
+    }
+
+    .input-form {
+        @apply form-input border-none outline-0 focus:ring-0
     }
 
     .fr {
@@ -19,7 +23,7 @@
     }
 
     .header {
-        @apply font-DMSerifDisplay font-bold tracking-wider
+        @apply font-satoshi font-bold tracking-wider
     }
 
     .main-header {

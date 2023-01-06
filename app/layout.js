@@ -1,8 +1,11 @@
 "use client";
 
 import "@assets/uicons-regular-rounded/css/uicons-regular-rounded.min.css";
+import "@assets/uicons-brands/css/uicons-brands.min.css";
+import "@assets/uicons-regular-rounded/css/uicons-regular-rounded.min.css";
 import ContextProvider from "@components/ContextProvider";
 import Header from "@components/Header";
+import Footer from "@components/Footer";
 import localFont from "@next/font/local";
 import {useContext} from "react";
 import "./globals.css";
@@ -14,9 +17,9 @@ const GTWalsheimPro = localFont({
 	preload: true,
 });
 
-const DMSerifDisplay = localFont({
+const satoshi = localFont({
 	src: "../assets/fonts/Satoshi.ttf",
-	variable: "--font-dm-serif-display",
+	variable: "--font-satoshi",
 	display: "swap",
 	preload: true,
 	weight: "400",
@@ -39,10 +42,11 @@ const Layout = ({ children }) => {
 				<head />
 
 				<body
-					className={`bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-200 antialiased scroll-smooth overscroll-contain selection:bg-rose-500 selection:text-white text-lg font-GTWalsheimPro leading-normal tracking-wider ${GTWalsheimPro.variable} ${DMSerifDisplay.variable} break-words [word-break:break-word] [word-wrap:break-word] lg:text-base transform-gpu overscroll-contain`}
+					className={`bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-200 antialiased scroll-smooth overscroll-contain selection:bg-rose-500 selection:text-white text-lg font-GTWalsheimPro leading-normal tracking-wider ${GTWalsheimPro.variable} ${satoshi.variable} break-words [word-break:break-word] [word-wrap:break-word] lg:text-base transform-gpu overscroll-contain`}
 				>
 					<Header />
 					{children}
+					<Footer />
 				</body>
 			</html>
 		</ContextProvider.Provider>

@@ -6,7 +6,7 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				GTWalsheimPro: ["var(--font-GTWalsheimPro)"],
-				DMSerifDisplay: ["var(--font-dm-serif-display)"],
+				satoshi: ["var(--font-satoshi)"],
 			},
 			boxShadow: {
 				dropdown: "0px 10px 70px rgb(0 0 0 / 15%)",

@@ -10,10 +10,10 @@ const IndexCategories = () => {
 
 	return (
 		<section className="flex flex-col gap-12">
-			<div className="flex flex-wrap items-center gap-4 pb-4 justify-between border-b border-slate-200">
+			<div className="flex flex-wrap items-center gap-4 pb-4 justify-between border-b border-slate-200 dark:border-slate-100/[0.06]">
 				<h2 className="header text-3xl lg:text-4xl">Explore More</h2>
 
-				<select className="form-select select">
+				<select className="form-select select dark:bg-slate-800">
 					<option value="All Categories">
 						All Categories
 					</option>
@@ -123,7 +123,7 @@ const IndexCategories = () => {
 			</div>
 
 			<div className="grid place-content-center">
-				<Link className="text-rose-500 py-2 px-3 rounded-lg border border-slate-200 flex items-center gap-2 transition-all duration-100 ease-linear hover:bg-rose-500 hover:text-white focus:bg-rose-500 focus:text-white group" href="">
+				<Link className="text-rose-500 py-2 px-3 rounded-lg border border-slate-200 flex items-center gap-2 transition-all duration-100 ease-linear hover:bg-rose-500 hover:text-white focus:bg-rose-500 focus:text-white group dark:border-slate-100/[0.06]" href="">
 					View More Products
 					<i className="fr fi-rr-arrow-right text-base top-1 group-hover:pl-1"></i>
 				</Link>
