@@ -69,7 +69,7 @@ const Header = () => {
 			</Link>
 
 			<nav
-				className={ `bg-white absolute top-0 left-0 flex flex-col gap-4 p-4 w-full z-[1024] transition-transform duration-500 ease-linear lg:static lg:p-0 lg:bg-transparent lg:w-auto min-h-screen lg:min-h-0 dark:bg-transparent ${
+				className={ `bg-white absolute top-0 left-0 flex flex-col gap-4 p-4 w-full z-[1024] transition-transform duration-500 ease-linear lg:static lg:p-0 lg:bg-transparent lg:w-auto min-h-screen lg:min-h-0 dark:bg-brand-black ${
 					isOpen
 						? "translate-y-0"
 						: "-translate-y-full lg:translate-y-0"

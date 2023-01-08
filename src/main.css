@@ -11,7 +11,7 @@
     }
 
     .select {
-        @apply form-select focus:ring-1 focus:ring-[#383838] focus:ring-offset-2 border border-slate-200 rounded-md focus:border-slate-200 focus:ring-offset-white dark:border-slate-100/[0.06] dark:ring-offset-brand-black dark:bg-[#383838]
+        @apply form-select focus:ring-1 focus:ring-slate-200 focus:ring-offset-2 border border-slate-200 rounded-md focus:border-slate-200 focus:ring-offset-white dark:focus:ring-[#383838] dark:border-slate-100/[0.06] dark:ring-offset-brand-black dark:bg-[#383838]
     }
 
     .input-form {

@@ -101,7 +101,7 @@ const IndexCategories = () => {
 							</div>
 
 							<div className="flex flex-col gap-2">
-								<button className={`add-to-cart ${!arrivals.inStock ? 'cursor-not-allowed pointer-events-none select-none bg-rose-400' : ''}`} type="button">
+								<button className={ `add-to-cart ${!arrivals.inStock ? 'cursor-not-allowed pointer-events-none select-none bg-rose-400 dark:bg-[#383838]' : ''}`} type="button">
 									<i className="fr fi-rr-shopping-cart text-base top-0.5 mr-2"></i>
 									Add to Cart
 								</button>

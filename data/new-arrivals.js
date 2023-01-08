@@ -1,7 +1,7 @@
 const newArrivals = [
     {
         id: 1,
-        productImage: "/img/demo-img.jpg",
+        productImage: "/img/01.jpg",
         category: "Laptops",
         productName: "AirPort Extreme Base Station",
         discount: {
@@ -16,7 +16,7 @@ const newArrivals = [
     },
     {
         id: 2,
-        productImage: "/img/card-left.jpg",
+        productImage: "/img/02.jpg",
         category: "Foot Wares",
         productName: "Tattooed Woman",
         discount: {
@@ -31,7 +31,7 @@ const newArrivals = [
     },
     {
         id: 3,
-        productImage: "/img/color-block.svg",
+        productImage: "/img/03.jpg",
         category: "Furniture",
         productName: "3 Chairs For The Parlor",
         discount: {
@@ -46,7 +46,7 @@ const newArrivals = [
     },
     {
         id: 4,
-        productImage: "/img/demo-img.jpg",
+        productImage: "/img/04.jpg",
         category: "Laptops",
         productName: "AirPort Extreme Base Station",
         discount: {
@@ -61,7 +61,7 @@ const newArrivals = [
     },
     {
         id: 5,
-        productImage: "/img/card-left.jpg",
+        productImage: "/img/05.jpg",
         category: "Foot Wares",
         productName: "Tattooed Woman",
         discount: {
@@ -76,7 +76,7 @@ const newArrivals = [
     },
     {
         id: 6,
-        productImage: "/img/color-block.svg",
+        productImage: "/img/06.jpg",
         category: "Furniture",
         productName: "3 Chairs For The Parlor",
         discount: {
@@ -91,7 +91,7 @@ const newArrivals = [
     },
     {
         id: 7,
-        productImage: "/img/hero-image.svg",
+        productImage: "/img/07.jpg",
         category: "Furniture",
         productName: "3 Chairs For The Parlor",
         discount: {
@@ -105,8 +105,8 @@ const newArrivals = [
         productInfo: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt."
     },
     {
-        id: 3,
-        productImage: "/img/color-block.svg",
+        id: 8,
+        productImage: "/img/10.jpg",
         category: "Furniture",
         productName: "3 Chairs For The Parlor",
         discount: {
@@ -120,16 +120,16 @@ const newArrivals = [
         productInfo: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt."
     },
     {
-        id: 4,
-        productImage: "/img/demo-img.jpg",
-        category: "Laptops",
-        productName: "AirPort Extreme Base Station",
+        id: 9,
+        productImage: "/img/11.jpg",
+        category: "Furniture",
+        productName: "3 Chairs For The Parlor",
         discount: {
-            isDiscount: true,
-            oldPrice: "198.00",
+            isDiscount: false,
+            oldPrice: null,
             currentPrice: "190.00"
         },
-        rating: 5,
+        rating: 3,
         inStock: true,
         quantity: 10,
         productInfo: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt."
