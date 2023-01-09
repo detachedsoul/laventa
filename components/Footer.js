@@ -134,7 +134,7 @@ const Footer = () => {
 
             <div className="flex flex-wrap items-center bg-slate-900 text-slate-200 justify-between gap-8 py-10 px-[3%]">
                 <p className="text-center text-base">
-                    &copy; 2023. All rights reserved. Designed with <i className="fr fi-rr-heart text-[#faadba] text-base"></i> by <Link className="hover:underline focus:underline decoration-wavy underline-offset-4 decoration-[#faadba] decoration-from-font transition-all duration-500 ease-in-out text-[#faadba]" href="https://github.com/detachedsoul" target="_blank" rel="noreferrer noopenenr">Wisdom Ojimah</Link>
+                    &copy; 2023. All rights reserved. Designed with <i className="fr fi-rr-heart text-rose-500 text-base"></i> by <Link className="hover:underline focus:underline decoration-wavy underline-offset-4 decoration-[#faadba] decoration-from-font transition-all duration-500 ease-in-out text-[#faadba]" href="https://github.com/detachedsoul" target="_blank" rel="noreferrer noopenenr">Wisdom Ojimah</Link>
                 </p>
 
                 <div className="text-center mx-auto lg:mx-0">
