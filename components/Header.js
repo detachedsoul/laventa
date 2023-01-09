@@ -119,7 +119,7 @@ const Header = () => {
 									</button>
 
 									<div
-										className={ `bg-slate-50 lg:bg-white lg:shadow-dropdown absolute p-4 w-full z-[1024] rounded-lg transition-transform ease-linear duration-500 flex flex-col gap-4 lg:p-8 lg:fixed lg:w-auto origin-top top-[calc(100%+1.5rem)] lg:left-0 lg:right-0 dark:bg-brand-black ${
+										className={ `bg-slate-50 lg:bg-white lg:shadow-dropdown absolute p-4 w-full z-[1024] rounded-lg transition-transform ease-linear duration-500 flex flex-col gap-4 lg:p-8 lg:fixed lg:w-auto origin-top top-[calc(100%+1.5rem)] lg:left-0 lg:right-0 dark:bg-brand-black dark:border dark:border-slate-100/[0.06] lg:dark:border-none ${
 											drodownIsOpen
 												? "translate-y-0"
 												: "-translate-y-[150%]"
@@ -134,13 +134,13 @@ const Header = () => {
 												(category, id) => (
 													<li key={id}>
 														<Link
-															className="flex gap-4 items-start w-full transition-all ease-linear bg-gradient-to-r hover:from-brand-red/80 hover:to-brand-red/90 rounded-lg p-4 lg:gap-3 dark:hover:from-sky-500/80 dark:hover:to-sky-500/90 dark:hover:text-white group"
+															className="flex gap-4 items-start w-full transition-all ease-linear rounded-lg p-4 lg:gap-3 hover:bg-[#383838] dark:hover:text-white group"
 															href={
 																category.route
 															}
 														>
 															<i
-																className={`fr ${category.icon} bg-slate-200 lg:bg-slate-100 rounded-lg px-4 pt-4 pb-2 dark:bg-slate-900`}
+																className={ `fr ${category.icon} bg-slate-200 lg:bg-slate-100 rounded-lg px-4 pt-4 pb-2 dark:bg-[#383838] dark:group-hover:bg-brand-black`}
 															></i>
 
 															<div className="flex flex-col gap-0.5 transition-all ease-linear group-hover:text-white">

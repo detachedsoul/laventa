@@ -40,7 +40,7 @@ const IndexCategories = () => {
 			</div>
 
 			<div className="grid place-content-center">
-				<Link className="view-more-btn group" href="">
+				<Link className="view-more-btn group" href="/categories">
 					View More Products
 					<i className="fr fi-rr-arrow-right text-base top-[0.22rem] pl-0.5 group-hover:pl-1"></i>
 				</Link>
