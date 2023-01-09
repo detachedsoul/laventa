@@ -23,7 +23,7 @@ const IndexBlog = () => {
 
                         <div className="rounded-b-lg border-x border-gray-200 border-b p-4 grid gap-2 dark:border-[#383838]">
                             <Link className="text-xl hover:text-brand-red font-bold dark:hover:text-rose-500" href={story.route}>
-                                <h3 className="">
+                                <h3>
                                     {story.title}
                                 </h3>
                             </Link>
