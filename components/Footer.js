@@ -41,7 +41,7 @@ const Footer = () => {
 
     return (
         <>
-            <footer className="bg-slate-800 text-slate-200 pt-20">
+            <footer className="bg-slate-800 text-slate-200 pt-20 dark:bg-brand-light-black">
                 <div className="grid gap-12 pb-20 px-[3%]">
                     <div className="grid gap-8 items-start lg:grid-cols-12 lg:justify-items-end lg:gap-[2fr]">
                         <div className="grid gap-4 lg:col-span-4">
@@ -133,7 +133,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-wrap items-center bg-slate-900 text-slate-200 justify-between gap-8 py-10 px-[3%]">
+                <div className="flex flex-wrap items-center bg-slate-900 text-slate-200 justify-between gap-8 py-10 px-[3%] dark:bg-brand-black">
                     <p className="text-center text-base">
                         &copy; 2023. All rights reserved. Designed with <i className="fr fi-rr-heart text-rose-500 text-base"></i> by <Link className="hover:underline focus:underline decoration-wavy underline-offset-4 decoration-[#faadba] decoration-from-font transition-all duration-500 ease-in-out text-[#faadba]" href="https://github.com/detachedsoul" target="_blank" rel="noreferrer noopenenr">Wisdom Ojimah</Link>
                     </p>

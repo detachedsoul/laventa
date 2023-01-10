@@ -32,9 +32,9 @@ const IndexHero = () => {
 			</div>
 
 			<Image
-				className="object-center aspect-square"
+				className="object-center object-cover aspect-square"
 				src={heroImage}
-				alt="Happy Customer"
+				alt="Hero Image"
 				quality={100}
 				priority={true}
 			/>

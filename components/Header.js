@@ -194,7 +194,7 @@ const Header = () => {
 					></i>
 				</button>
 
-				<Link href="/search" aria-label="Search bar toggle button">
+				<Link href="/categories" aria-label="Search bar toggle button">
 					<i className="fr fi-rr-search"></i>
 				</Link>
 

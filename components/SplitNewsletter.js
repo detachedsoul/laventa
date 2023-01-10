@@ -3,7 +3,7 @@ const SplitNewsletter = () => {
         <div className="relative">
             <div className="absolute grid inset-0" aria-hidden="true">
                 <div className="bg-white dark:bg-brand-black"></div>
-                <div className="bg-slate-800"></div>
+                <div className="bg-slate-800 dark:bg-brand-light-black"></div>
             </div>
 
             <div className="bg-white text-slate-900 px-[6%] mx-[3%] py-12 rounded-lg grid place-content-center z-30 shadow-card isolate relative">
