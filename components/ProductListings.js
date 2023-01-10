@@ -8,7 +8,7 @@ const ProductListings = ({product, isNewArrival = false}) => {
                 <Image className="rounded-lg object-center aspect-square object-cover" src={product.productImage} fill quality={100} alt={product.productName} />
 
                 <div className="absolute flex gap-5 place-content-center place-items-center h-full left-0 w-full rounded-lg bg-black/50 p-4 opacity-0 transition ease-in-out duration-500 group-hover:opacity-100 group-focus:opacity-100 dark:text-slate-900">
-                    <span className="bg-white rounded-full py-1 px-[0.58rem] lg:px-2 cursor-pointer absolute right-4 top-4 transition ease-in-out duration-500 hover:text-brand-red">
+                    <span className="bg-white rounded-full py-1.5 px-[0.58rem] lg:py-1 lg:px-2 cursor-pointer absolute right-4 top-4 transition ease-in-out duration-500 hover:text-brand-red">
                         <i className="fr fi-rr-heart text-base top-[0.19rem] -right-[0.05rem]"></i>
                     </span>
 

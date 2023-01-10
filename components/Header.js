@@ -134,13 +134,13 @@ const Header = () => {
 												(category, id) => (
 													<li key={id}>
 														<Link
-															className="flex gap-4 items-start w-full transition-all ease-linear rounded-lg p-4 lg:gap-3 hover:bg-[#383838] dark:hover:text-white group"
+															className="flex gap-4 items-start w-full transition-all ease-linear rounded-lg p-4 lg:gap-3 hover:bg-brand-light-black dark:hover:text-white group"
 															href={
 																category.route
 															}
 														>
 															<i
-																className={ `fr ${category.icon} bg-slate-200 lg:bg-slate-100 rounded-lg px-4 pt-4 pb-2 dark:bg-[#383838] dark:group-hover:bg-brand-black`}
+																className={ `fr ${category.icon} bg-slate-200 lg:bg-slate-100 rounded-lg px-4 pt-4 pb-2 dark:bg-brand-light-black dark:group-hover:bg-brand-black` }
 															></i>
 
 															<div className="flex flex-col gap-0.5 transition-all ease-linear group-hover:text-white">

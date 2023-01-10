@@ -21,7 +21,7 @@ const IndexBlog = () => {
                             <Image className="rounded-lg object-center aspect-square object-cover" src={story.image} alt={story.title} quality={100} fill />
                         </div>
 
-                        <div className="rounded-b-lg border-x border-gray-200 border-b p-4 grid gap-2 dark:border-[#383838]">
+                        <div className="rounded-b-lg border-x border-gray-200 border-b p-4 grid gap-2 dark:border-brand-light-black">
                             <Link className="text-xl hover:text-brand-red font-bold dark:hover:text-rose-500" href={story.route}>
                                 <h3>
                                     {story.title}
@@ -29,7 +29,7 @@ const IndexBlog = () => {
                             </Link>
 
                             <div className="grid gap-4">
-                                <div className="border-b border-gray-200 pb-3 dark:border-[#383838]">
+                                <div className="border-b border-gray-200 pb-3 dark:border-brand-light-black">
                                     <p>
                                         {story.summary}
                                     </p>

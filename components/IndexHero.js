@@ -15,7 +15,7 @@ const IndexHero = () => {
 	}
 
 	return (
-		<div className="grid gap-12 grid-cols-1 pt-12 items-center lg:grid-cols-2 min-h-screen pb-20 px-[3%] lg:pt-8 lg:pr-0 bg-sky-100 dark:text-white dark:bg-[#383838]">
+		<div className="grid gap-12 grid-cols-1 pt-12 items-center lg:grid-cols-2 min-h-screen pb-20 px-[3%] lg:pt-8 lg:pr-0 bg-sky-100 dark:text-white dark:bg-brand-light-black">
 			<div className="space-y-4">
 				<h1 className="main-header font-medium">
 					Every <span className="font-bold">Purchase</span> Will Be Made With <span className="font-bold">Pleasure</span>

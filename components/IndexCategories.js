@@ -19,15 +19,15 @@ const IndexCategories = () => {
 						All Categories
 					</option>
 
-					<option value="Aall Categories">
+					<option value="Electronics">
 						Electronics
 					</option>
 
-					<option value="Aall Categories">
+					<option value="Foot Wares">
 						Foot Wares
 					</option>
 
-					<option value="Aall Categories">
+					<option value="Foodstuffs">
 						Foodstuffs
 					</option>
 				</select>
