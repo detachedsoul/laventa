@@ -46,4 +46,33 @@
     .view-more-btn {
         @apply py-2 px-3 focus:ring-1 focus:ring-slate-200 focus:ring-offset-2 border border-slate-200 rounded-md hover:bg-[#434343] hover:text-white focus:border-slate-200 focus:ring-offset-white dark:border-slate-100/[0.06] dark:ring-offset-brand-black dark:bg-brand-light-black dark:hover:bg-[#434343] dark:focus:ring-brand-light-black transition-all ease-linear duration-75
     }
+
+    .accordion-container {
+        transition: grid-template-rows .5s;
+        display: grid;
+        overflow: hidden;
+    }
+
+    .accordion-container-hidden {
+        grid-template-rows: 0fr;
+    }
+
+    .accordion-container-active {
+        grid-template-rows: 1fr;
+    }
+
+    .accordion-content-container {
+        display: grid;
+        min-height: 0;
+        transition: visibility .5s;
+        align-self: flex-end;
+    }
+
+    .accroding-content-container-hidden {
+        visibility: hidden;
+    }
+
+    .accordion-content-container-active {
+        visibility: visible;
+    }
 }
