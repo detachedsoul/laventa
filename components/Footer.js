@@ -102,15 +102,15 @@ const Footer = () => {
 
                     <div className="flex flex-wrap items-center justify-between gap-8">
                         <div className="flex gap-3 items-center">
-                            <Link className="rounded-md px-2 pb-0.5 pt-2 bg-slate-700 transition-colors duration-500 ease-in-out hover:bg-white hover:text-sky-500" href="https://web.facebook.com/IamWisdomOjimah" aria-label="Connect with us on Facebook">
+                            <Link className="rounded-md px-2 pb-0.5 pt-2 bg-slate-700 transition-colors duration-500 ease-in-out dark:bg-brand-black hover:bg-white hover:text-sky-500" href="https://web.facebook.com/IamWisdomOjimah" aria-label="Connect with us on Facebook">
                                 <i className="fr fi-brands-facebook top-0"></i>
                             </Link>
 
-                            <Link className="rounded-md px-2 pb-0.5 pt-2 bg-slate-700 transition-colors duration-500 ease-in-out hover:bg-white hover:text-slate-900" href="https://github.com/detachedsoul" aria-label="Connect with us on GitHub">
+                            <Link className="rounded-md px-2 pb-0.5 pt-2 bg-slate-700 transition-colors duration-500 ease-in-out dark:bg-brand-black hover:bg-white hover:text-slate-900" href="https://github.com/detachedsoul" aria-label="Connect with us on GitHub">
                                 <i className="fr fi-brands-github top-0"></i>
                             </Link>
 
-                            <Link className="rounded-md px-2 pb-0.5 pt-2 bg-slate-700 transition-colors duration-500 ease-in-out hover:bg-white hover:text-sky-500" href="https://www.linkedin.com/in/wisdom-ojimah" aria-label="Connect with us on LinkedIn">
+                            <Link className="rounded-md px-2 pb-0.5 pt-2 bg-slate-700 transition-colors duration-500 ease-in-out dark:bg-brand-black hover:bg-white hover:text-sky-500" href="https://www.linkedin.com/in/wisdom-ojimah" aria-label="Connect with us on LinkedIn">
                                 <i className="fr fi-brands-linkedin top-0"></i>
                             </Link>
                         </div>
