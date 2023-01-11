@@ -50,8 +50,8 @@ const CategoryFilter = () => {
                     </div>
                 </div>
 
-                <div className={ `[transition:grid-template-rows_1s] grid overflow-hidden ${filterIsOpen ? '[grid-template-rows:_1fr] mt-4' : '[grid-template-rows:0fr] mt-0'}`}>
-                    <div className={`grid gap-4 lg:grid-cols-3 items-start min-h-0 [transition:visibility_1s] self-end ${filterIsOpen ? 'visible' : 'invisible'}`}>
+                <div className={ `[transition:grid-template-rows_.5s] grid overflow-hidden ${filterIsOpen ? '[grid-template-rows:_1fr] mt-4' : '[grid-template-rows:0fr] mt-0'}`}>
+                    <div className={`grid gap-4 lg:grid-cols-3 items-start min-h-0 [transition:visibility_.5s] self-end ${filterIsOpen ? 'visible' : 'invisible'}`}>
                         <div className="border border-slate-200 p-4 rounded-lg grid gap-4">
                             <h3 className="header text-lg">
                                 Categories
