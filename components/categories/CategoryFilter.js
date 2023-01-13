@@ -51,7 +51,7 @@ const CategoryFilter = () => {
                 </div>
 
                 <div className={`accordion-container ${filterIsOpen ? 'accordion-container-active mt-4' : 'accordion-container-hidden mt-0'}`}>
-                    <div className={ `accordion-content-container gap-4 lg:grid-cols-3 items-start ${filterIsOpen ? 'accordion-content-container-active' : 'accroding-content-container-hidden'}`}>
+                    <div className={ `accordion-content-container gap-4 lg:grid-cols-3 items-start ${filterIsOpen ? 'accordion-content-container-active' : 'accordion-content-container-hidden'}`}>
                         <div className="border border-slate-200 p-4 rounded-lg grid gap-4">
                             <h3 className="header text-lg">
                                 Categories

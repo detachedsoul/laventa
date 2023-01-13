@@ -1,8 +1,65 @@
 "use client";
+
 import { useState } from "react";
 import Image from "next/image";
+import acceptedCards from "@assets/img/cards-alt.png";
+import Link from "next/link";
 
 const Checkout = () => {
+    const togglePaymentMethod = (e) => {
+        const accordionContainerHiddenClasses = [
+            "accordion-container-hidden",
+        ];
+
+        const accordionContainerActiveClasses = [
+            "accordion-container-active",
+        ];
+
+        const accordionContentHiddenClasses = [
+            "accordion-content-container-hidden"
+        ];
+
+        const accordionContentActiveClasses = [
+            "accordion-content-container-active"
+        ];
+
+        if (e.currentTarget.nextElementSibling.classList.contains("accordion-container-hidden")) {
+            e.currentTarget.classList.add("text-brand-red");
+            e.currentTarget.lastElementChild.classList.replace("fi-rr-angle-down", "fi-rr-angle-up");
+
+            accordionContainerHiddenClasses.forEach(hiddenClasses => {
+                accordionContainerActiveClasses.forEach(activeClasses => {
+                    e.currentTarget.nextElementSibling.classList.replace(hiddenClasses, activeClasses);
+                });
+            });
+
+            accordionContentHiddenClasses.forEach(hiddenClasses => {
+                accordionContentActiveClasses.forEach(activeClasses => {
+                    e.currentTarget.nextElementSibling.firstElementChild.classList.replace(hiddenClasses, activeClasses);
+                });
+            });
+
+            e.currentTarget.nextElementSibling.firstElementChild.classList.add("pt-4");
+        } else {
+            e.currentTarget.classList.remove("text-brand-red");
+            e.currentTarget.lastElementChild.classList.replace("fi-rr-angle-up", "fi-rr-angle-down");
+
+            accordionContainerHiddenClasses.forEach(hiddenClasses => {
+                accordionContainerActiveClasses.forEach(activeClasses => {
+                    e.currentTarget.nextElementSibling.classList.replace(activeClasses, hiddenClasses);
+                });
+            });
+
+            accordionContentHiddenClasses.forEach(hiddenClasses => {
+                accordionContentActiveClasses.forEach(activeClasses => {
+                    e.currentTarget.nextElementSibling.firstElementChild.classList.replace(activeClasses, hiddenClasses);
+                });
+            });
+
+            e.currentTarget.nextElementSibling.firstElementChild.classList.remove("pt-4");
+        }
+    };
+
     return (
         <div className="relative">
             <div className="absolute grid inset-0" aria-hidden="true">
@@ -127,7 +184,7 @@ const Checkout = () => {
 
                         <div className="border border-slate-200 rounded-lg divide-y divide-slate-200 lg:col-span-2">
                             <div className="p-4">
-                                <button className="flex items-center justify-between gap-4 w-full font-semibold hover:text-brand-red bg-orange-500" type="button">
+                                <button className="flex items-center justify-between gap-4 w-full font-semibold hover:text-brand-red" type="button" onClick={ (e) => togglePaymentMethod(e)}>
                                     <span>
                                         <i className="fr fi-rr-credit-card pr-2"></i>
                                         Pay with Credit Card
@@ -136,15 +193,45 @@ const Checkout = () => {
                                     <i className="fr fi-rr-angle-down text-base"></i>
                                 </button>
 
-                                <div>
-                                    <p>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque laudantium, laboriosam culpa ratione, magnam tempora cum architecto, mollitia dolorem possimus sint officiis doloremque eum recusandae similique exercitationem quos suscipit obcaecati!
-                                    </p>
+                                <div className="accordion-container accordion-container-hidden">
+                                    <div className="accordion-content-container accordion-content-container-hidden gap-8">
+                                        <div className="flex items-center gap-x-2 gap-y-1 flex-wrap">
+                                            <p>
+                                                We accept the following cards:
+                                            </p>
+
+                                            <Image src={ acceptedCards } alt="Accepted cards" height={200} width={200} quality={100} />
+                                        </div>
+
+                                        <div className="grid gap-4 lg:grid-cols-2">
+                                            <label className="w-full" htmlFor="card-number">
+                                                <input className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] w-full" type="number" name="card-number" id="card-number" placeholder="Card Number" />
+                                            </label>
+
+                                            <label className="w-full" htmlFor="fullname">
+                                                <input className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] w-full" type="text" name="fullname" id="fullname" placeholder="Full Name" />
+                                            </label>
+
+                                            <div className="grid gap-4 lg:grid-cols-2">
+                                                <label className="w-full" htmlFor="expiry-date">
+                                                    <input className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] w-full" type="text" name="expiry-date" id="expiry-date" placeholder="MM/YY" />
+                                                </label>
+
+                                                <label className="w-full" htmlFor="cvc">
+                                                    <input className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] w-full" type="text" name="cvc" id="cvc" placeholder="CVC" />
+                                                </label>
+                                            </div>
+
+                                            <Link className="bg-brand-red text-white py-2 px-4 text-center hover:bg-brand-dark-rose rounded-lg" href="/">
+                                                Place order
+                                            </Link>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div className="p-4">
-                                <button className="flex items-center justify-between gap-4 w-full font-semibold hover:text-brand-red" type="button">
+                                <button className="flex items-center justify-between gap-4 w-full font-semibold hover:text-brand-red" type="button" onClick={ (e) => togglePaymentMethod(e) }>
                                     <span>
                                         <i className="fr fi-brands-paypal pr-2"></i>
                                         Pay with PayPal
@@ -152,6 +239,20 @@ const Checkout = () => {
 
                                     <i className="fr fi-rr-angle-down text-base"></i>
                                 </button>
+
+                                <div className="accordion-container accordion-container-hidden">
+                                    <div className="accordion-content-container accordion-content-container-hidden gap-4">
+                                        <p>
+                                            <span className="font-semibold">PayPal</span> - the safer, easier way to pay
+                                        </p>
+
+                                        <div>
+                                            <Link className="bg-brand-red text-white py-2 px-4 text-center hover:bg-brand-dark-rose rounded-lg inline-block w-auto" href="/">
+                                                Checkout with PayPal
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>

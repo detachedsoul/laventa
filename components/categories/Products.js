@@ -14,7 +14,7 @@ const Products = () => {
             <div className="flex justify-between gap-4 items-center flex-wrap">
                 <Link className="flex items-center gap-1 py-1 px-3 rounded-md hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white" href="/">
                     <i className="fr fi-rr-angle-left text-base top-[0.20rem]"></i>
-                    Prev
+                    <span className="hidden lg:inline">Prev</span>
                 </Link>
 
                 <div className="flex gap-1 items-center">
@@ -26,9 +26,9 @@ const Products = () => {
                         2
                     </Link>
 
-                    <Link className="flex items-center gap-1 py-1 px-3 rounded-md hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white" href="/">
-                        3
-                    </Link>
+                    <span className="flex items-center gap-2 font-bold pointer-events-none select-none">
+                        &bull; &bull; &bull;
+                    </span>
 
                     <Link className="flex items-center gap-1 py-1 px-3 rounded-md hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white" href="/">
                         4
@@ -40,7 +40,7 @@ const Products = () => {
                 </div>
 
                 <Link className="flex items-center gap-1 py-1 px-3 rounded-md hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white" href="">
-                    Next
+                    <span className="hidden lg:inline">Next</span>
                     <i className="fr fi-rr-angle-right text-base top-[0.20rem]"></i>
                 </Link>
             </div>
