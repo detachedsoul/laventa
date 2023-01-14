@@ -227,7 +227,9 @@ const Footer = () => {
                 className="py-2 px-3 rounded-md bg-brand-red/50 text-white fixed right-4 bottom-4 transition-transform ease-in-out duration-500 translate-x-[calc(100%+1rem)] z-50 backdrop-blur-sm hover:backdrop-blur-none hover:bg-brand-red"
                 type="button"
                 onClick={scrollToTop}
-                ref={scrollToTopBtn}
+                ref={ scrollToTopBtn }
+                aria-label="Scroll to top"
+                title="Scroll to top"
             >
                 <i className="fr fi-rr-angle-up text-base top-[0.20rem]"></i>
             </button>
