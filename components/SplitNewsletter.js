@@ -19,7 +19,7 @@ const SplitNewsletter = () => {
                     </div>
 
                     <form className="flex flex-nowrap lg:w-4/5 lg:mx-auto" method="POST">
-                        <label className="rounded-l-lg py-0.5 pl-3 pr-1 bg-white text-slate-900 flex items-center w-full border border-slate-200" htmlFor="newsletter-subscription">
+                        <label className="rounded-l-lg py-0.5 pl-3 pr-1 bg-white text-slate-900 flex items-center w-full border border-slate-200 focus-within:border-brand-dark-rose/[0.2]" htmlFor="newsletter-subscription">
                             <i className="fr fi-rr-envelope top-0.5 text-base"></i>
                             <input className="bg-white py-2 input-form w-full" type="email" id="newsletter-subscription" placeholder="Your email" aria-describedby="subscribe-to-newsletter" required />
                         </label>
