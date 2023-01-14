@@ -11,41 +11,49 @@ const Header = () => {
 	const pathname = usePathname();
 	const [isOpen, setIsOpen] = useState(false);
 	const [drodownIsOpen, setDropdownIsOpen] = useState(false);
-	const [theme, setTheme] = useState('light');
+	const [theme, setTheme] = useState("light");
 
-	const handleNavToggle = () => { setIsOpen(() => !isOpen) };
-	const handleDropdownToggle = () => { setDropdownIsOpen(() => !drodownIsOpen) };
+	const handleNavToggle = () => {
+		setIsOpen(() => !isOpen);
+	};
+	const handleDropdownToggle = () => {
+		setDropdownIsOpen(() => !drodownIsOpen);
+	};
 
-	useEffect (() => {
+	useEffect(() => {
 		setDropdownIsOpen(() => false);
 	}, [isOpen]);
 
-	useEffect (() => {
+	useEffect(() => {
 		setIsOpen(() => false);
 		setDropdownIsOpen(() => false);
 	}, [pathname]);
 
 	useEffect(() => {
-		if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-			document.documentElement.classList.add('dark');
-			localStorage.setItem('theme', 'dark');
-			setTheme(() => localStorage.getItem('theme'));
+		if (
+			localStorage.theme === "dark" ||
+			(!("theme" in localStorage) &&
+				window.matchMedia("(prefers-color-scheme: dark)").matches)
+		) {
+			document.documentElement.classList.add("dark");
+			localStorage.setItem("theme", "dark");
+			setTheme(() => localStorage.getItem("theme"));
 		} else {
-			document.documentElement.classList.add('light');
-			localStorage.setItem('theme', 'light');
-			setTheme(() => localStorage.getItem('theme'));
+			document.documentElement.classList.add("light");
+			localStorage.setItem("theme", "light");
+			setTheme(() => localStorage.getItem("theme"));
 		}
 	}, []);
 
 	const toggleTheme = () => {
-		if (localStorage.theme === 'dark') {
-			document.documentElement.classList.replace('dark', 'light');
-			localStorage.setItem('theme', 'light');
-			setTheme(() => localStorage.getItem('theme'));
+		if (localStorage.theme === "dark") {
+			document.documentElement.classList.replace("dark", "light");
+			localStorage.setItem("theme", "light");
+			setTheme(() => localStorage.getItem("theme"));
 		} else {
-			document.documentElement.classList.replace('light', 'dark');
-			localStorage.setItem('theme', 'dark');
-			setTheme(() => localStorage.getItem('theme'));
+			document.documentElement.classList.replace("light", "dark");
+			localStorage.setItem("theme", "dark");
+			setTheme(() => localStorage.getItem("theme"));
 		}
 	};
 
@@ -59,7 +67,10 @@ const Header = () => {
 				<i className="fr fi-rr-menu-burger"></i>
 			</button>
 
-			<Link className="hidden not-sr-only lg:inline-block" href="/">
+			<Link
+				className="hidden not-sr-only lg:inline-block"
+				href="/"
+			>
 				<Image
 					className="w-16 h-auto"
 					src={Logo}
@@ -69,7 +80,7 @@ const Header = () => {
 			</Link>
 
 			<nav
-				className={ `bg-white absolute top-0 left-0 flex flex-col gap-4 p-4 w-full z-[1024] transition-transform duration-500 ease-linear lg:static lg:p-0 lg:bg-transparent lg:w-auto min-h-screen lg:min-h-0 dark:bg-brand-black ${
+				className={`bg-white absolute top-0 left-0 flex flex-col gap-4 p-4 w-full z-[1024] transition-transform duration-500 ease-linear lg:static lg:p-0 lg:bg-transparent lg:w-auto min-h-screen lg:min-h-0 dark:bg-brand-black ${
 					isOpen
 						? "translate-y-0"
 						: "-translate-y-full lg:translate-y-0"
@@ -85,7 +96,10 @@ const Header = () => {
 						/>
 					</Link>
 
-					<button aria-label="Close navbar" onClick={handleNavToggle}>
+					<button
+						aria-label="Close navbar"
+						onClick={handleNavToggle}
+					>
 						<i className="fr fi-rr-cross"></i>
 					</button>
 				</div>
@@ -107,8 +121,8 @@ const Header = () => {
 									<button
 										className={`flex items-center gap-4 w-full relative px-4 lg:px-0 lg:gap-3 ${
 											drodownIsOpen
-											? "text-brand-red dark:text-slate-200"
-											: "hover:text-brand-red dark:hover:text-slate-300"
+												? "text-brand-red dark:text-slate-200"
+												: "hover:text-brand-red dark:hover:text-slate-300"
 										}`}
 										type="button"
 										onClick={handleDropdownToggle}
@@ -119,7 +133,7 @@ const Header = () => {
 									</button>
 
 									<div
-										className={ `bg-slate-50 lg:bg-white lg:shadow-dropdown absolute p-4 w-full z-[1024] rounded-lg transition-transform ease-linear duration-500 flex flex-col gap-4 lg:p-8 lg:fixed lg:w-auto origin-top top-[calc(100%+1.5rem)] lg:left-0 lg:right-0 dark:bg-brand-black dark:border dark:border-slate-100/[0.06] lg:dark:border-none ${
+										className={`bg-slate-50 lg:bg-white lg:shadow-dropdown absolute p-4 w-full z-[1024] rounded-lg transition-transform ease-linear duration-500 flex flex-col gap-4 lg:p-8 lg:fixed lg:w-auto origin-top top-[calc(100%+1.5rem)] lg:left-0 lg:right-0 dark:bg-brand-black dark:border dark:border-slate-100/[0.06] lg:dark:border-none ${
 											drodownIsOpen
 												? "translate-y-0"
 												: "-translate-y-[150%]"
@@ -140,7 +154,7 @@ const Header = () => {
 															}
 														>
 															<i
-																className={ `fr ${category.icon} bg-slate-200 lg:bg-slate-100 rounded-lg px-4 pt-4 pb-2 dark:bg-brand-light-black dark:group-hover:bg-brand-black` }
+																className={`fr ${category.icon} bg-slate-200 lg:bg-slate-100 rounded-lg px-4 pt-4 pb-2 dark:bg-brand-light-black dark:group-hover:bg-brand-black`}
 															></i>
 
 															<div className="flex flex-col gap-0.5 transition-all ease-linear group-hover:text-white">
@@ -194,11 +208,17 @@ const Header = () => {
 					></i>
 				</button>
 
-				<Link href="/categories" aria-label="Search bar toggle button">
+				<Link
+					href="/categories"
+					aria-label="Search bar toggle button"
+				>
 					<i className="fr fi-rr-search"></i>
 				</Link>
 
-				<Link href="/cart" aria-label="Shopping cart">
+				<Link
+					href="/cart"
+					aria-label="Shopping cart"
+				>
 					<i className="fr fi-rr-shopping-cart"></i>
 				</Link>
 			</div>

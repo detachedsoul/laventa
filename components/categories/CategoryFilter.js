@@ -15,7 +15,7 @@ const CategoryFilter = () => {
                 <div className="bg-white dark:bg-brand-black"></div>
             </div>
 
-            <div className="bg-white text-slate-900 p-[3%] mx-[3%] rounded-lg z-30 shadow-card isolate relative grid">
+            <div className="bg-white text-slate-900 p-[3%] mx-[3%] rounded-lg z-30 shadow-card relative grid">
                 <div className="grid gap-4 lg:grid-cols-12">
                     <button className={ `border border-slate-200 rounded-md py-2.5 px-3 transition-colors duration-200 ease-in-out lg:col-span-2 lg:py-2 hover:bg-brand-red hover:text-white ${filterIsOpen ? 'bg-brand-red text-white' : ''}`} type="button" onClick={ handleFilterToggle }>
                         <i className="fr fi-rr-filters text-base top-0.5 pr-1"></i>
@@ -161,7 +161,7 @@ const CategoryFilter = () => {
                                 Size
                             </h3>
 
-                        <div className="grid gap-4">
+                            <div className="grid gap-4">
                                 <div className="flex items-center justify-between">
                                     <label className="flex items-center gap-2" htmlFor="xl">
                                         <input className="form-checkbox rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded" type="checkbox" id="xl" />

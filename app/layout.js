@@ -43,7 +43,7 @@ const Layout = ({ children }) => {
 				<head />
 
 				<body
-					className={ `bg-white overflow-x-hidden text-slate-900 dark:bg-brand-black dark:text-white antialiased scroll-smooth overscroll-contain selection:bg-brand-red selection:text-white text-base font-GTWalsheimPro leading-normal tracking-wider ${GTWalsheimPro.variable} ${satoshi.variable} break-words [word-break:break-word] [word-wrap:break-word] transform-gpu` }
+					className={ `bg-white overflow-x-hidden text-slate-900 dark:bg-brand-black dark:text-white antialiased scroll-smooth selection:bg-brand-red selection:text-white text-base font-GTWalsheimPro leading-normal tracking-wider ${GTWalsheimPro.variable} ${satoshi.variable} break-words [word-break:break-word] [word-wrap:break-word]` }
 				>
 					<Header />
 					{children}
