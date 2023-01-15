@@ -92,11 +92,21 @@ const Checkout = () => {
 				<div className="bg-white dark:bg-brand-black"></div>
 			</div>
 
-			<div className="bg-white text-slate-900 py-[3%] px-[2%] mx-[3%] rounded-lg z-30 shadow-card relative grid gap-8 mb-12 items-start lg:grid-cols-12 lg:gap-0 lg:divide-x lg:divide-slate-200 lg:p-0">
+			<div className="bg-white text-slate-900 py-[3%] px-[2%] mx-[3%] rounded-lg z-30 shadow-card relative grid gap-8 mb-12 lg:grid-cols-12 lg:gap-0  divide-y lg:divide-y-0 lg:divide-x lg:divide-slate-200 lg:p-0">
 				<div className="grid gap-4 lg:col-span-8 lg:py-[3%] lg:px-[5%]">
-					<div className="border-b border-slate-200 pb-4">
-						<h2 className="header text-xl">Billing details</h2>
+					<div className="border-b border-slate-200 pb-2">
+						<div className="inline-block">
+							<Link
+								className="border border-blue-800/40 text-blue-800 py-1.5 rounded-md px-3 transition-colors ease-in-out hover:bg-blue-800 hover:text-white flex items-center inline-block w-auto"
+								href="/cart"
+							>
+								<i className="fr fi-rr-angle-left text-base top-0.5 pr-0.5"></i>
+								Back to cart
+							</Link>
+						</div>
 					</div>
+
+					<h2 className="header text-xl">Billing details</h2>
 
 					<form className="grid gap-4 lg:grid-cols-2">
 						<label

@@ -147,7 +147,7 @@ const Footer = () => {
 					<div className="flex flex-wrap items-center justify-between gap-8">
 						<div className="flex gap-3 items-center">
 							<Link
-								className="rounded-md px-2 pb-0.5 pt-2 bg-slate-700 transition-colors duration-500 ease-in-out dark:bg-brand-black hover:bg-white hover:text-sky-500"
+								className="rounded-md px-2 pb-0.5 pt-2 bg-slate-700 transition-colors duration-500 ease-in-out dark:bg-brand-black hover:bg-white hover:text-sky-500 dark:hover:bg-white"
 								href="https://web.facebook.com/IamWisdomOjimah"
 								aria-label="Connect with us on Facebook"
 							>
@@ -155,7 +155,7 @@ const Footer = () => {
 							</Link>
 
 							<Link
-								className="rounded-md px-2 pb-0.5 pt-2 bg-slate-700 transition-colors duration-500 ease-in-out dark:bg-brand-black hover:bg-white hover:text-slate-900"
+								className="rounded-md px-2 pb-0.5 pt-2 bg-slate-700 transition-colors duration-500 ease-in-out dark:bg-brand-black hover:bg-white hover:text-slate-900 dark:hover:bg-white"
 								href="https://github.com/detachedsoul"
 								aria-label="Connect with us on GitHub"
 							>
@@ -163,7 +163,7 @@ const Footer = () => {
 							</Link>
 
 							<Link
-								className="rounded-md px-2 pb-0.5 pt-2 bg-slate-700 transition-colors duration-500 ease-in-out dark:bg-brand-black hover:bg-white hover:text-sky-500"
+								className="rounded-md px-2 pb-0.5 pt-2 bg-slate-700 transition-colors duration-500 ease-in-out dark:bg-brand-black hover:bg-white hover:text-sky-500 dark:hover:bg-white"
 								href="https://www.linkedin.com/in/wisdom-ojimah"
 								aria-label="Connect with us on LinkedIn"
 							>

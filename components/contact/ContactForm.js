@@ -15,7 +15,7 @@ const ContactForm = () => {
 					</span>
 
 					<input
-						className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2]"
+						className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] dark:border-brand-light-black dark:bg-brand-light-black dark:text-white dark:placeholder:text-white"
 						type="text"
 						name="name"
 						id="name"
@@ -32,7 +32,7 @@ const ContactForm = () => {
 					</span>
 
 					<input
-						className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2]"
+						className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] dark:border-brand-light-black dark:bg-brand-light-black dark:text-white dark:placeholder:text-white"
 						type="email"
 						name="email"
 						id="email"
@@ -49,7 +49,7 @@ const ContactForm = () => {
 					</span>
 
 					<input
-						className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2]"
+						className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] dark:border-brand-light-black dark:bg-brand-light-black dark:text-white dark:placeholder:text-white"
 						type="tel"
 						name="phone"
 						id="phone"
@@ -66,7 +66,7 @@ const ContactForm = () => {
 					</span>
 
 					<input
-						className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2]"
+						className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] dark:border-brand-light-black dark:bg-brand-light-black dark:text-white dark:placeholder:text-white"
 						type="email"
 						name="email"
 						id="email"
@@ -83,7 +83,7 @@ const ContactForm = () => {
 					</span>
 
 					<textarea
-						className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2]"
+						className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] dark:border-brand-light-black dark:bg-brand-light-black dark:text-white dark:placeholder:text-white"
 						type="email"
 						name="message"
 						id="message"
