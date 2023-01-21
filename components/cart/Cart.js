@@ -1,8 +1,6 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
-import acceptedCards from "@assets/img/cards-alt.png";
 import Link from "next/link";
 
 const Checkout = () => {

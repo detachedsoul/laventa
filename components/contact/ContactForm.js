@@ -59,7 +59,7 @@ const ContactForm = () => {
 
                 <label
 					className="grid gap-1.5"
-					htmlFor="email"
+					htmlFor="subject"
 				>
 					<span className="font-semibold block">
 						Subject <span className="text-brand-red">*</span>
@@ -67,9 +67,9 @@ const ContactForm = () => {
 
 					<input
 						className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] dark:border-brand-light-black dark:bg-brand-light-black dark:text-white dark:placeholder:text-white"
-						type="email"
-						name="email"
-						id="email"
+						type="subject"
+						name="subject"
+						id="subject"
                         placeholder="Provide short title of your request"
 					/>
 				</label>

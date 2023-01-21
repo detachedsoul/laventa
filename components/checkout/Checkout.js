@@ -97,7 +97,7 @@ const Checkout = () => {
 					<div className="border-b border-slate-200 pb-2">
 						<div className="inline-block">
 							<Link
-								className="border border-blue-800/40 text-blue-800 py-1.5 rounded-md px-3 transition-colors ease-in-out hover:bg-blue-800 hover:text-white flex items-center inline-block w-auto"
+								className="border border-blue-800/40 text-blue-800 py-1.5 rounded-md px-3 transition-colors ease-in-out hover:bg-blue-800 hover:text-white flex items-center w-auto"
 								href="/cart"
 							>
 								<i className="fr fi-rr-angle-left text-base top-0.5 pr-0.5"></i>
