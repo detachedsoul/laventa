@@ -1,8 +1,8 @@
 const Head = () => {
     return (
         <>
-            <title>Laventa | Contact</title>
-            <meta name="description" content="Get in touch with us" />
+            <title>Laventa | About Us</title>
+            <meta name="description" content="About Laventa, our mission, and vision" />
         </>
     );
 };

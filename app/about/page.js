@@ -1,16 +1,13 @@
-import ContactHero from "@components/contact/ContactHero";
-import ContactForm from "@components/contact/ContactForm";
+import About from "@components/about/About";
 
 const Page = () => {
     return (
-        <>
-            <ContactHero />
-
-            <main className="grid place-content-center px-[3%]">
-                <ContactForm />
-            </main>
-        </>
-    );
+		<>
+			<main className="mb-12 space-y-4 border-b border-slate-200 dark:border-slate-100/[0.06] lg:space-y-0">
+				<About />
+			</main>
+		</>
+	);
 };
 
 export default Page;
