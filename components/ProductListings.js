@@ -1,12 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
-const ProductListings = ({product, isNewArrival = false}) => {
-    // if (typeof window !== "undefined") {
-    //     document.body.style.overflowY = "hidden";
-    // }
+const ProductListings = ({ product, isNewArrival = false }) => {
+	const [modalIsActive, setModalIsActive] = useState(false);
 
-    return (
+	const handleClick = () => {
+		setModalIsActive(() => true);
+		document.body.style.overflowY = "hidden";
+	};
+
+	return (
 		<>
 			<article>
 				<div className="relative h-[250px] rounded-lg group lg:h-[220px]">
@@ -132,6 +138,7 @@ const ProductListings = ({product, isNewArrival = false}) => {
 									: "dark:text-rose-600"
 							}`}
 							type="button"
+							onClick={handleClick}
 						>
 							<i className="fr fi-rr-eye text-base top-0.5 mr-2"></i>
 							Quick View
@@ -139,27 +146,41 @@ const ProductListings = ({product, isNewArrival = false}) => {
 					</div>
 				</div>
 
-				<div className="h-screen fixed top-0 left-0 w-full z-[1024] bg-brand-black/10 grid place-items-center px-4 hidden">
-					<div className="bg-white text-slate-900 dark:text-slate-900 px-4 pb-4 max-h-[calc(100vh-1rem)] rounded-lg grid space-y-4 w-full overflow-y-auto custom-scrollbar">
-						<div className="flex items-center gap-4 justify-between border-b border-gray-200 pb-2 sticky top-0 z-50 bg-white pt-4">
-							<h3 className="header text-xl">Revenge Hoodie</h3>
+				<div
+					className={`min-h-screen fixed top-0 left-0 w-full z-[1024] bg-brand-black/70 grid place-items-center px-4 transition-transform duration-500 ease-linear ${
+						modalIsActive ? "scale-100" : "scale-0"
+					}`}
+				>
+					<div className="bg-white text-slate-900 pb-4 max-h-[calc(100vh-1rem)] rounded-lg grid space-y-4 w-full overflow-y-auto custom-scrollbar dark:bg-brand-light-black dark:text-white">
+						<div className="flex items-center gap-4 justify-between border-b border-gray-200 p-4 sticky top-0 z-50 bg-white lg:px-8 dark:bg-brand-light-black dark:text-white dark:border-slate-50/10">
+							<h3 className="header text-xl">
+								{product.productName}
+							</h3>
 
 							<button
 								type="button"
 								aria-label="Close modal"
+								onClick={() =>
+									setModalIsActive(() => {
+										document.body.style.overflowY = "auto";
+
+										return false;
+									})
+								}
 							>
 								<i className="fr fi-rr-cross text-base"></i>
 							</button>
 						</div>
 
-						<div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
+						<div className="grid gap-4 lg:grid-cols-2 lg:gap-6 px-4 lg:px-8">
 							<div className="space-y-4">
 								<div className="h-[200px] relative rounded-lg lg:h-[300px]">
 									<Image
 										className="rounded-lg object-cover aspect-square object-center"
-										src="/img/01.jpg"
+										src={product.productImage}
 										fill
-										alt="Revenge Hoodie"
+										alt={product.productName}
+										quality={100}
 									/>
 								</div>
 
@@ -169,7 +190,8 @@ const ProductListings = ({product, isNewArrival = false}) => {
 											className="rounded-lg object-cover aspect-square object-center"
 											src="/img/01.jpg"
 											fill
-											alt="Revenge Hoodie"
+											alt={product.productName}
+											quality={100}
 										/>
 									</div>
 
@@ -178,7 +200,8 @@ const ProductListings = ({product, isNewArrival = false}) => {
 											className="rounded-lg object-cover aspect-square object-center"
 											src="/img/02.jpg"
 											fill
-											alt="Revenge Hoodie"
+											alt={product.productName}
+											quality={100}
 										/>
 									</div>
 
@@ -187,7 +210,8 @@ const ProductListings = ({product, isNewArrival = false}) => {
 											className="rounded-lg object-cover aspect-square object-center"
 											src="/img/03.jpg"
 											fill
-											alt="Revenge Hoodie"
+											alt={product.productName}
+											quality={100}
 										/>
 									</div>
 
@@ -196,7 +220,8 @@ const ProductListings = ({product, isNewArrival = false}) => {
 											className="rounded-lg object-cover aspect-square object-center"
 											src="/img/04.jpg"
 											fill
-											alt="Revenge Hoodie"
+											alt={product.productName}
+											quality={100}
 										/>
 									</div>
 								</div>
@@ -205,18 +230,20 @@ const ProductListings = ({product, isNewArrival = false}) => {
 							<div className="space-y-4">
 								<div className="space-y-1">
 									<h3 className="header text-2xl">
-										Revenge Hoodie
+										{product.productName}
 									</h3>
 
-									<p className="text-2xl font-medium slashed-zero">$200</p>
+									<p className="text-2xl font-medium slashed-zero">
+										${product.discount.currentPrice}
+									</p>
 
 									<div className="flex items-center gap-x-4 gap-y-2 flex-wrap">
 										<div className="flex items-center gap-1">
-											<i className="fr fi-rr-star text-sm top-0 text-rose-500 top-0.5"></i>
-											<i className="fr fi-rr-star text-sm top-0 text-rose-500 top-0.5"></i>
-											<i className="fr fi-rr-star text-sm top-0 text-rose-500 top-0.5"></i>
-											<i className="fr fi-rr-star text-sm top-0 text-rose-500 top-0.5"></i>
-											<i className="fr fi-rr-star text-sm top-0 text-rose-500 top-0.5"></i>
+											<i className="fr fi-rr-star text-sm text-rose-500 top-0.5"></i>
+											<i className="fr fi-rr-star text-sm text-rose-500 top-0.5"></i>
+											<i className="fr fi-rr-star text-sm text-rose-500 top-0.5"></i>
+											<i className="fr fi-rr-star text-sm text-rose-500 top-0.5"></i>
+											<i className="fr fi-rr-star text-sm text-rose-500 top-0.5"></i>
 										</div>
 
 										<span className="bg-green-700 text-white flex items-center gap-1 rounded-md py-1.5 px-3">
@@ -235,28 +262,20 @@ const ProductListings = ({product, isNewArrival = false}) => {
 									</h4>
 
 									<ul className="list-inside list-disc space-y-2">
-										<li className="text-gray-400">
-											<span className="text-slate-900">
-												Hand cut and sewn locally
-											</span>
+										<li className="text-gray-500 dark:text-gray-200">
+											Hand cut and sewn locally
 										</li>
 
-										<li className="text-gray-400">
-											<span className="text-slate-900">
-												Dyed with our proprietary colors
-											</span>
+										<li className="text-gray-500 dark:text-gray-200">
+											Dyed with our proprietary colors
 										</li>
 
-										<li className="text-gray-400">
-											<span className="text-slate-900">
-												Pre-washed & pre-shrunk
-											</span>
+										<li className="text-gray-500 dark:text-gray-200">
+											Pre-washed & pre-shrunk
 										</li>
 
-										<li className="text-gray-400">
-											<span className="text-slate-900">
-												Ultra-soft 100% cotton
-											</span>
+										<li className="text-gray-500 dark:text-gray-200">
+											Ultra-soft 100% cotton
 										</li>
 									</ul>
 								</div>
@@ -266,15 +285,13 @@ const ProductListings = ({product, isNewArrival = false}) => {
 										Details
 									</h4>
 
-									<p>
-										Lorem ipsum dolor sit amet, consectetur
-										adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna
-										aliqua. Ut enim ad minim veniam.
-									</p>
+									<p>{product.productInfo}</p>
 								</div>
 
-								<button className="py-2 px-3 rounded-md bg-brand-red text-white hover:bg-brand-dark-rose border-none" type="button">
+								<button
+									className="py-2 px-3 rounded-md bg-brand-red text-white hover:bg-brand-dark-rose border-none"
+									type="button"
+								>
 									Add to cart
 									<i className="fr fi-rr-shopping-cart text-base top-[0.22rem] pl-3"></i>
 								</button>

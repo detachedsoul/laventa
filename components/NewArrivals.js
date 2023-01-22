@@ -3,8 +3,6 @@
 import newArrivals from "@data/new-arrivals";
 import ScrollIndicator from "@components/ScrollIndicator";
 import ProductListings from "@components/ProductListings";
-import Image from "next/image";
-import Link from "next/link";
 import {useRef, useEffect, useState} from "react";
 
 const NewArrivals = () => {
@@ -29,7 +27,7 @@ const NewArrivals = () => {
 	return (
 		isReady
 			&&
-		<section className="space-y-12 bg-white shadow-card rounded-xl pt-[5%] px-[5%] pb-[10%] relative -translate-y-[8vh] lg:-translate-y-[10vh] -mb-[calc(10vh)] lg:px-[3%] lg:pt-[3%] lg:pb-[5%] dark:bg-[#f3f5f9] dark:text-slate-900">
+		<section className="space-y-12 bg-white shadow-card rounded-xl pt-[5%] px-[5%] pb-[10%] relative -top-[8vh] lg:-top-[10vh] -mb-[calc(10vh)] lg:px-[3%] lg:pt-[3%] lg:pb-[5%] dark:bg-[#f3f5f9] dark:text-slate-900">
 			<div className="text-center place-items-center place-content-center grid gap-1">
 				<h2 className="header text-3xl">
 					New Arrivals
@@ -39,7 +37,7 @@ const NewArrivals = () => {
 				</p>
 			</div>
 
-			<div className="flex gap-8 items-stretch whitespace-nowrap overflow-y-auto custom-scrollbar snap-x snap-mandatory scroll-smooth min-w-full" ref={container}>
+			<div className="flex gap-8 items-stretch overflow-y-auto custom-scrollbar snap-x snap-mandatory scroll-smooth min-w-full" ref={container}>
 				{newArrivals.map((product, index) => (
 					<div className="min-w-full snap-always lg:min-w-[calc(33.3333333%-1.34rem)] snap-center" key={index}>
 						<ProductListings product={product} isNewArrival={true} />
