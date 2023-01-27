@@ -1,8 +1,10 @@
 "use client";
 
+import ProductOverviewModal from "@components/ProductOverviewModal";
+import ContextProvider from "@components/ContextProvider";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, memo, useContext } from "react";
 
 const ProductListings = ({ product, isNewArrival = false }) => {
 	const [modalIsActive, setModalIsActive] = useState(false);
@@ -145,14 +147,16 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 						</button>
 					</div>
 				</div>
+			</article>
 
+			{modalIsActive && (
 				<div
 					className={`min-h-screen fixed top-0 left-0 w-full z-[1024] bg-brand-black/70 grid place-items-center px-4 transition-transform duration-500 ease-linear ${
 						modalIsActive ? "scale-100" : "scale-0"
 					}`}
 				>
 					<div className="bg-white text-slate-900 pb-4 max-h-[calc(100vh-1rem)] rounded-lg grid space-y-4 w-full overflow-y-auto custom-scrollbar dark:bg-brand-light-black dark:text-white">
-						<div className="flex items-center gap-4 justify-between border-b border-gray-200 p-4 sticky top-0 z-50 bg-white lg:px-8 dark:bg-brand-light-black dark:text-white dark:border-slate-50/10">
+						<div className="flex items-center gap-4 justify-between border-b border-gray-200 p-4 sticky top-0 z-50 bg-white dark:bg-brand-light-black dark:text-white dark:border-slate-50/10 rounded-t-lg">
 							<h3 className="header text-xl">
 								{product.productName}
 							</h3>
@@ -160,19 +164,16 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 							<button
 								type="button"
 								aria-label="Close modal"
-								onClick={() =>
-									setModalIsActive(() => {
-										document.body.style.overflowY = "auto";
-
-										return false;
-									})
-								}
+								onClick={() => {
+									setModalIsActive(() => false);
+									document.body.style.overflowY = "auto";
+								}}
 							>
 								<i className="fr fi-rr-cross text-base"></i>
 							</button>
 						</div>
 
-						<div className="grid gap-4 lg:grid-cols-2 lg:gap-6 px-4 lg:px-8">
+						<div className="grid gap-4 lg:grid-cols-2 lg:gap-6 px-4">
 							<div className="space-y-4">
 								<div className="h-[200px] relative rounded-lg lg:h-[300px]">
 									<Image
@@ -299,7 +300,7 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 						</div>
 					</div>
 				</div>
-			</article>
+			)}
 		</>
 	);
 };
