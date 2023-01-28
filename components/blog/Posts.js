@@ -21,7 +21,7 @@ const Posts = () => {
 						<div className="rounded-b-lg border-x border-gray-200 border-b p-4 grid gap-2 dark:border-brand-light-black">
 							<Link
 								className="text-xl hover:text-brand-red font-bold dark:hover:text-rose-500"
-								href={story.route}
+								href={`/blog/${story.id}/${story.title}`}
 							>
 								<h3>{story.title}</h3>
 							</Link>
@@ -32,7 +32,7 @@ const Posts = () => {
 
 									<Link
 										className="text-brand-red hover:text-brand-dark-rose font-bold dark:text-rose-500 dark:hover:text-brand-red flex items-center gap-1 transition-all ease-in-out hover:gap-1.5"
-										href={story.route}
+										href={`/blog/${story.id}/${story.title}`}
 									>
 										Read More
 										<i className="fr fi-rr-arrow-right text-base top-[0.20rem]"></i>
@@ -59,7 +59,7 @@ const Posts = () => {
 
 			<div className="flex justify-between gap-4 items-center flex-wrap">
 				<Link
-					className="flex items-center gap-1 py-1 px-3 rounded-md hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white"
+					className="flex items-center gap-1 py-1 px-2 rounded-md hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white"
 					href="/"
 				>
 					<i className="fr fi-rr-angle-left text-base top-[0.20rem]"></i>
@@ -101,7 +101,7 @@ const Posts = () => {
 				</div>
 
 				<Link
-					className="flex items-center gap-1 py-1 px-3 rounded-md hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white"
+					className="flex items-center gap-1 py-1 px-2 rounded-md hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white"
 					href=""
 				>
 					<span className="hidden lg:inline">Next</span>

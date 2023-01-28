@@ -31,12 +31,13 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 							<i className="fr fi-rr-heart text-base top-[0.19rem] -right-[0.05rem]"></i>
 						</span>
 
-						<button
-							className="bg-white rounded-lg py-2.5 px-4 transition-colors ease-in-out duration-500 hover:text-brand-red"
+						<Link
+							className="bg-white rounded-lg py-2.5 px-3.5 transition-colors ease-in-out duration-500 hover:text-brand-red"
 							aria-label="Quick view of product details"
+							href={`/categories/${product.id}/${product.category}`}
 						>
 							<i className="fr fi-rr-eye text-base top-0.5"></i>
-						</button>
+						</Link>
 
 						<button
 							className="bg-white rounded-lg py-2.5 px-4 transition-colors ease-in-out duration-500 hover:text-brand-red"
@@ -53,7 +54,7 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 							className={`transition-colors duration-500 ease-in-out hover:text-brand-red dark:hover:text-rose-500 ${
 								isNewArrival ? "dark:hover:text-brand-red" : ""
 							}`}
-							href="/"
+							href={`/categories/${product.id}/${product.category}`}
 						>
 							{product.category}
 						</Link>
@@ -62,7 +63,7 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 							className={`transition-colors duration-500 ease-in-out hover:text-brand-red dark:hover:text-rose-500 ${
 								isNewArrival ? "dark:hover:text-brand-red" : ""
 							}`}
-							href="/"
+							href={`/product/${product.id}/${product.productName}`}
 						>
 							<h3 className="font-bold">{product.productName}</h3>
 						</Link>

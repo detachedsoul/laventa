@@ -22,11 +22,10 @@ const Header = () => {
 
 	useEffect(() => {
 		setDropdownIsOpen(() => false);
-	}, [isOpen]);
+	}, [isOpen, pathname]);
 
 	useEffect(() => {
 		setIsOpen(() => false);
-		setDropdownIsOpen(() => false);
 	}, [pathname]);
 
 	useEffect(() => {
@@ -86,7 +85,7 @@ const Header = () => {
 						: "-translate-y-full lg:translate-y-0"
 				}`}
 			>
-				<div className="flex items-center justify-between gap-4 border-b border-gray-400 pb-4 lg:hidden lg:not-sr-only">
+				<div className="flex items-center justify-between gap-4 border-b border-gray-400 pb-4 lg:hidden lg:not-sr-only dark:border-slate-100/[0.06]">
 					<Link href="/">
 						<Image
 							className="w-16 h-auto"
@@ -121,8 +120,8 @@ const Header = () => {
 									<button
 										className={`flex items-center gap-4 w-full relative px-4 lg:px-0 lg:gap-3 ${
 											drodownIsOpen
-												? "text-brand-red dark:text-slate-200"
-												: "hover:text-brand-red dark:hover:text-slate-300"
+												? "text-brand-red"
+												: "hover:text-brand-red"
 										}`}
 										type="button"
 										onClick={handleDropdownToggle}
@@ -139,7 +138,7 @@ const Header = () => {
 												: "-translate-y-[150%]"
 										}`}
 									>
-										<h3 className="header text-xl border-b border-gray-400 pb-2">
+										<h3 className="header text-xl border-b border-gray-400 pb-2 dark:border-slate-100/[0.06]">
 											Categories
 										</h3>
 
@@ -181,8 +180,8 @@ const Header = () => {
 								<Link
 									className={`flex items-center gap-4 w-full px-4 lg:px-0  lg:gap-3 ${
 										pathname === link.route
-											? "text-brand-red dark:text-slate-300"
-											: "hover:text-brand-red dark:hover:text-slate-300"
+											? "text-brand-red"
+											: "hover:text-brand-red"
 									}`}
 									href={link.route}
 								>

@@ -57,7 +57,7 @@ const NewArrivals = () => {
 					<ScrollIndicator
 						parentElement={container}
 						totalSlides={newArrivals.length}
-						perPage={perPage}
+						perPage={perPage()}
 						slidesArray={newArrivals}
 					/>
 				</div>
