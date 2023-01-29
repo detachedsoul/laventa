@@ -15,7 +15,10 @@ const Header = () => {
 
 	const handleNavToggle = () => {
 		setIsOpen(() => !isOpen);
+
+		isOpen ? document.body.style.overflowY = "auto" : document.body.style.overflowY = "hidden";
 	};
+
 	const handleDropdownToggle = () => {
 		setDropdownIsOpen(() => !drodownIsOpen);
 	};
@@ -26,6 +29,7 @@ const Header = () => {
 
 	useEffect(() => {
 		setIsOpen(() => false);
+		document.body.style.overflowY = "auto";
 	}, [pathname]);
 
 	useEffect(() => {
@@ -55,6 +59,19 @@ const Header = () => {
 			setTheme(() => localStorage.getItem("theme"));
 		}
 	};
+
+	if (typeof window !== "undefined") {
+		// Allow scrolling of the page when on desktop screens regardless of whether the nav state is true or not
+		window.addEventListener("resize", () => {
+			if (window.matchMedia("(min-width: 1024px)").matches) {
+				document.body.style.overflowY = "auto";
+			} else {
+				isOpen
+					? (document.body.style.overflowY = "hidden")
+					: (document.body.style.overflowY = "auto");
+			}
+		});
+	}
 
 	return (
 		<header className="flex items-center gap-4 justify-between bg-white py-5 sticky top-0 z-[1024] border-b border-slate-200 lg:py-4 px-[3%] dark:bg-brand-black dark:text-white dark:border-slate-50/[0.06]">
