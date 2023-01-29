@@ -2,14 +2,14 @@
 
 import "@assets/uicons-regular-rounded/css/uicons-regular-rounded.min.css";
 import "@assets/uicons-brands/css/uicons-brands.min.css";
-import "@assets/uicons-regular-rounded/css/uicons-regular-rounded.min.css";
+import "./globals.css";
+
 import ContextProvider from "@components/ContextProvider";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
 import SplitNewsletter from "@components/SplitNewsletter";
 import localFont from "@next/font/local";
 import {useContext} from "react";
-import "./globals.css";
 
 const GTWalsheimPro = localFont({
 	src: "../assets/fonts/GTWalsheimPro.ttf",

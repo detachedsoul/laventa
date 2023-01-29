@@ -1,6 +1,5 @@
 import blogStories from "@data/blog-stories";
 import BlogCard from "@components/blog/BlogCard";
-import Image from "next/image";
 import Link from "next/link";
 
 const IndexBlog = () => {
