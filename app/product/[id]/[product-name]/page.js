@@ -1,6 +1,4 @@
 import ProductDetailsHero from "@components/product-details/ProductDetailsHero";
-import NewArrivals from "@components/NewArrivals";
-import IndexBlog from "@components/IndexBlog";
 import ProductDetails from "@components/product-details/ProductDetails";
 
 const Page = () => {
