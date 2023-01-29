@@ -56,7 +56,7 @@ const ScrollIndicator = ({
 			className={`rounded-full inline-block transition-all ease-linear duration-300 cursor-pointer ${
 				currentSlide === index + 1
 					? "px-5 bg-brand-red lg:py-1"
-					: "p-2 bg-gray-500 lg:p-1"
+					: "p-1 bg-gray-500"
 			}`}
 			onClick={() => slide(index + 1)}
 			key={index}

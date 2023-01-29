@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const ProductDetails = () => {
     return (
-		<div className="bg-white text-slate-900 p-4 rounded-lg grid space-y-4 dark:bg-brand-light-black dark:text-white lg:space-y-8">
+		<div className="bg-white text-slate-900 p-[3%] rounded-lg grid space-y-4 dark:bg-brand-light-black dark:text-white lg:space-y-8">
 			<div className="grid gap-4 items-stretch lg:grid-cols-2">
 				<div className="space-y-4">
 					<div className="h-[200px] relative rounded-lg lg:h-full">

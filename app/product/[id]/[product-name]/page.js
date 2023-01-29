@@ -6,7 +6,7 @@ const Page = () => {
 		<>
 			<ProductDetailsHero />
 			<main
-				className="space-y-20 py-12 px-[3%]"
+				className="space-y-20 py-12"
 			>
 				<ProductDetails />
 			</main>
