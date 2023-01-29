@@ -33,8 +33,8 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 
 						<Link
 							className="bg-white rounded-lg py-2.5 px-3.5 transition-colors ease-in-out duration-500 hover:text-brand-red"
-							aria-label="Quick view of product details"
-							href={`/categories/${product.id}/${product.category}`}
+							aria-label="View of product details"
+							href={`/product/${product.id}/${product.productName}`}
 						>
 							<i className="fr fi-rr-eye text-base top-0.5"></i>
 						</Link>
@@ -49,18 +49,18 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 				</div>
 
 				<div className="flex flex-col gap-6 p-3">
-					<div className="flex flex-col gap-1">
+					<div className="flex flex-col gap-2">
 						<Link
 							className={`transition-colors duration-500 ease-in-out hover:text-brand-red dark:hover:text-rose-500 ${
 								isNewArrival ? "dark:hover:text-brand-red" : ""
 							}`}
-							href={`/categories/${product.id}/${product.category}`}
+							href={`/categories/${product.category}`}
 						>
 							{product.category}
 						</Link>
 
 						<Link
-							className={`transition-colors duration-500 ease-in-out hover:text-brand-red dark:hover:text-rose-500 ${
+							className={`transition-colors duration-500 ease-in-out text-lg hover:text-brand-red dark:hover:text-rose-500 ${
 								isNewArrival ? "dark:hover:text-brand-red" : ""
 							}`}
 							href={`/product/${product.id}/${product.productName}`}
@@ -306,4 +306,4 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 	);
 };
 
-export default ProductListings;
+export default memo(ProductListings);

@@ -7,7 +7,7 @@ const CheckoutHero = () => {
                 Checkout
             </h1>
 
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-x-2 gap-y-3 flex-wrap">
                 <Link href="/">
                     <i className="fr fi-rr-bank text-base top-0.5 pr-1"></i>
                     Home
