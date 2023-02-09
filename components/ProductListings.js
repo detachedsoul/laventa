@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, memo, useContext } from "react";
 
-const ProductListings = ({ product, isNewArrival = false }) => {
+const ProductListings = ({ product, id, isNewArrival = false }) => {
 	const [modalIsActive, setModalIsActive] = useState(false);
 
 	const handleClick = () => {
@@ -20,7 +20,7 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 				<div className="relative h-[250px] rounded-lg group lg:h-[220px]">
 					<Image
 						className="rounded-lg object-center aspect-square object-cover"
-						src={product.productImage}
+						src={product.indexImage.data.attributes.url}
 						fill
 						quality={100}
 						alt={product.productName}
@@ -34,7 +34,7 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 						<Link
 							className="bg-white rounded-lg py-2.5 px-3.5 transition-colors ease-in-out duration-500 hover:text-brand-red"
 							aria-label="View of product details"
-							href={`/product/${product.id}/${product.productName}`}
+							href={`/product/${id}/${product.productName}`}
 						>
 							<i className="fr fi-rr-eye text-base top-0.5"></i>
 						</Link>
@@ -52,18 +52,18 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 					<div className="flex flex-col gap-2">
 						<Link
 							className={`transition-colors duration-500 ease-in-out hover:text-brand-red dark:hover:text-rose-500 ${
-								isNewArrival ? "dark:hover:text-brand-red" : ""
+								isNewArrival && "dark:hover:text-brand-red"
 							}`}
-							href={`/categories/${product.category}`}
+							href={`/categories/${product.productCategory.data.attributes.categoryName.toLowerCase()}`}
 						>
-							{product.category}
+							{product.productCategory.data.attributes.categoryName}
 						</Link>
 
 						<Link
 							className={`transition-colors duration-500 ease-in-out text-lg hover:text-brand-red dark:hover:text-rose-500 ${
-								isNewArrival ? "dark:hover:text-brand-red" : ""
+								isNewArrival && "dark:hover:text-brand-red"
 							}`}
-							href={`/product/${product.id}/${product.productName}`}
+							href={`/product/${id}/${product.productName.toLowerCase().replace(/ /g, "-")}`}
 						>
 							<h3 className="font-bold">{product.productName}</h3>
 						</Link>
@@ -72,27 +72,25 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 					<div className="flex justify-between flex-wrap items-center gap-2">
 						<div className="flex items-center gap-2 flex-wrap">
 							{product.inStock ? (
-								product.discount.isDiscount ? (
+								product.isDiscount ? (
 									<>
 										<span className="text-brand-dark-sky font-mono font-semibold bg-sky-100 rounded-md px-2 py-1">
-											${product.discount.currentPrice}
+											${product.currentPrice}
 										</span>
 
 										<del className="text-brand-dark-rose font-mono font-semibold bg-rose-100 rounded-md px-2 py-1">
-											${product.discount.oldPrice}
+											${product.oldPrice}
 										</del>
 									</>
 								) : (
 									<span className="text-brand-dark-sky font-mono font-semibold bg-sky-100 rounded-md px-2 py-1">
-										${product.discount.currentPrice}
+										${product.currentPrice}
 									</span>
 								)
 							) : (
 								<span
 									className={`font-semibold rounded-md py-1 text-brand-red dark:text-rose-500 text-xl header ${
-										isNewArrival
-											? "dark:text-brand-red"
-											: ""
+										isNewArrival && "dark:text-brand-red"
 									}`}
 								>
 									Out of stock!
@@ -113,18 +111,13 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 						<button
 							className={`add-to-cart ${
 								!product.inStock
-									? `cursor-not-allowed pointer-events-none select-none bg-slate-100 text-brand-red dark:bg-transparent dark:text-rose-500 ${
-											isNewArrival
-												? "dark:text-brand-red"
-												: ""
+									&& `cursor-not-allowed pointer-events-none select-none bg-slate-100 text-brand-red dark:bg-transparent dark:text-rose-500 ${
+											isNewArrival && "dark:text-brand-red"
 									  }`
-									: ""
 							}`}
 							type="button"
 						>
-							{!product.inStock ? (
-								""
-							) : (
+							{product.inStock && (
 								<i className="fr fi-rr-shopping-cart text-base top-0.5 mr-2"></i>
 							)}
 							{`${
@@ -152,7 +145,7 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 
 			{modalIsActive && (
 				<div
-					className={`min-h-screen fixed top-0 left-0 w-full z-[1024] bg-brand-black/70 grid place-items-center px-4 transition-transform duration-500 ease-linear ${
+					className={`min-h-screen fixed top-0 left-0 w-full z-[1024] bg-brand-black/70 backdrop-blur grid place-items-center px-4 transition-transform duration-500 ease-linear ${
 						modalIsActive ? "scale-100" : "scale-0"
 					}`}
 				>
@@ -179,7 +172,7 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 								<div className="h-[200px] relative rounded-lg lg:h-[300px]">
 									<Image
 										className="rounded-lg object-cover aspect-square object-center"
-										src={product.productImage}
+										src={product.indexImage.data.attributes.url}
 										fill
 										alt={product.productName}
 										quality={100}
@@ -190,7 +183,7 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 									<div className="h-[100px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
-											src="/img/01.jpg"
+											src={product.indexImage.data.attributes.url}
 											fill
 											alt={product.productName}
 											quality={100}
@@ -200,7 +193,7 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 									<div className="h-[100px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
-											src="/img/02.jpg"
+											src={product.productImageOne.data.attributes.url}
 											fill
 											alt={product.productName}
 											quality={100}
@@ -210,7 +203,7 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 									<div className="h-[100px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
-											src="/img/03.jpg"
+											src={product.productImageTwo.data.attributes.url}
 											fill
 											alt={product.productName}
 											quality={100}
@@ -220,7 +213,7 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 									<div className="h-[100px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
-											src="/img/04.jpg"
+											src={product.productImageThree.data.attributes.url}
 											fill
 											alt={product.productName}
 											quality={100}
@@ -230,13 +223,13 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 							</div>
 
 							<div className="space-y-4">
-								<div className="space-y-1">
+								<div className="space-y-2">
 									<h3 className="header text-2xl">
 										{product.productName}
 									</h3>
 
-									<p className="text-2xl font-medium slashed-zero">
-										${product.discount.currentPrice}
+									<p className="text-2xl font-medium slashed-zero flex gap-3 items-center flex-wrap">
+										{product.isDiscount ? (<><span className="text-xl text-rose-500">${product.oldPrice}</span> <span className="text-green-600">${product.currentPrice}</span></>) : (<span className="text-green-600">${product.currentPrice}</span>)}
 									</p>
 
 									<div className="flex items-center gap-x-4 gap-y-2 flex-wrap">
@@ -248,13 +241,23 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 											<i className="fr fi-rr-star text-sm text-rose-500 top-0.5"></i>
 										</div>
 
-										<span className="bg-green-700 text-white flex items-center gap-1 rounded-md py-1.5 px-3">
+										{product.inStock ? (
+											<span className="bg-green-700 text-white flex items-center gap-1 rounded-md py-1.5 px-3">
 											<i className="fr fi-rr-shield-check text-base top-0.5"></i>
 
 											<span className="header text-sm tracking-widest">
 												Product available
 											</span>
 										</span>
+										) : (
+											<span className="bg-brand-red text-white flex items-center gap-1 rounded-md py-1.5 px-3">
+												<i className="fr fi-rr-ban text-base top-0.5"></i>
+
+												<span className="header text-sm tracking-widest">
+													Product Unavailable
+												</span>
+											</span>
+										)}
 									</div>
 								</div>
 
@@ -265,19 +268,7 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 
 									<ul className="list-inside list-disc space-y-2">
 										<li className="text-gray-500 dark:text-gray-200">
-											Hand cut and sewn locally
-										</li>
-
-										<li className="text-gray-500 dark:text-gray-200">
-											Dyed with our proprietary colors
-										</li>
-
-										<li className="text-gray-500 dark:text-gray-200">
-											Pre-washed & pre-shrunk
-										</li>
-
-										<li className="text-gray-500 dark:text-gray-200">
-											Ultra-soft 100% cotton
+											{product.highlights}
 										</li>
 									</ul>
 								</div>
@@ -287,16 +278,17 @@ const ProductListings = ({ product, isNewArrival = false }) => {
 										Details
 									</h4>
 
-									<p>{product.productInfo}</p>
+									{product.details}
 								</div>
 
-								<button
-									className="py-2 px-3 rounded-md bg-brand-red text-white hover:bg-brand-dark-rose border-none"
-									type="button"
-								>
-									Add to cart
-									<i className="fr fi-rr-shopping-cart text-base top-[0.22rem] pl-3"></i>
-								</button>
+								{product.isInStock &&
+									<button
+										className="py-2 px-3 rounded-md bg-brand-red text-white hover:bg-brand-dark-rose border-none"
+										type="button"
+									>
+										Add to cart
+										<i className="fr fi-rr-shopping-cart text-base top-[0.22rem] pl-3"></i>
+									</button>}
 							</div>
 						</div>
 					</div>

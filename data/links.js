@@ -10,32 +10,6 @@ const links = [
 		label: "Categories",
 		isDropdown: true,
 		icon: "fi-rr-settings-sliders",
-		categories: [
-			{
-				category: "Laptops",
-				route: "/",
-				icon: "fi-rr-laptop code",
-				description: "Lorem ipsum dolor sit amet.",
-			},
-			{
-				category: "Headphones",
-				route: "/",
-				icon: "fi-rr-headphones",
-				description: "Lorem ipsum dolor sit amet.",
-			},
-			{
-				category: "Furniture",
-				route: "/",
-				icon: "fi-rr-chair-office",
-				description: "Lorem ipsum dolor sit amet.",
-			},
-			{
-				category: "Foot Wares",
-				route: "/",
-				icon: "fi-rr-ice-skate",
-				description: "Lorem ipsum dolor sit amet.",
-			},
-		],
 	},
 	{
 		route: "/about",
