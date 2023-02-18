@@ -25,9 +25,9 @@ const NewArrivals = () => {
 		setIsReady(() => true);
 	}, []);
 
-	const data = useFetch(`api/products?populate=*`);
+	const data = useFetch(`productss?populate=*`);
 
-	console.log(typeof data);
+	// console.log(typeof data);
 
 	return (
 		isReady && (
@@ -44,7 +44,7 @@ const NewArrivals = () => {
 					className="flex gap-8 items-stretch overflow-y-auto custom-scrollbar snap-x snap-mandatory scroll-smooth min-w-full"
 					ref={container}
 				>
-					{typeof data === "object" &&
+					{/* {typeof data === "object" &&
 						data.map((products) => (
 							<div
 								className="min-w-full snap-always lg:min-w-[calc(33.3333333%-1.34rem)] snap-center"
@@ -56,19 +56,26 @@ const NewArrivals = () => {
 									isNewArrival={true}
 								/>
 							</div>
-						))}
+						))} */}
 				</div>
 
-				<div className="flex flex-wrap place-content-center gap-2">
-					{typeof data === "object" && (
+				{/* <div className="flex flex-wrap place-content-center gap-2">
+					{ typeof data === "object" ? (
+						<>
+							Hello
 						<ScrollIndicator
 							parentElement={container}
 							totalSlides={newArrivals.length}
 							perPage={perPage()}
 							slidesArray={data}
 						/>
+						</>
+					) : (
+							<p>
+								{data} Hello
+							</p>
 					)}
-				</div>
+				</div> */}
 			</section>
 		)
 	);

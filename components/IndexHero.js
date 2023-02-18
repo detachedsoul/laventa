@@ -36,7 +36,7 @@ const IndexHero = () => {
 				src={heroImage}
 				alt="Hero Image"
 				quality={100}
-				priority={true}
+				priority
 			/>
 		</div>
 	);

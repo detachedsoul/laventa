@@ -4,14 +4,15 @@ import Logo from "@assets/img/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import links from "@data/links";
+import DropdownLinks from "@components/DropdownLinks";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import useFetch from "@helpers/useFetch";
 
 const Header = () => {
 	const pathname = usePathname();
 	const [isOpen, setIsOpen] = useState(false);
 	const [drodownIsOpen, setDropdownIsOpen] = useState(false);
+	const [loading, setIsLoading] = useState(true);
 	const [theme, setTheme] = useState("light");
 
 	const handleNavToggle = () => {
@@ -76,194 +77,141 @@ const Header = () => {
 		});
 	}
 
-	const categories = useFetch(
-		`api/categories?populate=categoryImage`
-	);
-
 	return (
-			<header className="flex items-center gap-4 justify-between bg-white py-5 sticky top-0 z-[1024] border-b border-slate-200 lg:py-4 px-[3%] dark:bg-brand-black dark:text-white dark:border-slate-50/[0.06]">
-				<button
-					className="lg:hidden lg:not-sr-only"
-					aria-label="Navbar toggle button"
-					onClick={handleNavToggle}
-				>
-					<i className="fr fi-rr-menu-burger"></i>
-				</button>
+		<header className="flex items-center gap-4 justify-between bg-white py-5 sticky top-0 z-[1024] border-b border-slate-200 lg:py-4 px-[3%] dark:bg-brand-black dark:text-white dark:border-slate-50/[0.06]">
+			<button
+				className="lg:hidden lg:not-sr-only"
+				aria-label="Navbar toggle button"
+				onClick={handleNavToggle}
+			>
+				<i className="fr fi-rr-menu-burger"></i>
+			</button>
 
-				<Link
-					className="hidden not-sr-only lg:inline-block"
-					href="/"
-				>
-					<Image
-						className="w-16 h-auto"
-						src={Logo}
-						alt="Laventa"
-						height="auto"
-					/>
-				</Link>
+			<Link
+				className="hidden not-sr-only lg:inline-block"
+				href="/"
+			>
+				<Image
+					className="w-16 h-auto"
+					src={Logo}
+					alt="Laventa"
+					height="auto"
+				/>
+			</Link>
 
-				<nav
-					className={`bg-white absolute top-0 left-0 flex flex-col gap-4 p-4 w-full z-[1024] transition-transform duration-500 ease-linear lg:static lg:p-0 lg:bg-transparent lg:w-auto min-h-screen lg:min-h-0 dark:bg-brand-black ${
-						isOpen
-							? "translate-y-0"
-							: "-translate-y-full lg:translate-y-0"
+			<nav
+				className={`bg-white absolute top-0 left-0 flex flex-col gap-4 p-4 w-full z-[1024] transition-transform duration-500 ease-linear lg:static lg:p-0 lg:bg-transparent lg:w-auto min-h-screen lg:min-h-0 dark:bg-brand-black ${
+					isOpen
+						? "translate-y-0"
+						: "-translate-y-full lg:translate-y-0"
+				}`}
+			>
+				<div className="flex items-center justify-between gap-4 border-b border-gray-400 pb-4 lg:hidden lg:not-sr-only dark:border-slate-100/[0.06]">
+					<Link href="/">
+						<Image
+							className="w-16 h-auto"
+							src={Logo}
+							alt="Laventa"
+							height="auto"
+						/>
+					</Link>
+
+					<button
+						aria-label="Close navbar"
+						onClick={handleNavToggle}
+					>
+						<i className="fr fi-rr-cross"></i>
+					</button>
+				</div>
+
+				<ul
+					className={`flex flex-col gap-10 overscroll-contain min-h-[calc(100vh-6.5rem)] lg:min-h-0 lg:flex-row custom-scrollbar ${
+						drodownIsOpen
+							? "overflow-y-auto  lg:overflow-y-hidden"
+							: "overflow-y-hidden"
 					}`}
 				>
-					<div className="flex items-center justify-between gap-4 border-b border-gray-400 pb-4 lg:hidden lg:not-sr-only dark:border-slate-100/[0.06]">
-						<Link href="/">
-							<Image
-								className="w-16 h-auto"
-								src={Logo}
-								alt="Laventa"
-								height="auto"
-							/>
-						</Link>
-
-						<button
-							aria-label="Close navbar"
-							onClick={handleNavToggle}
+					{links.map((link, id) => (
+						<li
+							className={`${link.isDropdown && "relative"}`}
+							key={id}
 						>
-							<i className="fr fi-rr-cross"></i>
-						</button>
-					</div>
-
-					<ul
-						className={`flex flex-col gap-10 overscroll-contain min-h-[calc(100vh-6.5rem)] lg:min-h-0 lg:flex-row custom-scrollbar ${
-							drodownIsOpen
-								? "overflow-y-auto  lg:overflow-y-hidden"
-								: "overflow-y-hidden"
-						}`}
-					>
-						{links.map((link, id) => (
-							<li
-								className={`${link.isDropdown && "relative"}`}
-								key={id}
-							>
-								{link.isDropdown ? (
-									<>
-										<button
-											className={`flex items-center gap-4 w-full relative px-4 lg:px-0 lg:gap-3 ${
-												drodownIsOpen
-													? "text-brand-red"
-													: "hover:text-brand-red"
-											}`}
-											type="button"
-											onClick={handleDropdownToggle}
-										>
-											<i
-												className={`fr ${link.icon}`}
-											></i>
-
-											{link.label}
-										</button>
-
-										<div
-											className={`bg-slate-50 lg:bg-white lg:shadow-dropdown absolute p-4 w-full z-[1024] rounded-lg transition-transform ease-linear duration-500 flex flex-col gap-4 lg:p-8 lg:fixed lg:w-auto origin-top top-[calc(100%+1.5rem)] lg:left-0 lg:right-0 dark:bg-brand-black dark:border dark:border-slate-100/[0.06] lg:dark:border-none ${
-												drodownIsOpen
-													? "translate-y-0"
-													: "-translate-y-[150%]"
-											}`}
-										>
-											<h3 className="header text-xl border-b border-gray-400 pb-2 dark:border-slate-100/[0.06]">
-												Categories
-											</h3>
-
-											<ul className="flex flex-col gap-4 lg:grid lg:grid-cols-2">
-												{typeof categories === 'object' && categories.map((category) => (
-													<li key={category.id}>
-														<Link
-															className="grid grid-cols-12 gap-4 items-start w-full transition-all ease-linear rounded-lg p-4 lg:gap-3 hover:bg-brand-light-black dark:hover:text-white group"
-															href={`/categories/${category.attributes.categoryName.toLowerCase()}`}
-														>
-															<div className="relative h-12 col-span-3 rounded-md">
-																<Image
-																	className="rounded-md aspect-sqaure object-cover object-center m-0"
-																	src={
-																		category
-																			.attributes
-																			.categoryImage
-																			.data
-																			.attributes
-																			.url
-																	}
-																	alt={
-																		category
-																			.attributes
-																			.categoryName
-																	}
-																	fill
-																/>
-															</div>
-
-															<div className="flex flex-col gap-1.5 transition-all ease-linear col-span-9 group-hover:text-white">
-																<h3 className="font-bold leading-none lg:text-lg lg:leading-none">
-																	{
-																		category
-																			.attributes
-																			.categoryName
-																	}
-																</h3>
-
-																<p className="text-lg lg:text-base">
-																	{
-																		category
-																			.attributes
-																			.categoryDesc
-																	}
-																</p>
-															</div>
-														</Link>
-													</li>
-												))}
-											</ul>
-										</div>
-									</>
-								) : (
-									<Link
-										className={`flex items-center gap-4 w-full px-4 lg:px-0  lg:gap-3 ${
-											pathname === link.route
+							{link.isDropdown ? (
+								<>
+									<button
+										className={`flex items-center gap-4 w-full relative px-4 lg:px-0 lg:gap-3 ${
+											drodownIsOpen
 												? "text-brand-red"
 												: "hover:text-brand-red"
 										}`}
-										href={link.route}
+										type="button"
+										onClick={handleDropdownToggle}
 									>
 										<i className={`fr ${link.icon}`}></i>
 
 										{link.label}
-									</Link>
-								)}
-							</li>
-						))}
-					</ul>
-				</nav>
+									</button>
 
-				<div className="flex items-center gap-4">
-					<button
-						aria-label="Theme switcher"
-						onClick={() => toggleTheme()}
-					>
-						<i
-							className={`fr ${
-								theme === "dark" ? "fi-rr-sun" : "fi-rr-moon"
-							}`}
-						></i>
-					</button>
+									<div
+										className={`bg-slate-50 lg:bg-white lg:shadow-dropdown absolute p-4 w-full z-[1024] rounded-lg transition-transform ease-linear duration-500 flex flex-col gap-4 lg:p-8 lg:fixed lg:w-auto origin-top top-[calc(100%+1.5rem)] lg:left-0 lg:right-0 dark:bg-brand-black dark:border dark:border-slate-100/[0.06] lg:dark:border-none ${
+											drodownIsOpen
+												? "translate-y-0"
+												: "-translate-y-[200%]"
+										}`}
+									>
+										<h3 className="header text-xl border-b border-gray-400 pb-2 dark:border-slate-100/[0.06]">
+											Categories
+										</h3>
 
-					<Link
-						href="/categories"
-						aria-label="Search bar toggle button"
-					>
-						<i className="fr fi-rr-search"></i>
-					</Link>
+										<DropdownLinks />
+									</div>
+								</>
+							) : (
+								<Link
+									className={`flex items-center gap-4 w-full px-4 lg:px-0  lg:gap-3 ${
+										pathname === link.route
+											? "text-brand-red"
+											: "hover:text-brand-red"
+									}`}
+									href={link.route}
+								>
+									<i className={`fr ${link.icon}`}></i>
 
-					<Link
-						href="/cart"
-						aria-label="Shopping cart"
-					>
-						<i className="fr fi-rr-shopping-cart"></i>
-					</Link>
-				</div>
-			</header>
+									{link.label}
+								</Link>
+							)}
+						</li>
+					))}
+				</ul>
+			</nav>
+
+			<div className="flex items-center gap-4">
+				<button
+					aria-label="Theme switcher"
+					onClick={() => toggleTheme()}
+				>
+					<i
+						className={`fr ${
+							theme === "dark" ? "fi-rr-sun" : "fi-rr-moon"
+						}`}
+					></i>
+				</button>
+
+				<Link
+					href="/categories"
+					aria-label="Search bar toggle button"
+				>
+					<i className="fr fi-rr-search"></i>
+				</Link>
+
+				<Link
+					href="/cart"
+					aria-label="Shopping cart"
+				>
+					<i className="fr fi-rr-shopping-cart"></i>
+				</Link>
+			</div>
+		</header>
 	);
 };
 

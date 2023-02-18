@@ -34,7 +34,9 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 						<Link
 							className="bg-white rounded-lg py-2.5 px-3.5 transition-colors ease-in-out duration-500 hover:text-brand-red"
 							aria-label="View of product details"
-							href={`/product/${id}/${product.productName}`}
+							href={`/product/${id}/${product.productName
+								.toLowerCase()
+								.replace(/ /g, "-")}`}
 						>
 							<i className="fr fi-rr-eye text-base top-0.5"></i>
 						</Link>
@@ -56,14 +58,19 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 							}`}
 							href={`/categories/${product.productCategory.data.attributes.categoryName.toLowerCase()}`}
 						>
-							{product.productCategory.data.attributes.categoryName}
+							{
+								product.productCategory.data.attributes
+									.categoryName
+							}
 						</Link>
 
 						<Link
 							className={`transition-colors duration-500 ease-in-out text-lg hover:text-brand-red dark:hover:text-rose-500 ${
 								isNewArrival && "dark:hover:text-brand-red"
 							}`}
-							href={`/product/${id}/${product.productName.toLowerCase().replace(/ /g, "-")}`}
+							href={`/product/${id}/${product.productName
+								.toLowerCase()
+								.replace(/ /g, "-")}`}
 						>
 							<h3 className="font-bold">{product.productName}</h3>
 						</Link>
@@ -110,10 +117,10 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 					<div className="flex flex-col gap-2">
 						<button
 							className={`add-to-cart ${
-								!product.inStock
-									&& `cursor-not-allowed pointer-events-none select-none bg-slate-100 text-brand-red dark:bg-transparent dark:text-rose-500 ${
-											isNewArrival && "dark:text-brand-red"
-									  }`
+								!product.inStock &&
+								`cursor-not-allowed pointer-events-none select-none bg-slate-100 text-brand-red dark:bg-transparent dark:text-rose-500 ${
+									isNewArrival && "dark:text-brand-red"
+								}`
 							}`}
 							type="button"
 						>
@@ -172,7 +179,10 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 								<div className="h-[200px] relative rounded-lg lg:h-[300px]">
 									<Image
 										className="rounded-lg object-cover aspect-square object-center"
-										src={product.indexImage.data.attributes.url}
+										src={
+											product.indexImage.data.attributes
+												.url
+										}
 										fill
 										alt={product.productName}
 										quality={100}
@@ -183,7 +193,10 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 									<div className="h-[100px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
-											src={product.indexImage.data.attributes.url}
+											src={
+												product.indexImage.data
+													.attributes.url
+											}
 											fill
 											alt={product.productName}
 											quality={100}
@@ -193,7 +206,10 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 									<div className="h-[100px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
-											src={product.productImageOne.data.attributes.url}
+											src={
+												product.productImageOne.data
+													.attributes.url
+											}
 											fill
 											alt={product.productName}
 											quality={100}
@@ -203,7 +219,10 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 									<div className="h-[100px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
-											src={product.productImageTwo.data.attributes.url}
+											src={
+												product.productImageTwo.data
+													.attributes.url
+											}
 											fill
 											alt={product.productName}
 											quality={100}
@@ -213,7 +232,10 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 									<div className="h-[100px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
-											src={product.productImageThree.data.attributes.url}
+											src={
+												product.productImageThree.data
+													.attributes.url
+											}
 											fill
 											alt={product.productName}
 											quality={100}
@@ -229,7 +251,20 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 									</h3>
 
 									<p className="text-2xl font-medium slashed-zero flex gap-3 items-center flex-wrap">
-										{product.isDiscount ? (<><span className="text-xl text-rose-500">${product.oldPrice}</span> <span className="text-green-600">${product.currentPrice}</span></>) : (<span className="text-green-600">${product.currentPrice}</span>)}
+										{product.isDiscount ? (
+											<>
+												<span className="text-xl text-rose-500">
+													${product.oldPrice}
+												</span>{" "}
+												<span className="text-green-600">
+													${product.currentPrice}
+												</span>
+											</>
+										) : (
+											<span className="text-green-600">
+												${product.currentPrice}
+											</span>
+										)}
 									</p>
 
 									<div className="flex items-center gap-x-4 gap-y-2 flex-wrap">
@@ -243,12 +278,12 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 
 										{product.inStock ? (
 											<span className="bg-green-700 text-white flex items-center gap-1 rounded-md py-1.5 px-3">
-											<i className="fr fi-rr-shield-check text-base top-0.5"></i>
+												<i className="fr fi-rr-shield-check text-base top-0.5"></i>
 
-											<span className="header text-sm tracking-widest">
-												Product available
+												<span className="header text-sm tracking-widest">
+													Product available
+												</span>
 											</span>
-										</span>
 										) : (
 											<span className="bg-brand-red text-white flex items-center gap-1 rounded-md py-1.5 px-3">
 												<i className="fr fi-rr-ban text-base top-0.5"></i>
@@ -266,7 +301,7 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 										Highlights
 									</h4>
 
-									<ul className="list-inside list-disc space-y-2">
+									<ul className="list-inside space-y-2">
 										<li className="text-gray-500 dark:text-gray-200">
 											{product.highlights}
 										</li>
@@ -281,14 +316,15 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 									{product.details}
 								</div>
 
-								{product.isInStock &&
+								{product.inStock && (
 									<button
 										className="py-2 px-3 rounded-md bg-brand-red text-white hover:bg-brand-dark-rose border-none"
 										type="button"
 									>
 										Add to cart
 										<i className="fr fi-rr-shopping-cart text-base top-[0.22rem] pl-3"></i>
-									</button>}
+									</button>
+								)}
 							</div>
 						</div>
 					</div>
