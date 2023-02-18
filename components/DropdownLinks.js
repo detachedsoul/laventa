@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const DropdownLinks = () => {
-    const categories = useFetch(`categoriesS?populate=categoryImage`);
+    const categories = useFetch(`categories?populate=categoryImage`);
 
     return (
         (typeof categories !== "string") ?

@@ -127,7 +127,7 @@ const Header = () => {
 				<ul
 					className={`flex flex-col gap-10 overscroll-contain min-h-[calc(100vh-6.5rem)] lg:min-h-0 lg:flex-row custom-scrollbar ${
 						drodownIsOpen
-							? "overflow-y-auto  lg:overflow-y-hidden"
+							? "overflow-y-auto lg:overflow-y-hidden"
 							: "overflow-y-hidden"
 					}`}
 				>
@@ -141,7 +141,7 @@ const Header = () => {
 									<button
 										className={`flex items-center gap-4 w-full relative px-4 lg:px-0 lg:gap-3 ${
 											drodownIsOpen
-												? "text-brand-red"
+												? "text-brand-red dark:text-rose-500"
 												: "hover:text-brand-red"
 										}`}
 										type="button"
@@ -170,7 +170,7 @@ const Header = () => {
 								<Link
 									className={`flex items-center gap-4 w-full px-4 lg:px-0  lg:gap-3 ${
 										pathname === link.route
-											? "text-brand-red"
+											? "text-brand-red dark:text-rose-500"
 											: "hover:text-brand-red"
 									}`}
 									href={link.route}
