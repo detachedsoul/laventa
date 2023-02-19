@@ -16,7 +16,7 @@ const IndexProductListings = () => {
 
 				<select className="select">
 					<option value="All Categories">All Categories</option>
-					{categories.map(category => (
+					{typeof categories !== "string" && categories.map(category => (
 						<option value={category.attributes.categoryName} key={category.id}>
 							{category.attributes.categoryName}
 						</option>
@@ -38,7 +38,7 @@ const IndexProductListings = () => {
 					There are no products available yet. Please check back at a later time.
 				</p>
 				:
-				<p className="font-bold text-brand-red text-center mx-auto">
+				<p className="font-bold text-brand-red text-center mx-auto md:w-1/2 dark:text-rose-500">
 					{productsArr}
 				</p>
 			}

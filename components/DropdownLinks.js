@@ -14,7 +14,7 @@ const DropdownLinks = () => {
                     <li key={category.id}>
                         <Link
                             className="grid grid-cols-12 gap-4 items-start w-full transition-all ease-linear rounded-lg p-4 lg:gap-3 hover:bg-brand-light-black/80 dark:hover:text-white group"
-                            href={`/categories/${category.attributes.categoryName.toLowerCase()}`}
+                            href={`/categories/${category.attributes.slug}`}
                         >
                             <div className="relative h-12 col-span-3 rounded-md">
                                 <Image

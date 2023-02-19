@@ -60,7 +60,7 @@ const NewArrivals = () => {
 							There are no products available yet. Please check back at a later time.
 						</p>
 						:
-						<p className="font-bold text-brand-red text-center mx-auto">
+						<p className="font-bold text-brand-red text-center mx-auto md:w-1/2">
 							{data}
 						</p>
 					}
