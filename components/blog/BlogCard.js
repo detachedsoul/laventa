@@ -2,6 +2,30 @@ import Image from "next/image";
 import Link from "next/link";
 
 const BlogCard = ({blogPosts}) => {
+	// Convert the date the blog post was posted to the format Jan 1, 2023
+	const rawDate = new Date(blogPosts.map(date => date.attributes.datePublished).toString().split("-"));
+
+	const months = [
+		"Jan",
+		"Feb",
+		"Mar",
+		"Apr",
+		"May",
+		"Jun",
+		"Jul",
+		"Aug",
+		"Sept",
+		"Oct",
+		"Nov",
+		"Dec",
+	];
+
+	const month = months[rawDate.getMonth()];
+	const date = rawDate.getDate();
+	const year = rawDate.getFullYear();
+
+	const fullDate = `${month} ${date}, ${year}`;
+
 	return (
 		blogPosts.map((story) => (
 			<article key={story.id}>
@@ -50,7 +74,7 @@ const BlogCard = ({blogPosts}) => {
 								height={50}
 							/>
 
-							<p>{story.attributes.datePublished}</p>
+							<p>{fullDate}</p>
 						</div>
 					</div>
 				</div>
