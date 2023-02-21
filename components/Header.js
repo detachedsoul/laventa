@@ -12,7 +12,6 @@ const Header = () => {
 	const pathname = usePathname();
 	const [isOpen, setIsOpen] = useState(false);
 	const [drodownIsOpen, setDropdownIsOpen] = useState(false);
-	const [loading, setIsLoading] = useState(true);
 	const [theme, setTheme] = useState("light");
 
 	const handleNavToggle = () => {

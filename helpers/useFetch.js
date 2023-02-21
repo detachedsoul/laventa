@@ -6,10 +6,7 @@ const useFetch = (url) => {
 
     useEffect(() => {
         const fetchData = async () => {
-			const urlPrefix =
-				process.env.NODE_ENV === "production"
-					? "https://laventa-strapi-production.up.railway.app/api/"
-					: "http://localhost:1337/api/";
+			const urlPrefix = process.env.NEXT_PUBLIC_API_URL;
 
 			const urlPath = urlPrefix + url;
 

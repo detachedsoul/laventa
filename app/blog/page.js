@@ -5,9 +5,15 @@ import BlogPostsHero from "@components/blog/BlogPostsHero";
 import BlogPostFilter from "@components/blog/BlogPostFilter";
 import BlogCard from "@components/blog/BlogCard";
 import Link from "next/link";
+import { useEffect,useState } from "react";
 
 const Page = () => {
-    const blogPosts = useFetch(`articless?populate=*`);
+    const [isReady, setIsReady] = useState(false);
+    const blogPosts = useFetch(`articles?populate=*`);
+
+    useEffect(() => {
+        setIsReady(() => true);
+    }, []);
 
     return (
 		<>
@@ -15,7 +21,7 @@ const Page = () => {
 			<BlogPostFilter />
             <main className="space-y-20 py-12 px-[3%]">
                 <section className="space-y-4">
-                    {typeof blogPosts !== "string" ? (
+                    {isReady && typeof blogPosts !== "string" ? (
                         blogPosts.length > 0 ? (
                                 <>
                                     <div className="grid gap-8 pb-8 lg:grid-cols-3 border-b border-slate-200 dark:border-brand-light-black">
