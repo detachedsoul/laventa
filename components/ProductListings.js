@@ -1,10 +1,9 @@
 "use client";
 
 import ProductOverviewModal from "@components/ProductOverviewModal";
-import ContextProvider from "@components/ContextProvider";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useContext } from "react";
+import { useState } from "react";
 
 const ProductListings = ({ product, id, isNewArrival = false }) => {
 	const [modalIsActive, setModalIsActive] = useState(false);
@@ -246,9 +245,9 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 									<p className="text-2xl font-medium slashed-zero flex gap-3 items-center flex-wrap">
 										{product?.isDiscount ? (
 											<>
-												<span className="text-xl text-rose-500">
+												<del className="text-xl text-rose-500">
 													${product?.oldPrice}
-												</span>{" "}
+												</del>{" "}
 												<span className="text-green-600">
 													${product?.currentPrice}
 												</span>

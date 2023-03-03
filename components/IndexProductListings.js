@@ -1,18 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ProductListings from "@components/ProductListings";
 import useFetch from "@helpers/useFetch";
 
 const IndexProductListings = () => {
-	const [isLoading, setIsLoading] = useState(() => true);
 	const productsArr = useFetch(`products?populate=*`);
 	const categories = useFetch(`categories`);
-
-	useEffect(() => {
-		setIsLoading(() => false);
-	}, []);
 
 	return (
 		<section className="flex flex-col gap-12">
@@ -35,17 +30,15 @@ const IndexProductListings = () => {
 
 			{typeof productsArr !== "string" ? (
 				productsArr.length > 0 ? (
-					productsArr.map((products) => (
-						<div
-							className="grid gap-8 lg:grid-cols-3"
-							key={products.id}
-						>
-							<ProductListings
-								id={products.id}
-								product={products.attributes}
-							/>
-						</div>
-					))
+					<div className="grid gap-8 lg:grid-cols-3">
+						{productsArr.map((products) => (
+								<ProductListings
+									id={products.id}
+									product={ products.attributes }
+									key={products.id}
+								/>
+						))}
+					</div>
 				) : (
 					<p className="font-bold text-center text-xl mx-auto">
 						There are no products available yet. Please check back

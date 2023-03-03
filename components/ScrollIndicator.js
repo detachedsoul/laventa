@@ -27,11 +27,11 @@ const ScrollIndicator = ({
 			const difference = slideIndex - currentSlide;
 
 			if (difference === 1) {
-				parentElement.current.scrollLeft +=
-					parentElement.current.offsetWidth;
+				parentElement.scrollLeft +=
+					parentElement.offsetWidth;
 			} else {
-				parentElement.current.scrollLeft +=
-					parentElement.current.offsetWidth * (difference + 1);
+				parentElement.scrollLeft +=
+					parentElement.offsetWidth * (difference + 1);
 			}
 			setCurrentSlide(() => slideIndex);
 		} else if (slideIndex < currentSlide) {
@@ -39,11 +39,11 @@ const ScrollIndicator = ({
 			const difference = currentSlide - slideIndex;
 
 			if (difference === 1) {
-				parentElement.current.scrollLeft -=
-					parentElement.current.offsetWidth;
+				parentElement.scrollLeft -=
+					parentElement.offsetWidth;
 			} else {
-				parentElement.current.scrollLeft -=
-					parentElement.current.offsetWidth * (difference + 1);
+				parentElement.scrollLeft -=
+					parentElement.offsetWidth * (difference + 1);
 			}
 			setCurrentSlide(() => slideIndex);
 		} else {
@@ -53,7 +53,7 @@ const ScrollIndicator = ({
 
 	return copyArr.map((slides, index) => (
 		<span
-			className={`rounded-full inline-block transition-all ease-linear duration-300 cursor-pointer ${
+			className={`rounded-full block transition-all ease-linear duration-300 cursor-pointer ${
 				currentSlide === index + 1
 					? "px-5 bg-brand-red lg:py-1"
 					: "p-1 bg-gray-500"
