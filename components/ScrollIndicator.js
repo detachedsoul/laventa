@@ -16,7 +16,7 @@ const ScrollIndicator = ({
 	// Create a copy of the original array of slides based on the number of slides to be shown per page. This would be used to calculate how many indicators to be shown
 	let copyArr = slidesArray.slice(
 		0,
-		divisionRemainder === 0 || isEven
+		divisionRemainder === 0 || isEven || divisionRemainder > (perPage % 2)
 			? Math.round(totalSlides / perPage)
 			: Math.round(totalSlides / perPage + 1),
 	);
