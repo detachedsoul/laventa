@@ -4,14 +4,21 @@ import Logo from "@assets/img/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import links from "@data/links";
-import DropdownLinks from "@components/DropdownLinks";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import useFetch from "@helpers/useFetch";
+import dynamic from "next/dynamic";
+
+const DropdownLinks = dynamic(() => import("@components/DropdownLinks"),
+{ssr: false});
 
 const Header = () => {
+	const categories = useFetch("categories?populate=categoryImage");
+
 	const pathname = usePathname();
 	const [isOpen, setIsOpen] = useState(false);
 	const [drodownIsOpen, setDropdownIsOpen] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	const [theme, setTheme] = useState("light");
 
 	const handleNavToggle = () => {
@@ -95,6 +102,7 @@ const Header = () => {
 					src={Logo}
 					alt="Laventa"
 					height="auto"
+					width="100%"
 				/>
 			</Link>
 
@@ -112,6 +120,7 @@ const Header = () => {
 							src={Logo}
 							alt="Laventa"
 							height="auto"
+							width="100%"
 						/>
 					</Link>
 
@@ -162,7 +171,19 @@ const Header = () => {
 											Categories
 										</h3>
 
-										<DropdownLinks />
+										{ typeof categories !== "string" ? (
+											categories.length > 0 ? (
+												<DropdownLinks categories={categories} />
+											) : (
+												<p>
+													There are no product category yet. Please check back at a later time. {categories.toString()} {isLoading}
+												</p>
+											)
+										) : (
+											<p className="font-bold text-brand-red dark:text-rose-500">
+												{ categories }
+											</p>
+										) }
 									</div>
 								</>
 							) : (
