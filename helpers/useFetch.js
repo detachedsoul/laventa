@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState } from "react";
 
 const useFetch = (url) => {
     const [data, setData] = useState([]);

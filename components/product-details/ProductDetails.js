@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const ProductDetails = () => {
+const ProductDetails = ({product}) => {
     return (
 		<div className="bg-white text-slate-900 p-[3%] rounded-lg grid space-y-4 dark:bg-brand-light-black dark:text-white lg:space-y-8">
 			<div className="grid gap-4 items-stretch lg:grid-cols-2">
@@ -9,9 +9,9 @@ const ProductDetails = () => {
 					<div className="h-[200px] relative rounded-lg lg:h-full">
 						<Image
 							className="rounded-lg object-cover aspect-square object-center"
-							src="/img/01.jpg"
+							src={product?.attributes?.indexImage?.data?.attributes?.url}
 							fill
-							alt="/img/01.jpg"
+							alt={product?.attributes.productName}
 							quality={100}
 						/>
 					</div>
@@ -21,9 +21,9 @@ const ProductDetails = () => {
 					<div className="h-[150px] lg:h-[200px] relative rounded-lg">
 						<Image
 							className="rounded-lg object-cover aspect-square object-center"
-							src="/img/02.jpg"
+							src={product?.attributes?.productImageOne?.data?.attributes?.url}
 							fill
-							alt="/img/01.jpg"
+							alt={product?.attributes.productName}
 							quality={100}
 						/>
 					</div>
@@ -31,9 +31,9 @@ const ProductDetails = () => {
 					<div className="h-[150px] lg:h-[200px] relative rounded-lg">
 						<Image
 							className="rounded-lg object-cover aspect-square object-center"
-							src="/img/03.jpg"
+							src={product?.attributes?.productImageTwo?.data?.attributes?.url}
 							fill
-							alt="/img/01.jpg"
+							alt={product?.attributes.productName}
 							quality={100}
 						/>
 					</div>
@@ -41,9 +41,9 @@ const ProductDetails = () => {
 					<div className="h-[200px] lg:h-[250px] relative rounded-lg col-span-2">
 						<Image
 							className="rounded-lg object-cover aspect-square object-center"
-							src="/img/04.jpg"
+							src={product?.attributes?.productImageThree?.data?.attributes?.url}
 							fill
-							alt="/img/01.jpg"
+							alt={product?.attributes.productName}
 							quality={100}
 						/>
 					</div>
@@ -52,9 +52,24 @@ const ProductDetails = () => {
 
 			<div className="space-y-6 lg:w-4/5">
 				<div className="space-y-1">
-					<h3 className="header text-3xl">Some Random Title</h3>
+					<h3 className="header text-3xl">{product?.attributes.productName}</h3>
 
-					<p className="text-2xl font-medium slashed-zero">$19000</p>
+					<p className="text-2xl font-medium slashed-zero">
+						{product?.attributes?.isDiscount ? (
+							<>
+								<del className="text-xl text-rose-500">
+									${product?.attributes?.oldPrice}
+								</del>{" "}
+								<span className="text-green-600">
+									${product?.attributes?.currentPrice}
+								</span>
+							</>
+						) : (
+							<span className="text-green-600">
+								${product?.attributes?.currentPrice}
+							</span>
+						)}
+					</p>
 
 					<div className="flex items-center gap-x-4 gap-y-2 flex-wrap">
 						<div className="flex items-center gap-1">
@@ -65,21 +80,23 @@ const ProductDetails = () => {
 							<i className="fr fi-rr-star text-sm text-rose-500 top-0.5"></i>
 						</div>
 
-						<span className="bg-green-700 text-white flex items-center gap-1 rounded-md py-1.5 px-3">
-							<i className="fr fi-rr-shield-check text-base top-0.5"></i>
+						{product?.attributes?.inStock ? (
+							<span className="bg-green-700 text-white flex items-center gap-1 rounded-md py-1.5 px-3">
+								<i className="fr fi-rr-shield-check text-base top-0.5"></i>
 
-							<span className="header text-sm tracking-widest">
-								Product available
+								<span className="header text-sm tracking-widest">
+									Product available
+								</span>
 							</span>
-						</span>
+						) : (
+							<span className="bg-brand-red text-white flex items-center gap-1 rounded-md py-1.5 px-3">
+								<i className="fr fi-rr-ban text-base top-0.5"></i>
 
-						<span className="bg-brand-red text-white flex items-center gap-1 rounded-md py-1.5 px-3">
-							<i className="fr fi-rr-ban text-base top-0.5"></i>
-
-							<span className="header text-sm tracking-widest">
-								Product Unavailable
+								<span className="header text-sm tracking-widest">
+									Product Unavailable
+								</span>
 							</span>
-						</span>
+						)}
 					</div>
 				</div>
 
@@ -87,21 +104,7 @@ const ProductDetails = () => {
 					<h4 className="header text-2xl mb-2">Highlights</h4>
 
 					<ul className="list-inside list-disc space-y-2">
-						<li className="text-gray-500 dark:text-gray-200">
-							Hand cut and sewn locally
-						</li>
-
-						<li className="text-gray-500 dark:text-gray-200">
-							Dyed with our proprietary colors
-						</li>
-
-						<li className="text-gray-500 dark:text-gray-200">
-							Pre-washed & pre-shrunk
-						</li>
-
-						<li className="text-gray-500 dark:text-gray-200">
-							Ultra-soft 100% cotton
-						</li>
+						{product?.attributes?.highlights}
 					</ul>
 				</div>
 
@@ -109,22 +112,19 @@ const ProductDetails = () => {
 					<h4 className="header text-2xl mb-2">Details</h4>
 
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-						sed do eiusmod tempor incididunt ut labore et dolore
-						magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea
-						commodo consequat cupidatat non proident, sunt in culpa
-						qui.
+						{product?.attributes?.details}
 					</p>
 				</div>
 
-				<button
-					className="py-2 px-3 rounded-md bg-brand-red text-white hover:bg-brand-dark-rose border-none"
-					type="button"
-				>
-					Add to cart
-					<i className="fr fi-rr-shopping-cart text-base top-[0.22rem] pl-3"></i>
-				</button>
+				{product?.attributes?.inStock && (
+					<button
+						className="py-2 px-3 rounded-md bg-brand-red text-white hover:bg-brand-dark-rose border-none"
+						type="button"
+					>
+						Add to cart
+						<i className="fr fi-rr-shopping-cart text-base top-[0.22rem] pl-3"></i>
+					</button>
+				)}
 			</div>
 		</div>
 	);
