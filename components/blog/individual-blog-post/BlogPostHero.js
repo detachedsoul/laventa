@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const BlogPostHero = () => {
+const BlogPostHero = ({ articleDetails }) => {
 	return (
 		<div className="flex flex-wrap justify-between gap-6 items-center px-[3%] py-12 bg-brand-red text-white">
 			<h1 className="header text-2xl">Blog Post Title</h1>
@@ -20,7 +20,7 @@ const BlogPostHero = () => {
 
 				<i className="fr fi-rr-angle-right text-base"></i>
 
-				<span>Blog Post Title</span>
+				<span>{articleDetails?.title}</span>
 			</div>
 		</div>
 	);

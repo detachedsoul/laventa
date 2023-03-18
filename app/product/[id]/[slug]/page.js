@@ -1,9 +1,7 @@
 import ProductDetailsHero from "@components/product-details/ProductDetailsHero";
 import ProductDetails from "@components/product-details/ProductDetails";
-import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
-import { Suspense } from "react";
 
-const Page = async ({ params: { id, productSlug }}) => {
+const Page = async ({ params: { id }}) => {
 	const productId = id.toString();
 
 	const endpoint = `products/${productId}?populate=*`;
@@ -20,15 +18,13 @@ const Page = async ({ params: { id, productSlug }}) => {
 			<ProductDetailsHero productDetails={ data } />
 
 			<main className="space-y-20 py-12">
-				<Suspense fallback={<ProductsLoadingSkeleton />}>
-					<ProductDetails product={ data } />
-				</Suspense>
+				<ProductDetails product={ data } />
 			</main>
 		</>
 	);
 };
 
-export async function generateStaticParams () {
+export const generateStaticParams = async () => {
 	const endpoint = `products?populate=*`;
 	const url = process.env.NEXT_PUBLIC_API_URL + endpoint;
 	const res = await fetch(`${url}`);
@@ -41,7 +37,7 @@ export async function generateStaticParams () {
 
 	const productDetails = data.map(product => ({
 		id: product.id.toString(),
-		productSlug: product.attributes.slug,
+		slug: product.attributes.slug,
 	}));
 
 	return productDetails;
