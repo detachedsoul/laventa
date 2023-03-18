@@ -1,16 +1,13 @@
 "use client";
 
 import Logo from "@assets/img/logo.svg";
+import DropdownLinks from "@components/DropdownLinks";
 import Image from "next/image";
 import Link from "next/link";
 import links from "@data/links";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import useFetch from "@helpers/useFetch";
-import dynamic from "next/dynamic";
-
-const DropdownLinks = dynamic(() => import("@components/DropdownLinks"),
-{ssr: false});
 
 const Header = () => {
 	const categories = useFetch("categories?populate=categoryImage");
@@ -18,7 +15,6 @@ const Header = () => {
 	const pathname = usePathname();
 	const [isOpen, setIsOpen] = useState(false);
 	const [drodownIsOpen, setDropdownIsOpen] = useState(false);
-	const [isLoading, setIsLoading] = useState(true);
 	const [theme, setTheme] = useState("light");
 
 	const handleNavToggle = () => {
@@ -176,7 +172,7 @@ const Header = () => {
 												<DropdownLinks categories={categories} />
 											) : (
 												<p>
-													There are no product category yet. Please check back at a later time. {categories.toString()} {isLoading}
+													There are no product category yet. Please check back at a later time.
 												</p>
 											)
 										) : (

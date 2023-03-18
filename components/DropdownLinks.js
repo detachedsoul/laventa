@@ -15,9 +15,9 @@ const fetchCategories = async () => {
 	}
 };
 
-const DropdownLinks = ({categories}) => {
-	return categories.map(category => (
-		<ul className="flex flex-col gap-4 lg:grid lg:grid-cols-2" key={category.id}>
+const DropdownLinks = ({ categories }) => {
+	return (
+		<ul className="flex flex-col gap-4 lg:grid lg:grid-cols-2">
 			{categories.map((category) => (
 				<li key={category.id}>
 					<Link
@@ -49,7 +49,7 @@ const DropdownLinks = ({categories}) => {
 				</li>
 			))}
 		</ul>
-	));
+	);
 };
 
 export default DropdownLinks;
