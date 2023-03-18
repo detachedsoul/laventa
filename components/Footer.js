@@ -182,6 +182,7 @@ const Footer = () => {
 										src={android}
 										alt="Download app on android devices on the Google PlayStore"
 										quality={100}
+										height={40}
 									/>
 								</Link>
 
@@ -190,6 +191,7 @@ const Footer = () => {
 										src={iOS}
 										alt="Download app on iOS devices on the Apple App Store"
 										quality={100}
+										height={40}
 									/>
 								</Link>
 							</div>

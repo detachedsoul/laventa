@@ -3,7 +3,7 @@ import ProductDetails from "@components/product-details/ProductDetails";
 import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
 import { Suspense } from "react";
 
-const Page = async ({ params: { id, productSlug, productDetails }}) => {
+const Page = async ({ params: { id, productSlug }}) => {
 	const productId = id.toString();
 
 	const endpoint = `products/${productId}?populate=*`;
@@ -17,10 +17,11 @@ const Page = async ({ params: { id, productSlug, productDetails }}) => {
 
 	return (
 		<>
-			<ProductDetailsHero />
+			<ProductDetailsHero productDetails={ data } />
+
 			<main className="space-y-20 py-12">
 				<Suspense fallback={<ProductsLoadingSkeleton />}>
-					<ProductDetails product={data} />
+					<ProductDetails product={ data } />
 				</Suspense>
 			</main>
 		</>
