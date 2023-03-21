@@ -59,7 +59,7 @@ const CategoryFilter = () => {
 
                             <div className="grid gap-4">
                                 <div className="flex items-center justify-between">
-                                    <label className="flex items-center gap-2" htmlFor="all-categories">
+                                    <label className="flex items-center gap-2 cursor-pointer" htmlFor="all-categories">
                                         <input className="form-checkbox rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded" type="checkbox" id="all-categories" />
                                         All Categories
                                     </label>
@@ -70,7 +70,7 @@ const CategoryFilter = () => {
                                 </div>
 
                                 <div className="flex items-center justify-between">
-                                    <label className="flex items-center gap-2" htmlFor="electronics">
+                                    <label className="flex items-center gap-2 cursor-pointer" htmlFor="electronics">
                                         <input className="form-checkbox rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded" type="checkbox" id="electronics" />
                                         Electronics
                                     </label>
@@ -81,7 +81,7 @@ const CategoryFilter = () => {
                                 </div>
 
                                 <div className="flex items-center justify-between">
-                                    <label className="flex items-center gap-2" htmlFor="jeans">
+                                    <label className="flex items-center gap-2 cursor-pointer" htmlFor="jeans">
                                         <input className="form-checkbox rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded" type="checkbox" id="jeans" />
                                         Jeans
                                     </label>
@@ -92,7 +92,7 @@ const CategoryFilter = () => {
                                 </div>
 
                                 <div className="flex items-center justify-between">
-                                    <label className="flex items-center gap-2" htmlFor="accessories">
+                                    <label className="flex items-center gap-2 cursor-pointer" htmlFor="accessories">
                                         <input className="form-checkbox rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded" type="checkbox" id="accessories" />
                                         Accessories
                                     </label>
@@ -103,7 +103,7 @@ const CategoryFilter = () => {
                                 </div>
 
                                 <div className="flex items-center justify-between">
-                                    <label className="flex items-center gap-2" htmlFor="bags">
+                                    <label className="flex items-center gap-2 cursor-pointer" htmlFor="bags">
                                         <input className="form-checkbox rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded" type="checkbox" id="bags" />
                                         Bags
                                     </label>
@@ -122,7 +122,7 @@ const CategoryFilter = () => {
 
                             <div className="grid gap-4">
                                 <div className="flex items-center justify-between">
-                                    <label className="flex items-center gap-2" htmlFor="both">
+                                    <label className="flex items-center gap-2 cursor-pointer" htmlFor="both">
                                         <input className="form-checkbox rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded" type="checkbox" id="both" />
                                         Both
                                     </label>
@@ -133,7 +133,7 @@ const CategoryFilter = () => {
                                 </div>
 
                                 <div className="flex items-center justify-between">
-                                    <label className="flex items-center gap-2" htmlFor="in-stock">
+                                    <label className="flex items-center gap-2 cursor-pointer" htmlFor="in-stock">
                                         <input className="form-checkbox rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded" type="checkbox" id="in-stock" />
                                         In Stock
                                     </label>
@@ -144,7 +144,7 @@ const CategoryFilter = () => {
                                 </div>
 
                                 <div className="flex items-center justify-between">
-                                    <label className="flex items-center gap-2" htmlFor="out-of-stock">
+                                    <label className="flex items-center gap-2 cursor-pointer" htmlFor="out-of-stock">
                                         <input className="form-checkbox rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded" type="checkbox" id="out-of-stock" />
                                         Out of Stock
                                     </label>
@@ -163,7 +163,7 @@ const CategoryFilter = () => {
 
                             <div className="grid gap-4">
                                 <div className="flex items-center justify-between">
-                                    <label className="flex items-center gap-2" htmlFor="xl">
+                                    <label className="flex items-center gap-2 cursor-pointer" htmlFor="xl">
                                         <input className="form-checkbox rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded" type="checkbox" id="xl" />
                                         XL
                                     </label>
@@ -174,7 +174,7 @@ const CategoryFilter = () => {
                                 </div>
 
                                 <div className="flex items-center justify-between">
-                                    <label className="flex items-center gap-2" htmlFor="L">
+                                    <label className="flex items-center gap-2 cursor-pointer" htmlFor="L">
                                         <input className="form-checkbox rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded" type="checkbox" id="L" />
                                         L
                                     </label>
@@ -185,7 +185,7 @@ const CategoryFilter = () => {
                                 </div>
 
                                 <div className="flex items-center justify-between">
-                                    <label className="flex items-center gap-2" htmlFor="m">
+                                    <label className="flex items-center gap-2 cursor-pointer" htmlFor="m">
                                         <input className="form-checkbox rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded" type="checkbox" id="m" />
                                         M
                                     </label>
@@ -196,7 +196,7 @@ const CategoryFilter = () => {
                                 </div>
 
                                 <div className="flex items-center justify-between">
-                                    <label className="flex items-center gap-2" htmlFor="s">
+                                    <label className="flex items-center gap-2 cursor-pointer" htmlFor="s">
                                         <input className="form-checkbox rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded" type="checkbox" id="s" />
                                         S
                                     </label>
@@ -207,7 +207,7 @@ const CategoryFilter = () => {
                                 </div>
 
                                 <div className="flex items-center justify-between">
-                                    <label className="flex items-center gap-2" htmlFor="xs">
+                                    <label className="flex items-center gap-2 cursor-pointer" htmlFor="xs">
                                         <input className="form-checkbox rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded" type="checkbox" id="xs" />
                                         XS
                                     </label>

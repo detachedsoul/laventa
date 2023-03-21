@@ -1,12 +1,8 @@
-// "use client";
-
 import Link from "next/link";
-// import { useState, useEffect } from "react";
 import ProductListings from "@components/ProductListings";
 import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
 import IndexProductCategorySort from "@components/products/IndexProductCategorySort";
 import { Suspense } from "react";
-import dynamic from "next/dynamic";
 
 const fetchProducts = async () => {
 	const endpoint = "products?populate=*";

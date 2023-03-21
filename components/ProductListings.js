@@ -4,6 +4,7 @@ import ProductOverviewModal from "@components/ProductOverviewModal";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import useCart from "@store/useCart";
 
 const ProductListings = ({ product, id, isNewArrival = false }) => {
 	const [modalIsActive, setModalIsActive] = useState(false);
@@ -12,6 +13,9 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 		setModalIsActive(() => true);
 		document.body.style.overflowY = "hidden";
 	};
+
+	const addtoCart = useCart((state) => state.addToCart);
+	const cartContents = useCart((state) => state.cart);
 
 	return (
 		<>
@@ -41,6 +45,7 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 						<button
 							className="bg-white rounded-lg py-2.5 px-4 transition-colors ease-in-out duration-500 hover:text-brand-red"
 							aria-label="Add product to cart"
+							onClick={() => addtoCart({id, product})}
 						>
 							<i className="fr fi-rr-shopping-cart text-base top-0.5"></i>
 						</button>
@@ -115,6 +120,7 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 								}`
 							}`}
 							type="button"
+							onClick={() => addtoCart({id, product})}
 						>
 							{product?.inStock && (
 								<i className="fr fi-rr-shopping-cart text-base top-0.5 mr-2"></i>
@@ -312,6 +318,7 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 									<button
 										className="py-2 px-3 rounded-md bg-brand-red text-white hover:bg-brand-dark-rose border-none"
 										type="button"
+										onClick={() => addtoCart({id, product})}
 									>
 										Add to cart
 										<i className="fr fi-rr-shopping-cart text-base top-[0.22rem] pl-3"></i>
