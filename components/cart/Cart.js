@@ -8,10 +8,10 @@ const Checkout = () => {
 	const totalCartProducts = useCart((state) => state.cart.length);
 	const clearCart = useCart((state) => state.clearCart);
 	const cartProducts = useCart((state) => state.cart);
-	const totalProductsPrice = useCart((state) => state.cartTotal);
+	// const totalProductsPrice = useCart((state) => state.cartTotal);
 	const removeFromCart = useCart((state) => state.removeFromCart);
 
-	console.log(totalProductsPrice);
+	const totalProductsPrice = cartProducts.reduce((accumulator, currentValue) => accumulator + currentValue.product.currentPrice, 0);
 
 	return (
 		<div className="relative">
@@ -24,8 +24,19 @@ const Checkout = () => {
 			</div>
 
 			<div className="bg-white text-slate-900 py-[3%] px-[2%] mx-[3%] rounded-lg z-30 shadow-card relative grid gap-8 mb-12 lg:grid-cols-12 lg:gap-0 divide-y lg:divide-y-0 lg:divide-x lg:divide-slate-200 lg:p-0">
-				<div className={`grid gap-4 lg:py-[3%] lg:px-[5%] ${totalCartProducts < 1 ? 'lg:col-span-12' : 'lg:col-span-8'}`}>
-					<div className={`flex items-center justify-between gap-2 flex-wrap ${totalCartProducts > 0 && 'border-b border-slate-200 pb-4'}`}>
+				<div
+					className={`grid gap-4 lg:py-[3%] lg:px-[5%] ${
+						totalCartProducts < 1
+							? "lg:col-span-12"
+							: "lg:col-span-8"
+					}`}
+				>
+					<div
+						className={`flex items-center justify-between gap-2 flex-wrap ${
+							totalCartProducts > 0 &&
+							"border-b border-slate-200 pb-4"
+						}`}
+					>
 						<Link
 							className="border border-blue-800/40 text-blue-800 py-1.5 rounded-md px-3 transition-colors ease-in-out hover:bg-blue-800 hover:text-white flex items-center"
 							href="/categories"
@@ -50,9 +61,9 @@ const Checkout = () => {
 						</button>
 					</div>
 
-					{totalCartProducts > 0 &&
+					{totalCartProducts > 0 && (
 						<div className="divide-y divide-slate-200">
-							{cartProducts.map(({product, id}) => (
+							{cartProducts.map(({ product, id }) => (
 								<div
 									className="grid lg:grid-cols-12 items-center gap-4 pb-4 pt-4 first:pt-0 last:pb-0"
 									key={id}
@@ -60,7 +71,10 @@ const Checkout = () => {
 									<div className="relative h-[200px] lg:h-[150px] lg:col-span-4">
 										<Image
 											className="object-cover object-center aspect-square rounded-md"
-											src={product.indexImage.data.attributes.url}
+											src={
+												product.indexImage.data
+													.attributes.url
+											}
 											quality={100}
 											alt={product.productName}
 											fill
@@ -70,7 +84,9 @@ const Checkout = () => {
 											className="bg-brand-red/90 text-white rounded-lg px-2.5 pt-2 pb-1.5 z-50 absolute right-2 top-2"
 											type="button"
 											title="Remove item from cart"
-											onClick={() => removeFromCart({id})}
+											onClick={() =>
+												removeFromCart({ id })
+											}
 										>
 											<i className="fr fi-rr-trash text-base top-0.5"></i>
 										</button>
@@ -92,7 +108,7 @@ const Checkout = () => {
 								</div>
 							))}
 						</div>
-					}
+					)}
 				</div>
 
 				{totalCartProducts > 0 && (
@@ -105,9 +121,8 @@ const Checkout = () => {
 
 								<div className="text-3xl slashed-zero">
 									{/* $<span className="font-bold">9.</span> */}{" "}
-									$ {() => totalProductsPrice()}
-									{/* <small className="font-medium">30</small> */}{" "}
 									$ {totalProductsPrice}
+									{/* <small className="font-medium">30</small> */}{" "}
 								</div>
 							</div>
 
