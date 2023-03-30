@@ -1,6 +1,7 @@
 import ProductListings from "@components/ProductListings";
 import newArrivals from "@data/new-arrivals";
 import Link from "next/link";
+import formartAmountSum from "@helpers/formartAmountSum";
 
 const Products = () => {
     return (

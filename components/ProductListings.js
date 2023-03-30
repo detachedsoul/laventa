@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import useCart from "@store/useCart";
+import formartAmountSum from "@helpers/formartAmountSum";
 
 const ProductListings = ({ product, id, isNewArrival = false }) => {
 	const [modalIsActive, setModalIsActive] = useState(false);
@@ -78,18 +79,58 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 							{product?.inStock ? (
 								product?.isDiscount ? (
 									<>
-										<span className="text-brand-dark-sky font-mono font-semibold bg-sky-100 rounded-md px-2 py-1">
-											${product?.currentPrice}
-										</span>
+										<p className="text-brand-dark-sky font-mono font-semibold bg-sky-100 rounded-md px-2 py-1">
+											<span>
+												$
+												{
+													formartAmountSum(
+														product?.currentPrice,
+													).wholeNumber
+												}
+											</span>
+
+											{formartAmountSum(
+												product?.currentPrice,
+											).hasFractions === true && (
+												<small>
+													.
+													{
+														formartAmountSum(
+															product?.currentPrice,
+														).fractions
+													}
+												</small>
+											)}
+										</p>
 
 										<del className="text-brand-dark-rose font-mono font-semibold bg-rose-100 rounded-md px-2 py-1">
 											${product?.oldPrice}
 										</del>
 									</>
 								) : (
-									<span className="text-brand-dark-sky font-mono font-semibold bg-sky-100 rounded-md px-2 py-1">
-										${product?.currentPrice}
-									</span>
+									<p className="text-brand-dark-sky font-mono font-semibold bg-sky-100 rounded-md px-2 py-1">
+										<span>
+											$
+											{
+												formartAmountSum(
+													product?.currentPrice,
+												).wholeNumber
+											}
+										</span>
+
+										{formartAmountSum(
+											product?.currentPrice,
+										).hasFractions === true && (
+											<small>
+												.
+												{
+													formartAmountSum(
+														product?.currentPrice,
+													).fractions
+												}
+											</small>
+										)}
+									</p>
 								)
 							) : (
 								<span
@@ -259,9 +300,29 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 												</span>
 											</>
 										) : (
-											<span className="text-green-600">
-												${product?.currentPrice}
-											</span>
+											<p className="text-green-600">
+												<span>
+													$
+													{
+														formartAmountSum(
+															product?.currentPrice,
+														).wholeNumber
+													}
+												</span>
+
+												{formartAmountSum(
+													product?.currentPrice,
+												).hasFractions === true && (
+													<small>
+														.
+														{
+															formartAmountSum(
+																product?.currentPrice,
+															).fractions
+														}
+													</small>
+												)}
+											</p>
 										)}
 									</p>
 

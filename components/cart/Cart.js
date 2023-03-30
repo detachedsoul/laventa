@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import useCart from "@store/useCart";
+import formartAmountSum from "@helpers/formartAmountSum";
 
 const Checkout = () => {
 	const totalCartProducts = useCart((state) => state.cart.length);
@@ -11,7 +12,8 @@ const Checkout = () => {
 	// const totalProductsPrice = useCart((state) => state.cartTotal);
 	const removeFromCart = useCart((state) => state.removeFromCart);
 
-	const totalProductsPrice = cartProducts.reduce((accumulator, currentValue) => accumulator + currentValue.product.currentPrice, 0);
+	const getPriceTotal = cartProducts.reduce((accumulator, currentValue) => accumulator + currentValue.product.currentPrice, 0);
+	const formartAmount = formartAmountSum(getPriceTotal);
 
 	return (
 		<div className="relative">
@@ -98,11 +100,21 @@ const Checkout = () => {
 										</h3>
 
 										<p className="text-brand-red slashed-zero text-xl">
-											${" "}
 											<span className="font-medium">
-												{product.currentPrice}
+												${
+													formartAmountSum(
+														product.currentPrice,
+													).wholeNumber
+												}
 											</span>
-											<small>00</small>
+
+											{formartAmountSum(
+												product.currentPrice,
+											).hasFractions === true && (
+												<small>
+													.{formartAmountSum(product.currentPrice).fractions}
+												</small>
+											)}
 										</p>
 									</div>
 								</div>
@@ -120,9 +132,14 @@ const Checkout = () => {
 								</p>
 
 								<div className="text-3xl slashed-zero">
-									{/* $<span className="font-bold">9.</span> */}{" "}
-									$ {totalProductsPrice}
-									{/* <small className="font-medium">30</small> */}{" "}
+									<span className="font-bold">
+										${formartAmount.wholeNumber}
+									</span>
+									{formartAmount.hasFractions === true && (
+										<small className="font-medium">
+											.{formartAmount.fractions}
+										</small>
+									)}
 								</div>
 							</div>
 

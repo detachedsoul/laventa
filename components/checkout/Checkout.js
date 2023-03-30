@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import acceptedCards from "@assets/img/cards-alt.png";
 import Link from "next/link";
+// import useCart from "@store/useCart";
 
 const Checkout = () => {
 	const togglePaymentMethod = (e) => {
@@ -81,6 +82,9 @@ const Checkout = () => {
 			);
 		}
 	};
+
+	// const totalCartProducts = useCart((state) => state.cart.length);
+	// const cartProducts = useCart((state) => state.cart);
 
 	return (
 		<div className="relative">
@@ -162,7 +166,7 @@ const Checkout = () => {
 
 						<div className="grid gap-4 lg:hidden lg:not-sr-only">
 							<h2 className="header text-xl">Order summary</h2>
-
+							{/* {totalCartProducts > 0 &&
 							<div className="divide-y divide-slate-200">
 								<div className="flex items-center gap-4 pb-2">
 									<Image
@@ -277,6 +281,7 @@ const Checkout = () => {
 									</div>
 								</div>
 							</div>
+							} */}
 						</div>
 
 						<div className="border border-slate-200 rounded-lg divide-y divide-slate-200 lg:col-span-2">
