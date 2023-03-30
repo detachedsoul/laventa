@@ -4,7 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import acceptedCards from "@assets/img/cards-alt.png";
 import Link from "next/link";
-// import useCart from "@store/useCart";
+import useCart from "@store/useCart";
+import formartAmountSum from "@helpers/formartAmountSum";
 
 const Checkout = () => {
 	const togglePaymentMethod = (e) => {
@@ -83,8 +84,17 @@ const Checkout = () => {
 		}
 	};
 
-	// const totalCartProducts = useCart((state) => state.cart.length);
-	// const cartProducts = useCart((state) => state.cart);
+	const totalCartProducts = useCart((state) => state.cart.length);
+	const cartProducts = useCart((state) => state.cart);
+
+	const getPriceTotal = cartProducts.reduce(
+		(accumulator, currentValue) =>
+			accumulator + currentValue.product.currentPrice,
+		0,
+	);
+	const formartAmount = formartAmountSum(getPriceTotal);
+
+	const formartTotalPayableAmount = formartAmountSum(getPriceTotal + 9.30);
 
 	return (
 		<div className="relative">
@@ -166,122 +176,119 @@ const Checkout = () => {
 
 						<div className="grid gap-4 lg:hidden lg:not-sr-only">
 							<h2 className="header text-xl">Order summary</h2>
-							{/* {totalCartProducts > 0 &&
-							<div className="divide-y divide-slate-200">
-								<div className="flex items-center gap-4 pb-2">
-									<Image
-										className="object-cover aspect-square rounded-md"
-										src="/img/01.jpg"
-										height={60}
-										width={60}
-										quality={100}
-										alt="Some Random Product"
-									/>
+							{totalCartProducts > 0 && (
+								<div className="divide-y divide-slate-200">
+									{cartProducts.map(({ product, id }) => (
+										<div
+											className="flex items-center gap-4 pb-2"
+											key={id}
+										>
+											<Image
+												className="object-cover aspect-square rounded-md"
+												src={
+													product.indexImage.data
+														.attributes.url
+												}
+												height={60}
+												width={60}
+												quality={100}
+												alt={product.productName}
+											/>
 
-									<div className="grid gap-0.5">
-										<h3 className="font-semibold leading-0">
-											UI Isometric Devices Pack
-										</h3>
+											<div className="grid gap-0.5">
+												<h3 className="font-semibold leading-0">
+													{product.productName}
+												</h3>
 
-										<p className="text-brand-red slashed-zero">
-											${" "}
-											<span className="font-medium">
-												23.
-											</span>
-											<small>00</small>
-										</p>
+												<p className="text-brand-red slashed-zero">
+													<span className="font-medium">
+														$
+														{
+															formartAmountSum(
+																product.currentPrice,
+															).wholeNumber
+														}
+													</span>
+
+													{formartAmountSum(
+														product.currentPrice,
+													).hasFractions === true && (
+														<small>
+															.
+															{
+																formartAmountSum(
+																	product.currentPrice,
+																).fractions
+															}
+														</small>
+													)}
+												</p>
+											</div>
+										</div>
+									))}
+
+									<div className="py-4 grid gap-0.5 slashed-zero">
+										<div className="flex items-center gap-4 justify-between">
+											<p className="font-medium">
+												Subtotal:
+											</p>
+
+											<p>
+												<span className="font-medium">
+													${formartAmount.wholeNumber}
+												</span>
+												{formartAmount.hasFractions ===
+													true && (
+													<small>
+														.
+														{
+															formartAmount.fractions
+														}
+													</small>
+												)}
+											</p>
+										</div>
+
+										<div className="flex items-center gap-4 justify-between">
+											<p className="font-medium">
+												Taxes:
+											</p>
+
+											<p>
+												$
+												<span className="font-medium">
+													9.
+												</span>
+												<small>30</small>
+											</p>
+										</div>
+
+										<div className="flex items-center gap-4 justify-between text-xl">
+											<p className="font-medium">
+												Total:
+											</p>
+
+											<p>
+												<span className="font-bold">
+													$
+													{
+														formartTotalPayableAmount.wholeNumber
+													}
+												</span>
+												{formartTotalPayableAmount.hasFractions ===
+													true && (
+													<small className="font-medium">
+														.
+														{
+															formartTotalPayableAmount.fractions
+														}
+													</small>
+												)}
+											</p>
+										</div>
 									</div>
 								</div>
-
-								<div className="flex items-center gap-4 py-2">
-									<Image
-										className="object-cover aspect-square rounded-md"
-										src="/img/02.jpg"
-										height={60}
-										width={60}
-										quality={100}
-										alt="Some Random Product"
-									/>
-
-									<div className="grid gap-0.5">
-										<h3 className="font-semibold leading-0">
-											UI Isometric Devices Pack
-										</h3>
-
-										<p className="text-brand-red slashed-zero">
-											$
-											<span className="font-medium">
-												23.
-											</span>
-											<small>00</small>
-										</p>
-									</div>
-								</div>
-
-								<div className="flex items-center gap-4 py-2">
-									<Image
-										className="object-cover aspect-square rounded-md"
-										src="/img/03.jpg"
-										height={60}
-										width={60}
-										quality={100}
-										alt="Some Random Product"
-									/>
-
-									<div className="grid gap-0.5">
-										<h3 className="font-semibold leading-0">
-											UI Isometric Devices Pack
-										</h3>
-
-										<p className="text-brand-red slashed-zero">
-											$
-											<span className="font-medium">
-												23.
-											</span>
-											<small>00</small>
-										</p>
-									</div>
-								</div>
-
-								<div className="py-4 grid gap-0.5 slashed-zero">
-									<div className="flex items-center gap-4 justify-between">
-										<p className="font-medium">Subtotal:</p>
-
-										<p>
-											$
-											<span className="font-medium">
-												23.
-											</span>
-											<small>00</small>
-										</p>
-									</div>
-
-									<div className="flex items-center gap-4 justify-between">
-										<p className="font-medium">Taxes:</p>
-
-										<p>
-											$
-											<span className="font-medium">
-												9.
-											</span>
-											<small>30</small>
-										</p>
-									</div>
-
-									<div className="flex items-center gap-4 justify-between text-xl">
-										<p className="font-medium">Total:</p>
-
-										<p>
-											$
-											<span className="font-medium">
-												9.
-											</span>
-											<small>30</small>
-										</p>
-									</div>
-								</div>
-							</div>
-							} */}
+							)}
 						</div>
 
 						<div className="border border-slate-200 rounded-lg divide-y divide-slate-200 lg:col-span-2">
@@ -424,98 +431,100 @@ const Checkout = () => {
 						Order summary
 					</h2>
 
-					<div className="divide-y divide-slate-200">
-						<div className="flex items-center gap-4 pb-2">
-							<Image
-								className="object-cover aspect-square rounded-md"
-								src="/img/01.jpg"
-								height={60}
-								width={60}
-								quality={100}
-								alt="Some Random Product"
-							/>
+					{ totalCartProducts > 0 && (
+						<div className="divide-y divide-slate-200">
+							{ cartProducts.map(({ product, id }) => (
+								<div
+									className="flex items-center gap-4 pb-2"
+									key={ id }
+								>
+									<Image
+										className="object-cover aspect-square rounded-md"
+										src={
+											product.indexImage.data
+												.attributes.url
+										}
+										height={ 60 }
+										width={ 60 }
+										quality={ 100 }
+										alt={ product.productName }
+									/>
 
-							<div className="grid gap-0.5">
-								<h3 className="font-semibold leading-0">
-									UI Isometric Devices Pack
-								</h3>
+									<div className="grid gap-0.5">
+										<h3 className="font-semibold leading-0">
+											{ product.productName }
+										</h3>
 
-								<p className="text-brand-red slashed-zero">
-									$ <span className="font-medium">23.</span>
-									<small>00</small>
-								</p>
+										<p className="text-brand-red slashed-zero">
+											<span className="font-medium">
+												$
+												{
+													formartAmountSum(
+														product.currentPrice,
+													).wholeNumber
+												}
+											</span>
+
+											{ formartAmountSum(
+												product.currentPrice,
+											).hasFractions === true && (
+													<small>
+														.
+														{
+															formartAmountSum(
+																product.currentPrice,
+															).fractions
+														}
+													</small>
+												) }
+										</p>
+									</div>
+								</div>
+							)) }
+
+							<div className="py-4 grid gap-0.5 slashed-zero">
+								<div className="flex items-center gap-4 justify-between">
+									<p className="font-medium">Subtotal:</p>
+
+									<p>
+										<span className="font-medium">
+											${ formartAmount.wholeNumber }
+										</span>
+										{ formartAmount.hasFractions ===
+											true && (
+												<small>
+													.
+													{
+														formartAmount.fractions
+													}
+												</small>
+											) }
+									</p>
+								</div>
+
+								<div className="flex items-center gap-4 justify-between">
+									<p className="font-medium">Taxes:</p>
+
+									<p>
+										$<span className="font-medium">9.</span>
+										<small>30</small>
+									</p>
+								</div>
+							</div>
+
+							<div className="flex place-content-center py-4 text-3xl slashed-zero">
+								<span className="font-bold">
+									${ formartTotalPayableAmount.wholeNumber }
+								</span>
+								{ formartTotalPayableAmount.hasFractions ===
+									true && (
+										<small className="font-medium">
+											.{ formartTotalPayableAmount.fractions }
+										</small>
+									) }
 							</div>
 						</div>
-
-						<div className="flex items-center gap-4 py-2">
-							<Image
-								className="object-cover aspect-square rounded-md"
-								src="/img/02.jpg"
-								height={60}
-								width={60}
-								quality={100}
-								alt="Some Random Product"
-							/>
-
-							<div className="grid gap-0.5">
-								<h3 className="font-semibold leading-0">
-									UI Isometric Devices Pack
-								</h3>
-
-								<p className="text-brand-red slashed-zero">
-									$<span className="font-medium">23.</span>
-									<small>00</small>
-								</p>
-							</div>
-						</div>
-
-						<div className="flex items-center gap-4 py-2">
-							<Image
-								className="object-cover aspect-square rounded-md"
-								src="/img/03.jpg"
-								height={60}
-								width={60}
-								quality={100}
-								alt="Some Random Product"
-							/>
-
-							<div className="grid gap-0.5">
-								<h3 className="font-semibold leading-0">
-									UI Isometric Devices Pack
-								</h3>
-
-								<p className="text-brand-red slashed-zero">
-									$<span className="font-medium">23.</span>
-									<small>00</small>
-								</p>
-							</div>
-						</div>
-
-						<div className="py-4 grid gap-0.5 slashed-zero">
-							<div className="flex items-center gap-4 justify-between">
-								<p className="font-medium">Subtotal:</p>
-
-								<p>
-									$<span className="font-medium">23.</span>
-									<small>00</small>
-								</p>
-							</div>
-
-							<div className="flex items-center gap-4 justify-between">
-								<p className="font-medium">Taxes:</p>
-
-								<p>
-									$<span className="font-medium">9.</span>
-									<small>30</small>
-								</p>
-							</div>
-						</div>
-
-						<div className="flex place-content-center py-4 text-3xl slashed-zero">
-							$<span className="font-bold">9.</span>
-							<small className="font-medium">30</small>
-						</div>
-					</div>
+					) }
 				</div>
 			</div>
 		</div>
