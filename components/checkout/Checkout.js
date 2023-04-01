@@ -106,7 +106,7 @@ const Checkout = () => {
 				<div className="bg-white dark:bg-brand-black"></div>
 			</div>
 
-			<div className="bg-white text-slate-900 py-[3%] px-[2%] mx-[3%] rounded-lg z-30 shadow-card relative grid gap-8 mb-12 lg:grid-cols-12 lg:gap-0  divide-y lg:divide-y-0 lg:divide-x lg:divide-slate-200 lg:p-0">
+			<div className="bg-white text-slate-900 py-[3%] px-[2%] mx-[3%] rounded-lg z-30 shadow-card relative grid gap-8 mb-12 lg:grid-cols-12 items-start lg:gap-0 divide-y lg:divide-y-0 lg:divide-x lg:divide-slate-200 lg:p-0">
 				<div
 					className={`grid gap-4 lg:py-[3%] lg:px-[5%] ${totalCartProducts < 1 ? 'lg:col-span-12' : 'lg:col-span-8'}`}
 				>
@@ -129,7 +129,8 @@ const Checkout = () => {
 								<i className="fr fi-rr-angle-left text-base top-0.5 pr-0.5"></i>
 								{totalCartProducts < 1
 									? "Continue shopping"
-									: "Back to cart"}
+									: "Back to cart"
+								}
 							</Link>
 						</div>
 
@@ -204,7 +205,7 @@ const Checkout = () => {
 									<h2 className="header text-xl">
 										Order summary
 									</h2>
-									{totalCartProducts > 0 && (
+
 										<div className="divide-y divide-slate-200">
 											{cartProducts.map(
 												({ product, id }) => (
@@ -332,7 +333,6 @@ const Checkout = () => {
 												</div>
 											</div>
 										</div>
-									)}
 								</div>
 
 								<div className="border border-slate-200 rounded-lg divide-y divide-slate-200 lg:col-span-2">
@@ -484,103 +484,101 @@ const Checkout = () => {
 							Order summary
 						</h2>
 
-						{totalCartProducts > 0 && (
-							<div className="divide-y divide-slate-200">
-								{cartProducts.map(({ product, id }) => (
-									<div
-										className="flex items-center gap-4 pb-2"
-										key={id}
-									>
-										<Image
-											className="object-cover aspect-square rounded-md"
-											src={
-												product.indexImage.data
-													.attributes.url
-											}
-											height={60}
-											width={60}
-											quality={100}
-											alt={product.productName}
-										/>
+						<div className="divide-y divide-slate-200">
+							{cartProducts.map(({ product, id }) => (
+								<div
+									className="flex items-center gap-4 pb-2"
+									key={id}
+								>
+									<Image
+										className="object-cover aspect-square rounded-md"
+										src={
+											product.indexImage.data
+												.attributes.url
+										}
+										height={60}
+										width={60}
+										quality={100}
+										alt={product.productName}
+									/>
 
-										<div className="grid gap-0.5">
-											<h3 className="font-semibold leading-0">
-												{product.productName}
-											</h3>
+									<div className="grid gap-0.5">
+										<h3 className="font-semibold leading-0">
+											{product.productName}
+										</h3>
 
-											<p className="text-brand-red slashed-zero">
-												<span className="font-medium">
-													$
+										<p className="text-brand-red slashed-zero">
+											<span className="font-medium">
+												$
+												{
+													formartAmountSum(
+														product.currentPrice,
+													).wholeNumber
+												}
+											</span>
+
+											{formartAmountSum(
+												product.currentPrice,
+											).hasFractions === true && (
+												<small>
+													.
 													{
 														formartAmountSum(
 															product.currentPrice,
-														).wholeNumber
+														).fractions
 													}
-												</span>
-
-												{formartAmountSum(
-													product.currentPrice,
-												).hasFractions === true && (
-													<small>
-														.
-														{
-															formartAmountSum(
-																product.currentPrice,
-															).fractions
-														}
-													</small>
-												)}
-											</p>
-										</div>
-									</div>
-								))}
-
-								<div className="py-4 grid gap-0.5 slashed-zero">
-									<div className="flex items-center gap-4 justify-between">
-										<p className="font-medium">Subtotal:</p>
-
-										<p>
-											<span className="font-medium">
-												${formartAmount.wholeNumber}
-											</span>
-											{formartAmount.hasFractions ===
-												true && (
-												<small>
-													.{formartAmount.fractions}
 												</small>
 											)}
 										</p>
 									</div>
+								</div>
+							))}
 
-									<div className="flex items-center gap-4 justify-between">
-										<p className="font-medium">Taxes:</p>
+							<div className="py-4 grid gap-0.5 slashed-zero">
+								<div className="flex items-center gap-4 justify-between">
+									<p className="font-medium">Subtotal:</p>
 
-										<p>
-											$
-											<span className="font-medium">
-												9.
-											</span>
-											<small>30</small>
-										</p>
-									</div>
+									<p>
+										<span className="font-medium">
+											${formartAmount.wholeNumber}
+										</span>
+										{formartAmount.hasFractions ===
+											true && (
+											<small>
+												.{formartAmount.fractions}
+											</small>
+										)}
+									</p>
 								</div>
 
-								<div className="flex place-content-center py-4 text-3xl slashed-zero">
-									<span className="font-bold">
-										${formartTotalPayableAmount.wholeNumber}
-									</span>
-									{formartTotalPayableAmount.hasFractions ===
-										true && (
-										<small className="font-medium">
-											.
-											{
-												formartTotalPayableAmount.fractions
-											}
-										</small>
-									)}
+								<div className="flex items-center gap-4 justify-between">
+									<p className="font-medium">Taxes:</p>
+
+									<p>
+										$
+										<span className="font-medium">
+											9.
+										</span>
+										<small>30</small>
+									</p>
 								</div>
 							</div>
-						)}
+
+							<div className="flex place-content-center py-4 text-3xl slashed-zero">
+								<span className="font-bold">
+									${formartTotalPayableAmount.wholeNumber}
+								</span>
+								{formartTotalPayableAmount.hasFractions ===
+									true && (
+									<small className="font-medium">
+										.
+										{
+											formartTotalPayableAmount.fractions
+										}
+									</small>
+								)}
+							</div>
+						</div>
 					</div>
 				)}
 			</div>

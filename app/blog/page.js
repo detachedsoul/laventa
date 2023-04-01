@@ -5,7 +5,7 @@ import BlogPostsHero from "@components/blog/BlogPostsHero";
 import BlogPostFilter from "@components/blog/BlogPostFilter";
 import BlogCard from "@components/blog/BlogCard";
 import Link from "next/link";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
 const Page = () => {
     const [isReady, setIsReady] = useState(false);

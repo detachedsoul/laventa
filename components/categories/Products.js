@@ -1,15 +1,49 @@
 import ProductListings from "@components/ProductListings";
+import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
 import newArrivals from "@data/new-arrivals";
 import Link from "next/link";
-import formartAmountSum from "@helpers/formartAmountSum";
+import { Suspense } from "react";
 
-const Products = () => {
+const fetchProducts = async () => {
+	const endpoint = "products?populate=*";
+	const url = process.env.NEXT_PUBLIC_API_URL + endpoint;
+	const req = await fetch(`${url}`);
+
+	if (!req.ok) {
+		return `There was an error fetching the requested resource. Please make sure that the API endpoint ${url} is correct.`;
+	} else {
+		const { data } = await req.json();
+
+		return data;
+	}
+};
+
+const Products = async () => {
+    const productsArr = await fetchProducts();
+
     return (
         <section className="space-y-4">
             <div className="grid gap-8 pb-8 lg:grid-cols-3 border-b border-slate-200 dark:border-brand-light-black">
-                { newArrivals.map((product, index) => (
-                    <ProductListings product={ product } key={ index } />
-                )) }
+                <Suspense fallback={<ProductsLoadingSkeleton />}>
+                    {typeof productsArr !== "string" ?
+                        productsArr.length > 0 ? productsArr.map((products) => (
+                                <ProductListings
+                                    id={products.id}
+                                    product={products.attributes}
+                                    key={products.id}
+                                />
+                            ))
+                        : (
+                            <p className="font-bold text-center text-xl mx-auto">
+                                There are no products available yet. Please check
+                                back at a later time.
+                            </p>
+                        ) : (
+                        <p className="font-bold text-brand-red text-center mx-auto md:w-1/2 dark:text-rose-500">
+                            {productsArr}
+                        </p>
+                    )}
+                </Suspense>
             </div>
 
             <div className="flex justify-between gap-4 items-center flex-wrap">

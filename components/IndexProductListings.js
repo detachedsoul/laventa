@@ -10,7 +10,7 @@ const fetchProducts = async () => {
 	const req = await fetch(`${url}`);
 
 	if (!req.ok) {
-		return `There was an error fetching the requested resource. Please make sure that the API endpoint ${endpoint} is correct.`;
+		return `There was an error fetching the requested resource. Please make sure that the API endpoint ${url} is correct.`;
 	} else {
 		const { data } = await req.json();
 

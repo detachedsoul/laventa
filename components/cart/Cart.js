@@ -9,7 +9,6 @@ const Checkout = () => {
 	const totalCartProducts = useCart((state) => state.cart.length);
 	const clearCart = useCart((state) => state.clearCart);
 	const cartProducts = useCart((state) => state.cart);
-	// const totalProductsPrice = useCart((state) => state.cartTotal);
 	const removeFromCart = useCart((state) => state.removeFromCart);
 
 	const getPriceTotal = cartProducts.reduce((accumulator, currentValue) => accumulator + currentValue.product.currentPrice, 0);
