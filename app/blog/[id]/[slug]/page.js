@@ -1,10 +1,8 @@
 import BlogPostHero from "@components/blog/individual-blog-post/BlogPostHero";
 import BlogPost from "@components/blog/individual-blog-post/BlogPost";
 
-const Page = async ({params: { id, slug }}) => {
+const Page = async ({params: { id }}) => {
 	const articleId = id.toString();
-
-	console.log(articleId, typeof articleId, "Hello world")
 
 	const endpoint = `articles/${articleId}?populate=*`;
 	const url = process.env.NEXT_PUBLIC_API_URL + endpoint;
@@ -38,8 +36,6 @@ export const generateStaticParams = async () => {
 	}
 
 	const { data } = await res.json();
-
-	console.log(data);
 
 	const blogPostDetails = data.map((blogDetails) => ({
 		id: blogDetails.id.toString(),

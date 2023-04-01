@@ -1,7 +1,7 @@
 const Head = () => {
     return (
         <>
-            <title>Laventa | Laptops</title>
+            <title>Laventa | Product Categories</title>
             <meta name="description" content="View products of different categories" />
         </>
     );

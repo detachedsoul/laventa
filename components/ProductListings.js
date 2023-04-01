@@ -16,7 +16,6 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 	};
 
 	const addtoCart = useCart((state) => state.addToCart);
-	const cartContents = useCart((state) => state.cart);
 
 	return (
 		<>

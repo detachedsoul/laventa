@@ -55,7 +55,7 @@ const ScrollIndicator = ({
 		<span
 			className={`rounded-full block transition-all ease-linear duration-300 cursor-pointer ${
 				currentSlide === index + 1
-					? "px-5 bg-brand-red lg:py-1"
+					? "px-5 bg-brand-red py-1"
 					: "p-1 bg-gray-500"
 			}`}
 			onClick={() => slide(index + 1)}
