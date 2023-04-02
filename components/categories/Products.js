@@ -1,6 +1,5 @@
 import ProductListings from "@components/ProductListings";
 import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
-import newArrivals from "@data/new-arrivals";
 import Link from "next/link";
 import { Suspense } from "react";
 

@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 
 const CategoryFilter = () => {
@@ -17,7 +18,7 @@ const CategoryFilter = () => {
 
             <div className="bg-white text-slate-900 p-[3%] mx-[3%] rounded-lg z-30 shadow-card relative grid">
                 <div className="grid gap-4 lg:grid-cols-12">
-                    <button className={ `border border-slate-200 rounded-md py-2.5 px-3 transition-colors duration-200 ease-in-out lg:col-span-2 lg:py-2 hover:bg-brand-red hover:text-white ${filterIsOpen ? 'bg-brand-red text-white' : ''}`} type="button" onClick={ handleFilterToggle }>
+                    <button className={ `border border-slate-200 rounded-md py-2.5 px-3 transition-colors duration-200 ease-in-out lg:col-span-2 lg:py-2 hover:bg-brand-red hover:text-white ${filterIsOpen && 'bg-brand-red text-white'}`} type="button" onClick={ handleFilterToggle }>
                         <i className="fr fi-rr-filters text-base top-0.5 pr-1"></i>
                         Filters
                     </button>
