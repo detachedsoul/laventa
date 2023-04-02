@@ -1,11 +1,22 @@
-"use client";
-
 import BlogCard from "@components/blog/BlogCard";
 import Link from "next/link";
-import useFetch from "@helpers/useFetch";
 
-const IndexBlog = () => {
-	const blogPosts = useFetch(`articles?populate=*`);
+const fetchArticles = async () => {
+	const endpoint = "articles?populate=*";
+	const url = process.env.NEXT_PUBLIC_API_URL + endpoint;
+	const req = await fetch(`${url}`);
+
+	if (!req.ok) {
+		return `There was an error fetching the requested resource. Please make sure that the API endpoint ${url} is correct.`;
+	} else {
+		const { data } = await req.json();
+
+		return data;
+	}
+};
+
+const IndexBlog = async () => {
+	const blogPosts = await fetchArticles();
 
 	return (
 		<section className="flex flex-col gap-12">

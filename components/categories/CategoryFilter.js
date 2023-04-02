@@ -23,15 +23,10 @@ const CategoryFilter = () => {
                         Filters
                     </button>
 
-                    <form className="flex flex-nowrap border border-slate-200 rounded-lg focus-within:border-brand-dark-rose/[0.2] lg:col-span-7" method="POST">
+                    <form className="flex flex-nowrap border border-slate-200 rounded-lg focus-within:border-brand-dark-rose/[0.2] lg:col-span-7">
                         <label className="py-0.5 px-1 w-full" htmlFor="search">
-                            <input className="bg-white py-2.5 input-form w-full lg:py-2" type="search" id="search" placeholder="Search collection"
-                                required />
+                            <input className="bg-white py-2.5 input-form w-full lg:py-2" type="search" id="search" placeholder="Search collection" />
                         </label>
-
-                        <button className="px-3" type="submit">
-                            <i className="fr fi-rr-search top-0.5 text-base"></i>
-                        </button>
                     </form>
 
                     <div className="items-center lg:col-span-3 lg:grid lg:grid-cols-3">
@@ -39,7 +34,7 @@ const CategoryFilter = () => {
                             Sort by:
                         </span>
 
-                        <select className="select dark:focus:ring-slate-200 dark:focus:ring-offset-white dark:bg-white dark:text-slate-900 dark:border-slate-200 w-full py-2.5 lg:col-span-2 lg:py-2" aria-describedby="sort-by">
+                        <select className="select dark:focus:ring-slate-200 dark:focus:ring-offset-white dark:bg-white dark:text-slate-900 dark:border-slate-200 w-full py-2.5 lg:col-span-2 lg:py-2" aria-describedby="sort-by" onChange={(e) => console.log(e.target.value, e)}>
                             <option value="Newest">
                                 Newest
                             </option>

@@ -31,7 +31,6 @@ const BlogPostFilter = () => {
 
 					<form
 						className="flex flex-nowrap border border-slate-200 rounded-lg focus-within:border-brand-dark-rose/[0.2] lg:col-span-6"
-						method="POST"
 					>
 						<label
 							className="py-0.5 px-1 w-full"
@@ -42,16 +41,8 @@ const BlogPostFilter = () => {
 								type="search"
 								id="search"
 								placeholder="Search for blog posts"
-								required
 							/>
 						</label>
-
-						<button
-							className="px-3"
-							type="submit"
-						>
-							<i className="fr fi-rr-search top-0.5 text-base"></i>
-						</button>
 					</form>
 
 					<div className="items-center lg:col-span-3 lg:grid lg:grid-cols-3">

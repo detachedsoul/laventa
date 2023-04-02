@@ -1,19 +1,24 @@
-"use client";
-
-import useFetch from "@helpers/useFetch";
 import BlogPostsHero from "@components/blog/BlogPostsHero";
 import BlogPostFilter from "@components/blog/BlogPostFilter";
 import BlogCard from "@components/blog/BlogCard";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
-const Page = () => {
-    const [isReady, setIsReady] = useState(false);
-    const blogPosts = useFetch(`articles?populate=*`);
+const fetchArticles = async () => {
+	const endpoint = "articles?populate=*";
+	const url = process.env.NEXT_PUBLIC_API_URL + endpoint;
+	const req = await fetch(`${url}`);
 
-    useEffect(() => {
-        setIsReady(() => true);
-    }, []);
+	if (!req.ok) {
+		return `There was an error fetching the requested resource. Please make sure that the API endpoint ${url} is correct.`;
+	} else {
+		const { data } = await req.json();
+
+		return data;
+	}
+};
+
+const Page = async () => {
+    const blogPosts = await fetchArticles();
 
     return (
 		<>
@@ -21,7 +26,7 @@ const Page = () => {
 			<BlogPostFilter />
             <main className="space-y-20 py-12 px-[3%]">
                 <section className="space-y-4">
-                    {isReady && typeof blogPosts !== "string" ? (
+                    {typeof blogPosts !== "string" ? (
                         blogPosts.length > 0 ? (
                                 <>
                                     <div className="grid gap-8 pb-8 lg:grid-cols-3 border-b border-slate-200 dark:border-brand-light-black">
