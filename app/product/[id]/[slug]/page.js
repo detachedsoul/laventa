@@ -17,8 +17,8 @@ const Page = async ({ params: { id }}) => {
 		<>
 			<ProductDetailsHero productDetails={ data } />
 
-			<main className="space-y-20 py-12">
-				<ProductDetails product={ data } />
+			<main className="py-12">
+				<ProductDetails product={ data } id={ productId } />
 			</main>
 		</>
 	);

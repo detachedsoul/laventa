@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-const CategoryHero = () => {
+const CategoryHero = ({categoryName}) => {
     return (
 		<div className="flex flex-wrap justify-between gap-6 items-center px-[3%] py-12 bg-brand-red text-white">
 			<h1 className="header text-2xl">
-				Catalog of Products Under Laptop Category
+				Catalog of Products Under {categoryName} Category
 			</h1>
 
 			<div className="flex items-center gap-x-2 gap-y-3 flex-wrap">
@@ -22,7 +22,7 @@ const CategoryHero = () => {
 
 				<i className="fr fi-rr-angle-right text-base"></i>
 
-				<span>Laptops</span>
+				<span>{categoryName}</span>
 			</div>
 		</div>
 	);
