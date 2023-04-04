@@ -9,13 +9,16 @@ import useFetch from "@helpers/useFetch";
 
 const fetchProducts = async (url) => {
 	const res = await fetch(url);
+
 	const data = await res.json();
 
 	return data;
+
 };
 
 const fetchCategoryName = async (url) => {
 	const res = await fetch(url);
+
 	const {data} = await res.json();
 
 	return data;
@@ -34,11 +37,6 @@ const Page = ({params: {category}}) => {
 		`${process.env.NEXT_PUBLIC_API_URL}categories/${categoryName}`,
 		fetchCategoryName
 	).error;
-
-	const categoryIsLoading = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}categories/${categoryName}`,
-		fetchCategoryName
-	).isLoading;
 
 	// Fetch products thats fall under the specified category
 	const page = usePaginate((state) => state.page);
@@ -74,7 +72,7 @@ const Page = ({params: {category}}) => {
 			<main className="space-y-20 py-12 px-[3%]">
 				{isLoading ? (
 					<ProductsLoadingSkeleton />
-				) : productsArr.data.length > 0 ? (
+				) : productsArr?.data?.length > 0 ? (
 					<Products
 						productData={productsArr}
 						page={page}

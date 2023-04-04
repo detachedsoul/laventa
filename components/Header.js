@@ -9,8 +9,18 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import useFetch from "@helpers/useFetch";
 
+const fetchCategories = async (url) => {
+	const res = await fetch(url);
+
+	const { data } = await res.json();
+
+	return data;
+};
+
 const Header = () => {
-	const categories = useFetch("categories?populate=categoryImage");
+	const categories = useFetch(`${process.env.NEXT_PUBLIC_API_URL}categories?populate=categoryImage`, fetchCategories).data;
+	const isLoading = useFetch(`${process.env.NEXT_PUBLIC_API_URL}categories?populate=categoryImage`, fetchCategories).isLoading;
+	const error = useFetch(`${process.env.NEXT_PUBLIC_API_URL}categories?populate=categoryImage`, fetchCategories).error;
 
 	const pathname = usePathname();
 	const [isOpen, setIsOpen] = useState(false);
@@ -167,19 +177,25 @@ const Header = () => {
 											Categories
 										</h3>
 
-										{ typeof categories !== "string" ? (
-											categories.length > 0 ? (
-												<DropdownLinks categories={categories} />
-											) : (
+										<DropdownLinks
+											categories={categories} error={error} isLoading={isLoading}
+										/>
+
+										{/* {categories &&
+											categories.length > 0 && (
 												<p>
-													There are no product category yet. Please check back at a later time.
+													There are no product
+													category yet. Please check
+													back at a later time.
 												</p>
 											)
-										) : (
+										} */}
+
+										{/* {error && (
 											<p className="font-bold text-brand-red dark:text-rose-500">
-												{ categories }
+												There was an error fetching categories.
 											</p>
-										) }
+										)} */}
 									</div>
 								</>
 							) : (

@@ -15,10 +15,23 @@ const fetchCategories = async () => {
 	}
 };
 
-const DropdownLinks = ({ categories }) => {
+const DropdownLinks = ({ categories, error, isLoading }) => {
+
+	if (isLoading) {
+		return <p>Loading...</p>;
+	}
+
+	if (error) {
+		return (
+			<p className="font-bold text-brand-red dark:text-rose-500">
+				There was an error fetching categories.
+			</p>
+		);
+	}
+
 	return (
 		<ul className="flex flex-col gap-4 lg:grid lg:grid-cols-2">
-			{categories.map((category) => (
+			{categories.length > 0 ? categories.map((category) => (
 				<li key={category.id}>
 					<Link
 						className="grid grid-cols-12 gap-4 items-start w-full transition-all ease-linear rounded-lg p-4 lg:gap-3 hover:bg-brand-light-black/80 dark:hover:text-white group"
@@ -47,7 +60,13 @@ const DropdownLinks = ({ categories }) => {
 						</div>
 					</Link>
 				</li>
-			))}
+			)) : (
+				<p>
+					There are no product
+					category yet. Please check
+					back at a later time.
+				</p>
+			)}
 		</ul>
 	);
 };
