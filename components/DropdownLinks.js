@@ -19,8 +19,6 @@ const DropdownLinks = ({ categories, error, isLoading }) => {
 		);
 	}
 
-	console.log(typeof error, categories)
-
 	return (
 		<ul
 			className={`flex flex-col gap-4 lg:grid md:grid-cols-2 ${typeof categories === null && 'md:grid-cols-1'}`}

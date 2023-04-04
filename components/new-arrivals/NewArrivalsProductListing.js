@@ -2,8 +2,13 @@
 
 import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
 import ProductListings from "@components/ProductListings";
-import NewArrivalsScrollIndicator from "@components/new-arrivals/NewArrivalsScrollIndicator";
+import dynamic from "next/dynamic";
 import useFetch from "@helpers/useFetch";
+
+const NewArrivalsScrollIndicator = dynamic(() =>
+    import("./NewArrivalsScrollIndicator"),
+    { ssr: false }
+);
 
 const fetchProducts = async (url) => {
 	const res = await fetch(url);

@@ -26,12 +26,12 @@ const IndexProductListings = () => {
 	).error;
 
 	const productsArr = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}productss?pagination[limit]=6&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?pagination[limit]=6&populate=*`,
 		fetcher,
 	).data;
 
 	const isLoading = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}productss?pagination[limit]=6&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?pagination[limit]=6&populate=*`,
 		fetcher,
 	).isLoading;
 
@@ -47,8 +47,6 @@ const IndexProductListings = () => {
 				again later.
 			</p>
 		);
-
-	console.log(error, categoryError)
 
 	return (
 		<section className="flex flex-col gap-12">

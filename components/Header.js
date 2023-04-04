@@ -18,9 +18,9 @@ const fetchCategories = async (url) => {
 };
 
 const Header = () => {
-	const categories = useFetch(`${process.env.NEXT_PUBLIC_API_URL}categoriess?populate=categoryImage`, fetchCategories).data;
-	const isLoading = useFetch(`${process.env.NEXT_PUBLIC_API_URL}categoriess?populate=categoryImage`, fetchCategories).isLoading;
-	const error = useFetch(`${process.env.NEXT_PUBLIC_API_URL}categoriess?populate=categoryImage`, fetchCategories).error;
+	const categories = useFetch(`${process.env.NEXT_PUBLIC_API_URL}categories?populate=categoryImage`, fetchCategories).data;
+	const isLoading = useFetch(`${process.env.NEXT_PUBLIC_API_URL}categories?populate=categoryImage`, fetchCategories).isLoading;
+	const error = useFetch(`${process.env.NEXT_PUBLIC_API_URL}categories?populate=categoryImage`, fetchCategories).error;
 
 	const pathname = usePathname();
 	const [isOpen, setIsOpen] = useState(false);
