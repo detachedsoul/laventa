@@ -1,75 +1,83 @@
+"use client";
+
 import Link from "next/link";
 import ProductListings from "@components/ProductListings";
 import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
 import IndexProductCategorySort from "@components/products/IndexProductCategorySort";
-import { Suspense } from "react";
+import useFetch from "@helpers/useFetch";
 
-const fetchProducts = async () => {
-	const endpoint = "products?populate=*";
-	const url = process.env.NEXT_PUBLIC_API_URL + endpoint;
-	const req = await fetch(`${url}`);
+const fetcher = async (url) => {
+	const res = await fetch(url);
 
-	if (!req.ok) {
-		return `There was an error fetching the requested resource. Please make sure that the API endpoint ${url} is correct.`;
-	} else {
-		const { data } = await req.json();
+	const {data} = await res.json();
 
-		return data;
-	}
+	return data;
 };
 
-const fetchCategories = async () => {
-	const endpoint = "categories";
-	const url = process.env.NEXT_PUBLIC_API_URL + endpoint;
-	const req = await fetch(`${url}`);
+const IndexProductListings = () => {
+	const categories = useFetch(
+		`${process.env.NEXT_PUBLIC_API_URL}categories`,
+		fetcher,
+	).data;
 
-	if (!req.ok) {
-		return `There was an error fetching the requested resource. Please make sure that the API endpoint ${endpoint} is correct.`;
-	} else {
-		const { data } = await req.json();
+	const categoryError = useFetch(
+		`${process.env.NEXT_PUBLIC_API_URL}categories`,
+		fetcher,
+	).error;
 
-		return data;
-	}
-};
+	const productsArr = useFetch(
+		`${process.env.NEXT_PUBLIC_API_URL}productss?pagination[limit]=6&populate=*`,
+		fetcher,
+	).data;
 
-const IndexProductListings = async () => {
-	const productsArr = await fetchProducts();
-	const categories = await fetchCategories();
+	const isLoading = useFetch(
+		`${process.env.NEXT_PUBLIC_API_URL}productss?pagination[limit]=6&populate=*`,
+		fetcher,
+	).isLoading;
+
+	const error = useFetch(
+		`${process.env.NEXT_PUBLIC_API_URL}products?pagination[limit]=6&populate=*`,
+		fetcher,
+	).error;
+
+	if (error || categoryError)
+		return (
+			<p className="px-[3%] font-bold text-center text-brand-red dark:text-rose-500 text-xl mx-auto md:w-1/2 py-12">
+				There was an error fetching the requested resource. Please try
+				again later.
+			</p>
+		);
+
+	console.log(error, categoryError)
 
 	return (
 		<section className="flex flex-col gap-12">
 			<div className="flex flex-wrap items-center gap-4 pb-4 justify-between border-b border-slate-200 dark:border-slate-100/[0.06]">
 				<h2 className="header text-3xl lg:text-4xl">Explore More</h2>
 
-				<IndexProductCategorySort categories={categories} />
+				{!isLoading && categories?.length > 0 && <IndexProductCategorySort categories={categories} />}
 			</div>
 
-			<Suspense fallback={<ProductsLoadingSkeleton />}>
-				{typeof productsArr !== "string" ? (
-					productsArr.length > 0 ? (
-						<div className="grid gap-8 lg:grid-cols-3">
-							{productsArr.map((products) => (
-								<ProductListings
-									id={products.id}
-									product={products.attributes}
-									key={products.id}
-								/>
-							))}
-						</div>
-					) : (
-						<p className="font-bold text-center text-xl mx-auto">
-							There are no products available yet. Please check
-							back at a later time.
-						</p>
-					)
+			{isLoading ? (
+					<ProductsLoadingSkeleton />
+				) : productsArr?.length > 0 ? (
+					<div className="grid gap-8 lg:grid-cols-3">
+						{productsArr.map((products) => (
+							<ProductListings
+								id={products.id}
+								product={products.attributes}
+								key={products.id}
+							/>
+						))}
+					</div>
 				) : (
-					<p className="font-bold text-brand-red text-center mx-auto md:w-1/2 dark:text-rose-500">
-						{productsArr}
+					<p className="font-bold text-center text-xl mx-auto md:w-1/2">
+						There are no products available yet. Please check
+							back at a later time.
 					</p>
 				)}
-			</Suspense>
 
-			{typeof productsArr !== "string" && productsArr.length > 0 && (
+			{!isLoading && productsArr?.length > 0 && (
 				<div className="grid place-content-center">
 					<Link
 						className="view-more-btn group"

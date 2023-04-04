@@ -59,7 +59,7 @@ const Page = ({params: {category}}) => {
     const prevPage = usePaginate((state) => state.prevPage);
     const toPage = usePaginate((state) => state.toPage);
 
-	if (productsError || categoryError) return <p className="px-[3%] font-bold text-center text-xl mx-auto md:w-1/2 py-12">There was an error fetching the requested resource. Please try again later.</p>
+	if (productsError || categoryError) return <p className="px-[3%] font-bold text-center text-xl text-brand-red dark:text-rose-500 mx-auto md:w-1/2 py-12">There was an error fetching the requested resource. Please try again later.</p>
 
     return (
 		<>

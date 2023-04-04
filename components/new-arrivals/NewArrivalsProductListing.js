@@ -1,66 +1,72 @@
+"use client";
+
 import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
 import ProductListings from "@components/ProductListings";
-import { Suspense } from "react";
-import dynamic from "next/dynamic";
+import NewArrivalsScrollIndicator from "@components/new-arrivals/NewArrivalsScrollIndicator";
+import useFetch from "@helpers/useFetch";
 
-const NewArrivalsScrollIndicator = dynamic(() =>
-    import("./NewArrivalsScrollIndicator"),
-    { ssr: false }
-);
+const fetchProducts = async (url) => {
+	const res = await fetch(url);
 
-const fetchData = async () => {
-	const endpoint = "products?populate=*";
-	const url = process.env.NEXT_PUBLIC_API_URL + endpoint;
-	const req = await fetch(`${url}`);
+	const {data} = await res.json();
 
-	if (!req.ok) {
-		return `There was an error fetching the requested resource. Please make sure that the API endpoint ${url} is correct.`;
-	} else {
-		const { data } = await req.json();
-
-		return data;
-	}
+	return data;
 };
 
-const NewArrivalsProductListing = async () => {
-    const data = await fetchData();
+const NewArrivalsProductListing = () => {
+    const data = useFetch(
+		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3Adesc&pagination[limit]=6&populate=*`,
+		fetchProducts,
+	).data;
+
+	const isLoading = useFetch(
+		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3Adesc&pagination[limit]=6&populate=*`,
+		fetchProducts,
+	).isLoading;
+
+	const error = useFetch(
+		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3Adesc&pagination[limit]=6&populate=*`,
+		fetchProducts,
+	).error;
+
+	if (error)
+		return (
+			<p className="px-[3%] font-bold text-brand-red dark:text-rose-500 text-center text-xl mx-auto md:w-1/2 py-12">
+				There was an error fetching the requested resource. Please try
+				again later.
+			</p>
+		);
 
     return (
 		<>
-			<Suspense fallback={<ProductsLoadingSkeleton />}>
-				{typeof data !== "string" ? (
-					data?.length > 0 ? (
-						<div
-							className="flex gap-8 items-stretch overflow-y-auto custom-scrollbar snap-x snap-mandatory scroll-smooth min-w-full"
-							id="new-arrivals-content-container"
-						>
-							{data.map((products) => (
-								<div
-									className="min-w-full snap-always lg:min-w-[calc(33.3333333%-1.34rem)] snap-center"
-									key={products.id}
-								>
-									<ProductListings
-										id={products.id}
-										product={products.attributes}
-										isNewArrival={true}
-									/>
-								</div>
-							))}
-						</div>
-					) : (
-						<p className="font-bold text-center text-xl mx-auto">
-							There are no products available yet. Please check
-							back at a later time.
-						</p>
-					)
+			{isLoading ? (
+					<ProductsLoadingSkeleton />
+				) : data?.length > 0 ? (
+					<div
+						className="flex gap-8 items-stretch overflow-y-auto custom-scrollbar snap-x snap-mandatory scroll-smooth min-w-full"
+						id="new-arrivals-content-container"
+					>
+						{data.map((products) => (
+							<div
+								className="min-w-full snap-always lg:min-w-[calc(33.3333333%-1.34rem)] snap-center"
+								key={products.id}
+							>
+								<ProductListings
+									id={products.id}
+									product={products.attributes}
+									isNewArrival={true}
+								/>
+							</div>
+						))}
+					</div>
 				) : (
-					<p className="font-bold text-brand-red text-center mx-auto md:w-1/2">
-						{data}
+					<p className="font-bold text-center text-xl mx-auto md:w-1/2">
+						There are no products available yet. Please check
+							back at a later time.
 					</p>
 				)}
-			</Suspense>
 
-            {typeof data !== "string" && data.length > 0 && (
+            {!isLoading && data?.length > 0 && (
                 <NewArrivalsScrollIndicator data={data} />
             )}
 		</>

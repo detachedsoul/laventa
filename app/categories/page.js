@@ -39,7 +39,7 @@ const Page = () => {
 
 	if (productsError)
 		return (
-			<p className="px-[3%] font-bold text-center text-xl mx-auto md:w-1/2 py-12">
+			<p className="px-[3%] font-bold text-center text-brand-red dark:text-rose-500 text-xl mx-auto md:w-1/2 py-12">
 				There was an error fetching the requested resource. Please try
 				again later.
 			</p>
