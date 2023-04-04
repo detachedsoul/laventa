@@ -25,6 +25,23 @@
         @apply appearance-none
     }
 
+    /* Remove number increment and decrement from number input field in Chrome, Safari, Edge, Opera */
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button:hover,
+    input[type="number"]::-webkit-outer-spin-button:focus,
+    input[type="number"]::-webkit-inner-spin-button:hover,
+    input[type="number"]::-webkit-inner-spin-button:focus {
+        @apply appearance-none m-0
+    }
+
+    /* Remove number increment and decrement from number input field in Firefox */
+    input[type="number"],
+    input[type="number"]:hover,
+    input[type="number"]:focus {
+        -moz-appearance: textfield;
+    }
+
     .select {
         @apply form-select focus:ring-1 focus:ring-slate-200 focus:ring-offset-2 border border-slate-200 rounded-md focus:border-slate-200 focus:ring-offset-white dark:focus:ring-brand-light-black dark:border-slate-100/[0.06] dark:ring-offset-brand-black dark:bg-brand-light-black
     }

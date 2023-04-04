@@ -1,92 +1,85 @@
-import ProductListings from "@components/ProductListings";
-import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
-import Link from "next/link";
-import { Suspense } from "react";
+"use client";
 
-const Products = async ({productData}) => {
+import ProductListings from "@components/ProductListings";
+
+const Products = ({productData, page, nextPage, prevPage, toPage}) => {
+    const { data } = productData;
+    const { meta } = productData;
+
     return (
 		<section className="space-y-4">
-			<div
-				className={`grid gap-8 pb-8 border-b border-slate-200 dark:border-brand-light-black ${
-					typeof productData === "string" && productData.length < 1 || typeof productData === "string" && productData.length > 0
-						? "grid-cols-1 md:grid-cols-2"
-						: "lg:grid-cols-3"
-				}`}
-			>
-				<Suspense fallback={<ProductsLoadingSkeleton />}>
-					{typeof productData !== "string" ? (
-						productData.length > 0 ? (
-							productData.map((products) => (
-								<ProductListings
-									id={products.id}
-									product={products.attributes}
-									key={products.id}
-								/>
-							))
-						) : (
-							<p className="font-bold text-center text-xl mx-auto">
-								There are no products available yet. Please
-								check back at a later time.
-							</p>
-						)
-					) : (
-						<p className="font-bold text-brand-red text-center mx-auto md:w-1/2 dark:text-rose-500">
-							{productData}
-						</p>
-					)}
-				</Suspense>
+			<div className="grid gap-8 pb-8 border-b border-slate-200 dark:border-brand-light-black md:grid-cols-2 lg:grid-cols-3">
+				{data.map((products) => (
+					<ProductListings
+						id={products.id}
+						product={products.attributes}
+						key={products.id}
+					/>
+				))}
 			</div>
 
 			<div className="flex justify-between gap-4 items-center flex-wrap">
-				<Link
-					className="flex items-center gap-1 py-1 px-3 rounded-md hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white"
-					href="/"
+				<button
+					className={`flex items-center gap-1 py-1 px-3 rounded-md hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white ${
+						page === 1 &&
+						"bg-slate-200 pointer-events-none dark:bg-brand-light-black dark:text-white"
+					}`}
+					type="button"
+					disabled={page === 1 ? true : false}
+					onClick={() => {
+						prevPage();
+					}}
 				>
 					<i className="fr fi-rr-angle-left text-base top-[0.20rem]"></i>
 					<span className="hidden lg:inline">Prev</span>
-				</Link>
+				</button>
 
 				<div className="flex gap-1 items-center">
-					<Link
-						className="flex items-center gap-1 py-1 px-3 rounded-md bg-brand-red text-white pointer-events-none hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white"
-						href="/"
+					<button
+						className="flex items-center gap-1 py-1 px-3 mx-2 rounded-md pointer-events-none bg-brand-red text-white"
 					>
-						1
-					</Link>
+						{ page }
+					</button>
 
-					<Link
-						className="flex items-center gap-1 py-1 px-3 rounded-md hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white"
-						href="/"
+					<div className="w-20 text-center space-y-0.5">
+						<span className="text-center block">
+							of
+						</span>
+
+						<label className="block border border-slate-200 focus-within:border-brand-dark-rose/[0.2] rounded" htmlFor="jump-to-page">
+							<input className="input-form text-slate-900 py-1 rounded w-full" type="number" max={ meta.pagination.pageCount } min={meta.pagination.pageCount} placeholder="Jump to page" pattern="[0-9]{*}" id="jump-to-page" onChange={ (e) => {
+								if (
+									Number(e.target.value) > meta.pagination.pageCount || isNaN(e.target.value) || e.target.value === ""
+								) {
+									return;
+								}
+
+								toPage(Number(e.target.value));
+							}} />
+						</label>
+					</div>
+
+					<p
+						className="flex items-center gap-1 py-1 px-2 rounded-md  pointer-events-none select-none"
 					>
-						2
-					</Link>
-
-					<span className="flex items-center gap-2 font-bold pointer-events-none select-none">
-						&bull; &bull; &bull;
-					</span>
-
-					<Link
-						className="flex items-center gap-1 py-1 px-3 rounded-md hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white"
-						href="/"
-					>
-						4
-					</Link>
-
-					<Link
-						className="flex items-center gap-1 py-1 px-3 rounded-md hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white"
-						href="/"
-					>
-						5
-					</Link>
+						{meta.pagination.pageCount}
+					</p>
 				</div>
 
-				<Link
-					className="flex items-center gap-1 py-1 px-3 rounded-md hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white"
-					href=""
+				<button
+					className={`flex items-center gap-1 py-1 px-3 rounded-md hover:bg-slate-200 dark:hover:bg-brand-light-black dark:hover:text-white ${
+						page === meta.pagination.pageCount &&
+						"bg-slate-200 pointer-events-none dark:bg-brand-light-black dark:text-white"
+					}`}
+					type="button"
+					onClick={(e) => {
+						nextPage();
+					}}
+					disabled={page === meta.pagination.pageCount ? true : false}
 				>
 					<span className="hidden lg:inline">Next</span>
 					<i className="fr fi-rr-angle-right text-base top-[0.20rem]"></i>
-				</Link>
+				</button>
 			</div>
 		</section>
 	);
