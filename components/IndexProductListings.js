@@ -5,6 +5,7 @@ import ProductListings from "@components/ProductListings";
 import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
 import IndexProductCategorySort from "@components/products/IndexProductCategorySort";
 import useFetch from "@helpers/useFetch";
+import useFilterCategory from "@store/useFilterCategory";
 
 const fetcher = async (url) => {
 	const res = await fetch(url);
@@ -15,6 +16,12 @@ const fetcher = async (url) => {
 };
 
 const IndexProductListings = () => {
+	const filter = useFilterCategory((state) => state.filter);
+
+	const setFilterValue = useFilterCategory((state) => state.setFilter);
+
+	// setFilterValue('products?pagination[limit]=6&populate=*');
+
 	const categories = useFetch(
 		`${process.env.NEXT_PUBLIC_API_URL}categories`,
 		fetcher,
@@ -26,17 +33,17 @@ const IndexProductListings = () => {
 	).error;
 
 	const productsArr = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?pagination[limit]=6&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}${filter}`,
 		fetcher,
 	).data;
 
 	const isLoading = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?pagination[limit]=6&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}${filter}`,
 		fetcher,
 	).isLoading;
 
 	const error = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?pagination[limit]=6&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}${filter}`,
 		fetcher,
 	).error;
 
@@ -53,7 +60,7 @@ const IndexProductListings = () => {
 			<div className="flex flex-wrap items-center gap-4 pb-4 justify-between border-b border-slate-200 dark:border-slate-100/[0.06]">
 				<h2 className="header text-3xl lg:text-4xl">Explore More</h2>
 
-				{!isLoading && categories?.length > 0 && <IndexProductCategorySort categories={categories} />}
+				{!isLoading && categories?.length > 0 && <IndexProductCategorySort categories={categories} setFilter={setFilterValue} />}
 			</div>
 
 			{isLoading ? (

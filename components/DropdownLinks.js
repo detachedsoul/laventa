@@ -4,24 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const DropdownLinks = ({ categories, error, isLoading }) => {
+const DropdownLinks = ({ categories }) => {
 	const pathname = usePathname();
-
-	if (isLoading) {
-		return <p>Loading...</p>;
-	}
-
-	if (error) {
-		return (
-			<p className="font-bold text-brand-red dark:text-rose-500 mx-auto md:w-1/2">
-				There was an error fetching categories.
-			</p>
-		);
-	}
 
 	return (
 		<ul
-			className={`flex flex-col gap-4 lg:grid md:grid-cols-2 ${typeof categories === null && 'md:grid-cols-1'}`}
+			className="flex flex-col gap-4 md:grid md:grid-cols-2"
 		>
 			{categories?.length > 0 ? (
 				categories.map((category) => (
@@ -65,8 +53,8 @@ const DropdownLinks = ({ categories, error, isLoading }) => {
 					</li>
 				))
 			) : (
-				<p className="font-bold text-center md:w-1/2 md:mx-auto">
-					There are no product category yet. Please check back at a
+				<p className="font-bold">
+					There is no product category yet. Please check back at a
 					later time.
 				</p>
 			)}

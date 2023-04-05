@@ -2,6 +2,7 @@
 
 import Logo from "@assets/img/logo.svg";
 import DropdownLinks from "@components/DropdownLinks";
+import DropdownLoadingSkeleton from "@components/DropdownLoadingSkeleton";
 import Image from "next/image";
 import Link from "next/link";
 import links from "@data/links";
@@ -177,9 +178,20 @@ const Header = () => {
 											Categories
 										</h3>
 
-										<DropdownLinks
-											categories={categories} error={error} isLoading={isLoading}
-										/>
+										{isLoading && <DropdownLoadingSkeleton />}
+
+										{error && (
+												<p className="font-bold text-brand-red dark:text-rose-500 mx-auto md:w-1/2">
+													There was an error fetching categories.
+												</p>
+											)
+										}
+
+										{!error && !isLoading && (
+											<DropdownLinks
+												categories={categories}
+											/>
+										)}
 									</div>
 								</>
 							) : (

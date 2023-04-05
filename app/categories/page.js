@@ -16,7 +16,7 @@ const fetchProducts = async (url) => {
 };
 
 const Page = () => {
-	// Fetch products thats fall under the specified category
+	// Fetch products for all categories
 	const page = usePaginate((state) => state.page);
 	const productsArr = useFetch(
 		`${process.env.NEXT_PUBLIC_API_URL}products?pagination[pageSize]=3&pagination[page]=${page}&populate=*`,
