@@ -3,7 +3,7 @@
 import BlogCard from "@components/blog/BlogCard";
 import Link from "next/link";
 import useFetch from "@helpers/useFetch";
-import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
+import BlogPostLoadingSkeleton from "@components/BlogPostLoadingSkeleton";
 
 const fetchArticles = async (url) => {
 	const res = await fetch(url);
@@ -29,7 +29,7 @@ const IndexBlog = () => {
 		fetchArticles,
 	).error;
 
-	if (isLoading) return <ProductsLoadingSkeleton />
+	if (isLoading) return <BlogPostLoadingSkeleton />
 
 	return (
 		<section className="flex flex-col gap-12">
