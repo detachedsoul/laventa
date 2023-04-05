@@ -1,22 +1,35 @@
+"use client";
+
 import BlogCard from "@components/blog/BlogCard";
 import Link from "next/link";
+import useFetch from "@helpers/useFetch";
+import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
 
-const fetchArticles = async () => {
-	const endpoint = "articles?populate=*";
-	const url = process.env.NEXT_PUBLIC_API_URL + endpoint;
-	const req = await fetch(`${url}`);
+const fetchArticles = async (url) => {
+	const res = await fetch(url);
 
-	if (!req.ok) {
-		return `There was an error fetching the requested resource. Please make sure that the API endpoint ${url} is correct.`;
-	} else {
-		const { data } = await req.json();
+	const {data} = await res.json();
 
-		return data;
-	}
+	return data;
 };
 
-const IndexBlog = async () => {
-	const blogPosts = await fetchArticles();
+const IndexBlog = () => {
+	const blogPosts = useFetch(
+		`${process.env.NEXT_PUBLIC_API_URL}articles?populate=*`,
+		fetchArticles,
+	).data;
+
+	const isLoading = useFetch(
+		`${process.env.NEXT_PUBLIC_API_URL}articles?populate=*`,
+		fetchArticles,
+	).isLoading;
+
+	const error = useFetch(
+		`${process.env.NEXT_PUBLIC_API_URL}articles?populate=*`,
+		fetchArticles,
+	).error;
+
+	if (isLoading) return <ProductsLoadingSkeleton />
 
 	return (
 		<section className="flex flex-col gap-12">
@@ -25,32 +38,32 @@ const IndexBlog = async () => {
 				<p>Latest store, fashion news and trends</p>
 			</div>
 
-			{typeof blogPosts !== "string" ? (
-				blogPosts.length > 0 ? (
-						<>
-							<div className="grid gap-8 lg:grid-cols-3">
-								<BlogCard blogPosts={blogPosts} />
-							</div>
+			{error && (
+				<p className="font-bold text-brand-red text-xl text-center mx-auto dark:text-rose-500">
+					There was an error fetching articles. Please try again later.
+				</p>
+			)}
 
-							<div className="grid place-content-center">
-								<Link
-									className="view-more-btn group"
-									href="/blog"
-								>
-									Read More Posts
-									<i className="fr fi-rr-arrow-right text-base top-[0.22rem] pl-0.5 group-hover:pl-1"></i>
-								</Link>
-							</div>
-						</>
-					) : (
-						<p className="font-bold text-center text-xl mx-auto">
-							There are no blog articles available yet. Please check
-							back at a later time.
-						</p>
-					)
+			{!isLoading && blogPosts?.length > 0 ? (
+				<>
+					<div className="grid gap-8 lg:grid-cols-3">
+						<BlogCard blogPosts={blogPosts} />
+					</div>
+
+					<div className="grid place-content-center">
+						<Link
+							className="view-more-btn group"
+							href="/blog"
+						>
+							Read More Posts
+							<i className="fr fi-rr-arrow-right text-base top-[0.22rem] pl-0.5 group-hover:pl-1"></i>
+						</Link>
+					</div>
+				</>
 			) : (
-				<p className="font-bold text-brand-red text-center mx-auto dark:text-rose-500 md:w-1/2">
-					{blogPosts}
+				<p className="font-bold text-center text-xl mx-auto">
+					There are no blog articles available yet. Please check
+					back at a later time.
 				</p>
 			)}
 		</section>

@@ -20,8 +20,6 @@ const IndexProductListings = () => {
 
 	const setFilterValue = useFilterCategory((state) => state.setFilter);
 
-	// setFilterValue('products?pagination[limit]=6&populate=*');
-
 	const categories = useFetch(
 		`${process.env.NEXT_PUBLIC_API_URL}categories`,
 		fetcher,
