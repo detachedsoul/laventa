@@ -5,7 +5,7 @@ import Image from "next/image";
 import paymentPlatforms from "@assets/img/cards-alt.png";
 import android from "@assets/img/download-android.svg";
 import iOS from "@assets/img/download-ios.svg";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 const Footer = () => {
 	const usefulLinks = [
@@ -51,11 +51,11 @@ const Footer = () => {
 
     const scrollToTopBtn = useRef(null);
 
-    if (typeof window !== "undefined") {
+    useEffect(() => {
         window.onscroll = () => {
             (document.documentElement.scrollTop >= 200 || document.body.scrollTop >= 200) ? scrollToTopBtn.current.classList.remove("translate-x-[calc(100%+1rem)]") : scrollToTopBtn.current.classList.add("translate-x-[calc(100%+1rem)]");
         }
-    }
+    }, []);
 
 	return (
 		<>

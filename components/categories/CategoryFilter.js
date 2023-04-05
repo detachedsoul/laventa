@@ -1,5 +1,6 @@
 "use client";
 
+import useFilterOrder from "@store/useFilterOrder";
 import { useState } from "react";
 
 const CategoryFilter = () => {
@@ -7,6 +8,26 @@ const CategoryFilter = () => {
 
     const handleFilterToggle = () => {
         setFilterOpen(() => !filterIsOpen);
+    };
+
+    const setOrder = useFilterOrder((state) => state.setOrder);
+    const currentOrder = useFilterOrder((state) => state.currentOrder);
+    const setCurrentOrder = useFilterOrder((state) => state.setCurrentOrder);
+    const order = useFilterOrder((state) => state.order);
+
+
+    const handleOrderChange = (e) => {
+        if (e.target.value === "Newest") {
+            setCurrentOrder(e.target.value);
+
+            setOrder("desc");
+        } else {
+            setCurrentOrder(e.target.value);
+
+            setOrder("asc");
+        }
+
+        console.log(e.target.value, currentOrder, order);
     };
 
     return (
@@ -34,7 +55,7 @@ const CategoryFilter = () => {
                             Sort by:
                         </span>
 
-                        <select className="select dark:focus:ring-slate-200 dark:focus:ring-offset-white dark:bg-white dark:text-slate-900 dark:border-slate-200 w-full py-2.5 lg:col-span-2 lg:py-2" aria-describedby="sort-by" onChange={(e) => console.log(e.target.value, e)}>
+                        <select className="select dark:focus:ring-slate-200 dark:focus:ring-offset-white dark:bg-white dark:text-slate-900 dark:border-slate-200 w-full py-2.5 lg:col-span-2 lg:py-2" aria-describedby="sort-by" value={currentOrder} onChange={(e) => handleOrderChange(e)}>
                             <option value="Newest">
                                 Newest
                             </option>

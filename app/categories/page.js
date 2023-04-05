@@ -5,6 +5,7 @@ import CategoryFilter from "@components/categories/CategoryFilter";
 import Products from "@components/categories/Products";
 import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
 import usePaginate from "@store/usePaginate";
+import useFilterOrder from "@store/useFilterOrder";
 import useFetch from "@helpers/useFetch";
 
 const fetchProducts = async (url) => {
@@ -18,18 +19,20 @@ const fetchProducts = async (url) => {
 const Page = () => {
 	// Fetch products for all categories
 	const page = usePaginate((state) => state.page);
+	const order = useFilterOrder((state) => state.order);
+
 	const productsArr = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?pagination[pageSize]=3&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3A${order}&pagination[pageSize]=6&sort=id%3A${order}&pagination[page]=${page}&populate=*`,
 		fetchProducts,
 	).data;
 
 	const isLoading = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?pagination[pageSize]=3&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3A${order}&pagination[pageSize]=6&sort=id%3A${order}&pagination[page]=${page}&populate=*`,
 		fetchProducts,
 	).isLoading;
 
 	const productsError = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?pagination[pageSize]=3&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3A${order}&pagination[pageSize]=6&sort=id%3A${order}&pagination[page]=${page}&populate=*`,
 		fetchProducts,
 	).error;
 
@@ -48,6 +51,7 @@ const Page = () => {
 	return (
 		<>
 			<CategoryHero />
+
 			<CategoryFilter />
 
 			<main className="space-y-20 py-12 px-[3%]">

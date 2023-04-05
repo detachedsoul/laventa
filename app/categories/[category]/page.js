@@ -5,6 +5,7 @@ import CategoryFilter from "@components/categories/CategoryFilter";
 import Products from "@components/categories/Products";
 import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
 import usePaginate from "@store/usePaginate";
+import useFilterOrder from "@store/useFilterOrder";
 import useFetch from "@helpers/useFetch";
 
 const fetchProducts = async (url) => {
@@ -26,6 +27,7 @@ const fetchCategoryName = async (url) => {
 
 const Page = ({params: {category}}) => {
     const categoryName = category.toString();
+	const order = useFilterOrder((state) => state.order);
 
 	// Fetch details for the partciular category and possible error messages
 	const categoryDetails = useFetch(
@@ -41,17 +43,17 @@ const Page = ({params: {category}}) => {
 	// Fetch products thats fall under the specified category
 	const page = usePaginate((state) => state.page);
 	const productsArr = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&pagination[pageSize]=3&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&sort=id%3A${order}&pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
 		fetchProducts,
 	).data;
 
 	const isLoading = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&pagination[pageSize]=3&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&sort=id%3A${order}&pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
 		fetchProducts,
 	).isLoading;
 
 	const productsError = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&pagination[pageSize]=3&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&sort=id%3A${order}&pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
 		fetchProducts,
 	).error;
 

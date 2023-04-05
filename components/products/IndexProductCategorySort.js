@@ -34,7 +34,7 @@ const IndexProductCategorySort = ({categories, setFilter}) => {
 			className="select"
 			onChange={(e) => handleChange(e)}
             value={initialCategory}
-		>{/* <option value="All Categories">All Categories</option> */}
+		>
 			{category.map((categoryDetails) => (
 				<option
 					value={categoryDetails.attributes.categoryName}

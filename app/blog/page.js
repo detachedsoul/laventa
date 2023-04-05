@@ -5,6 +5,7 @@ import BlogPostFilter from "@components/blog/BlogPostFilter";
 import BlogPostLoadingSkeleton from "@components/BlogPostLoadingSkeleton";
 import BlogCard from "@components/blog/BlogCard";
 import usePaginate from "@store/usePaginate";
+import useFilterOrder from "@store/useFilterOrder";
 import useFetch from "@helpers/useFetch";
 
 const fetchArticles = async (url) => {
@@ -17,18 +18,20 @@ const fetchArticles = async (url) => {
 
 const Page = () => {
     const page = usePaginate((state) => state.page);
+	const order = useFilterOrder((state) => state.order);
+
 	const blogPosts = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}articles?pagination[pageSize]=3&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}articles?sort=id%3A${order}&pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
 		fetchArticles,
 	).data;
 
 	const isLoading = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}articles?pagination[pageSize]=3&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}articles?sort=id%3A${order}&pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
 		fetchArticles,
 	).isLoading;
 
 	const error = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}articles?pagination[pageSize]=3&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}articles?sort=id%3A${order}&pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
 		fetchArticles,
 	).error;
 
@@ -40,18 +43,19 @@ const Page = () => {
 		<>
 			<BlogPostsHero />
 			<BlogPostFilter />
+
 			<main className="space-y-20 py-12 px-[3%]">
+                {error && (
+                    <p className="font-bold text-brand-red text-xl text-center mx-auto dark:text-rose-500">
+                        There was an error fetching articles. Please try
+                        again later.
+                    </p>
+                )}
+
 				<section className="space-y-4">
-                    {isLoading && <BlogPostLoadingSkeleton />}
-
-					{error && (
-						<p className="font-bold text-brand-red text-xl text-center mx-auto dark:text-rose-500">
-							There was an error fetching articles. Please try
-							again later.
-						</p>
-					)}
-
-					{!isLoading && blogPosts?.data.length > 0 ? (
+					{isLoading ? (
+                        <BlogPostLoadingSkeleton />
+                    ) : blogPosts?.data?.length > 0 ? (
 						<>
 							<div className="grid gap-8 pb-8 lg:grid-cols-3 border-b border-slate-200 dark:border-brand-light-black">
 								<BlogCard blogPosts={blogPosts?.data} />
