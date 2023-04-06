@@ -6,6 +6,7 @@ import BlogPostLoadingSkeleton from "@components/BlogPostLoadingSkeleton";
 import BlogCard from "@components/blog/BlogCard";
 import usePaginate from "@store/usePaginate";
 import useFilterOrder from "@store/useFilterOrder";
+import useSearchContent from "@store/useSearchContent";
 import useFetch from "@helpers/useFetch";
 
 const fetchArticles = async (url) => {
@@ -39,10 +40,15 @@ const Page = () => {
 	const prevPage = usePaginate((state) => state.prevPage);
 	const toPage = usePaginate((state) => state.toPage);
 
+	const filteredContent = useSearchContent((state) => state.searchContent);
+
+	console.log(blogPosts?.data)
+
     return (
 		<>
 			<BlogPostsHero />
-			<BlogPostFilter />
+
+			{!isLoading && <BlogPostFilter articles={blogPosts} />}
 
 			<main className="space-y-20 py-12 px-[3%]">
                 {error && (
@@ -58,7 +64,7 @@ const Page = () => {
                     ) : blogPosts?.data?.length > 0 ? (
 						<>
 							<div className="grid gap-8 pb-8 lg:grid-cols-3 border-b border-slate-200 dark:border-brand-light-black">
-								<BlogCard blogPosts={blogPosts?.data} />
+								<BlogCard blogPosts={filteredContent?.data?.length > 0 ? filteredContent?.data : blogPosts?.data} />
 							</div>
 
 							<div className="flex justify-between gap-4 items-center flex-wrap">

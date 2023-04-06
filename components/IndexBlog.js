@@ -31,6 +31,13 @@ const IndexBlog = () => {
 
 	if (isLoading) return <BlogPostLoadingSkeleton />
 
+
+	if (error) return (
+		<p className="font-bold text-brand-red text-xl text-center mx-auto dark:text-rose-500">
+			There was an error fetching articles. Please try again later.
+		</p>
+	);
+
 	return (
 		<section className="flex flex-col gap-12">
 			<div className="text-center place-items-center place-content-center grid gap-1">
@@ -38,13 +45,7 @@ const IndexBlog = () => {
 				<p>Latest store, fashion news and trends</p>
 			</div>
 
-			{error && (
-				<p className="font-bold text-brand-red text-xl text-center mx-auto dark:text-rose-500">
-					There was an error fetching articles. Please try again later.
-				</p>
-			)}
-
-			{!isLoading && blogPosts?.length > 0 ? (
+			{!isLoading && blogPosts?.length > 0 && !error ? (
 				<>
 					<div className="grid gap-8 lg:grid-cols-3">
 						<BlogCard blogPosts={blogPosts} />

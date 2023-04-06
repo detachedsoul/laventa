@@ -1,20 +1,24 @@
 "use client";
 
 import useFilterOrder from "@store/useFilterOrder";
+import useSearchContent from "@store/useSearchContent";
 import { useState } from "react";
 
-const CategoryFilter = () => {
+const CategoryFilter = ({products}) => {
+    const { data } = products;
+    const { meta } = products;
+
     const [filterIsOpen, setFilterOpen] = useState(false);
 
     const handleFilterToggle = () => {
         setFilterOpen(() => !filterIsOpen);
     };
 
+    // Value to sort by order (descending or ascending)
+    const order = useFilterOrder((state) => state.order);
     const setOrder = useFilterOrder((state) => state.setOrder);
     const currentOrder = useFilterOrder((state) => state.currentOrder);
     const setCurrentOrder = useFilterOrder((state) => state.setCurrentOrder);
-    const order = useFilterOrder((state) => state.order);
-
 
     const handleOrderChange = (e) => {
         if (e.target.value === "Newest") {
@@ -26,8 +30,26 @@ const CategoryFilter = () => {
 
             setOrder("asc");
         }
+    };
 
-        console.log(e.target.value, currentOrder, order);
+    const setFilteredContent = useSearchContent((state) => state.setSearchContent);
+
+    const handleSearchChange = (e) => {
+        const filterContent = data.filter((params) => {
+            if (e.target.value === "") return products;
+
+
+            return params.id.toString().toLowerCase().includes(e.target.value.toLowerCase()) || params.attributes.productName.toLowerCase().includes(e.target.value.toLowerCase()) || params.attributes.details.toLowerCase().includes(e.target.value.toLowerCase()) || params.attributes.highlights.toLowerCase().includes(e.target.value.toLowerCase())
+        });
+
+        // Check if fiterContent is equal to the products data
+        if (filterContent.length === data.length) {
+            setFilteredContent({data: [], meta});
+        } else {
+            setFilteredContent({data: [...filterContent], meta});
+        }
+
+        setOrder(order);
     };
 
     return (
@@ -46,7 +68,7 @@ const CategoryFilter = () => {
 
                     <form className="flex flex-nowrap border border-slate-200 rounded-lg focus-within:border-brand-dark-rose/[0.2] lg:col-span-7">
                         <label className="py-0.5 px-1 w-full" htmlFor="search">
-                            <input className="bg-white py-2.5 input-form w-full lg:py-2" type="search" id="search" placeholder="Search collection" />
+                            <input className="bg-white py-2.5 input-form w-full lg:py-2" type="search" id="search" placeholder="Search collection" onChange={(e) => handleSearchChange(e)} />
                         </label>
                     </form>
 

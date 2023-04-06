@@ -6,6 +6,7 @@ import Products from "@components/categories/Products";
 import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
 import usePaginate from "@store/usePaginate";
 import useFilterOrder from "@store/useFilterOrder";
+import useSearchContent from "@store/useSearchContent";
 import useFetch from "@helpers/useFetch";
 
 const fetchProducts = async (url) => {
@@ -22,23 +23,25 @@ const Page = () => {
 	const order = useFilterOrder((state) => state.order);
 
 	const productsArr = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3A${order}&pagination[pageSize]=6&sort=id%3A${order}&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3A${order}&pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
 		fetchProducts,
 	).data;
 
 	const isLoading = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3A${order}&pagination[pageSize]=6&sort=id%3A${order}&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3A${order}&pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
 		fetchProducts,
 	).isLoading;
 
 	const productsError = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3A${order}&pagination[pageSize]=6&sort=id%3A${order}&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3A${order}&pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
 		fetchProducts,
 	).error;
 
 	const nextPage = usePaginate((state) => state.nextPage);
 	const prevPage = usePaginate((state) => state.prevPage);
 	const toPage = usePaginate((state) => state.toPage);
+
+	const filteredContent = useSearchContent((state) => state.searchContent);
 
 	if (productsError)
 		return (
@@ -52,14 +55,14 @@ const Page = () => {
 		<>
 			<CategoryHero />
 
-			<CategoryFilter />
+			{!isLoading && <CategoryFilter products={productsArr} />}
 
 			<main className="space-y-20 py-12 px-[3%]">
 				{isLoading ? (
 					<ProductsLoadingSkeleton />
 				) : productsArr?.data?.length > 0 ? (
 					<Products
-						productData={productsArr}
+						productData={filteredContent?.data?.length > 0 ? filteredContent : productsArr}
 						page={page}
 						nextPage={nextPage}
 						prevPage={prevPage}

@@ -6,6 +6,7 @@ import Products from "@components/categories/Products";
 import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
 import usePaginate from "@store/usePaginate";
 import useFilterOrder from "@store/useFilterOrder";
+import useSearchContent from "@store/useSearchContent";
 import useFetch from "@helpers/useFetch";
 
 const fetchProducts = async (url) => {
@@ -61,6 +62,8 @@ const Page = ({params: {category}}) => {
     const prevPage = usePaginate((state) => state.prevPage);
     const toPage = usePaginate((state) => state.toPage);
 
+	const filteredContent = useSearchContent((state) => state.searchContent);
+
 	if (productsError || categoryError) return <p className="px-[3%] font-bold text-center text-xl text-brand-red dark:text-rose-500 mx-auto md:w-1/2 py-12">There was an error fetching the requested resource. Please try again later.</p>
 
     return (
@@ -69,14 +72,14 @@ const Page = ({params: {category}}) => {
 				categoryName={categoryDetails?.attributes?.categoryName}
 			/>
 
-			<CategoryFilter />
+			{!isLoading && <CategoryFilter products={productsArr} />}
 
 			<main className="space-y-20 py-12 px-[3%]">
 				{isLoading ? (
 					<ProductsLoadingSkeleton />
 				) : productsArr?.data?.length > 0 ? (
 					<Products
-						productData={productsArr}
+						productData={filteredContent?.data?.length > 0 ? filteredContent : productsArr}
 						page={page}
 						nextPage={nextPage}
 						prevPage={prevPage}

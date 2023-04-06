@@ -1,8 +1,12 @@
 "use client";
 
 import useFilterOrder from "@store/useFilterOrder";
+import useSearchContent from "@store/useSearchContent";
 
-const BlogPostFilter = () => {
+const BlogPostFilter = ({articles}) => {
+	const { data } = articles;
+    const { meta } = articles;
+
 	const setOrder = useFilterOrder((state) => state.setOrder);
     const currentOrder = useFilterOrder((state) => state.currentOrder);
     const setCurrentOrder = useFilterOrder((state) => state.setCurrentOrder);
@@ -19,8 +23,26 @@ const BlogPostFilter = () => {
 
             setOrder("asc");
         }
+    };
 
-        console.log(e.target.value, currentOrder, order);
+	const setFilteredContent = useSearchContent((state) => state.setSearchContent);
+
+    const handleSearchChange = (e) => {
+        const filterContent = data.filter((params) => {
+            if (e.target.value === "") return articles;
+
+
+            return params.id.toString().toLowerCase().includes(e.target.value.toLowerCase()) || params.attributes.articleContent.toLowerCase().includes(e.target.value.toLowerCase()) || params.attributes.author.toLowerCase().includes(e.target.value.toLowerCase()) || params.attributes.slug.toLowerCase().includes(e.target.value.toLowerCase()) || params.attributes.summary.toLowerCase().includes(e.target.value.toLowerCase()) || params.attributes.title.toLowerCase().includes(e.target.value.toLowerCase())
+        });
+
+        // Check if fiterContent is equal to the products data
+        if (filterContent.length === data.length) {
+            setFilteredContent({data: [], meta});
+        } else {
+            setFilteredContent({data: [...filterContent], meta});
+        }
+
+        setOrder(order);
     };
 
 	return (
@@ -47,6 +69,7 @@ const BlogPostFilter = () => {
 								type="search"
 								id="search"
 								placeholder="Search for blog posts"
+								onChange={(e) => handleSearchChange(e)}
 							/>
 						</label>
 					</form>
