@@ -42,8 +42,6 @@ const Page = () => {
 
 	const filteredContent = useSearchContent((state) => state.searchContent);
 
-	console.log(blogPosts?.data)
-
     return (
 		<>
 			<BlogPostsHero />
