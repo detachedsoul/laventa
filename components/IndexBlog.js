@@ -15,17 +15,17 @@ const fetchArticles = async (url) => {
 
 const IndexBlog = () => {
 	const blogPosts = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}articles?populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}articles?sort=id%3Adesc&populate=*`,
 		fetchArticles,
 	).data;
 
 	const isLoading = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}articles?populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}articles?sort=id%3Adesc&populate=*`,
 		fetchArticles,
 	).isLoading;
 
 	const error = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}articles?populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}articles?sort=id%3Adesc&populate=*`,
 		fetchArticles,
 	).error;
 

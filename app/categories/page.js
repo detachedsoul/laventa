@@ -6,7 +6,9 @@ import Products from "@components/categories/Products";
 import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
 import usePaginate from "@store/usePaginate";
 import useFilterOrder from "@store/useFilterOrder";
+import useFilterInStock from "@store/useFilterInStock";
 import useSearchContent from "@store/useSearchContent";
+import useFilterIsDiscount from "@store/useFilterIsDiscount";
 import useFetch from "@helpers/useFetch";
 
 const fetchProducts = async (url) => {
@@ -21,19 +23,21 @@ const Page = () => {
 	// Fetch products for all categories
 	const page = usePaginate((state) => state.page);
 	const order = useFilterOrder((state) => state.order);
+	const filterInStock = useFilterInStock((state) => state.filterInStock);
+	const filterIsDiscount = useFilterIsDiscount((state) => state.filterIsDiscount);
 
 	const productsArr = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3A${order}&pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3A${order}&${filterIsDiscount}${filterInStock}pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
 		fetchProducts,
 	).data;
 
 	const isLoading = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3A${order}&pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3A${order}&${filterIsDiscount}${filterInStock}pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
 		fetchProducts,
 	).isLoading;
 
 	const productsError = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3A${order}&pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?sort=id%3A${order}&${filterIsDiscount}${filterInStock}pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
 		fetchProducts,
 	).error;
 
