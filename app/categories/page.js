@@ -55,7 +55,7 @@ const Page = () => {
 	const prevPage = usePaginate((state) => state.prevPage);
 	const toPage = usePaginate((state) => state.toPage);
 
-	const countTotalProducts = useFetch(`${process.env.NEXT_PUBLIC_API_URL}products`, fetchCategories).data;
+	const countTotalProducts = useFetch(`${process.env.NEXT_PUBLIC_API_URL}products?populate=category`, fetchCategories).data;
 
     const countTotalIsInStockProducts = useFetch(`${process.env.NEXT_PUBLIC_API_URL}products?filters[inStock][$eqi]=1`, fetchCategories).data;
 
@@ -87,7 +87,7 @@ const Page = () => {
 		<>
 			<CategoryHero />
 
-			{!isLoading && <CategoryFilter products={productsArr} productCount={options} />}
+			{!isLoading && <CategoryFilter products={productsArr} productFilterOptions={options} />}
 
 			<main className="space-y-20 py-12 px-[3%]">
 				{isLoading ? (

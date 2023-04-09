@@ -96,7 +96,7 @@ const Page = ({params: {category}}) => {
 				categoryName={categoryDetails?.attributes?.categoryName}
 			/>
 
-			{!isLoading && <CategoryFilter products={productsArr} productCount={options} />}
+			{!isLoading && <CategoryFilter products={productsArr} productFilterOptions={options} />}
 
 			<main className="space-y-20 py-12 px-[3%]">
 				{isLoading ? (

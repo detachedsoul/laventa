@@ -5,11 +5,11 @@ import useSearchContent from "@store/useSearchContent";
 import { useState } from "react";
 import CategoryFilterOptions from "@components/categories/CategoryFilterOptions";
 
-const CategoryFilter = ({products, productCount}) => {
+const CategoryFilter = ({products, productFilterOptions}) => {
     const { data } = products;
     const { meta } = products;
 
-    const [filterIsOpen, setFilterOpen] = useState(false);
+    const [filterIsOpen, setFilterOpen] = useState(true);
 
     const handleFilterToggle = () => {
         setFilterOpen(() => !filterIsOpen);
@@ -92,7 +92,7 @@ const CategoryFilter = ({products, productCount}) => {
                     </div>
                 </div>
 
-                <CategoryFilterOptions filterIsOpen={filterIsOpen} productCount={productCount} />
+                <CategoryFilterOptions filterIsOpen={filterIsOpen} productFilterOptions={productFilterOptions} />
             </div>
         </div>
     );
