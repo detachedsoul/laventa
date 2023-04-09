@@ -4,8 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import useCart from "@store/useCart";
 import formartAmountSum from "@helpers/formartAmountSum";
+import {useState, useEffect, useId} from "react";
 
 const Checkout = () => {
+	const[isLoaded, setIsLoaded] = useState(false);
+
+	useEffect(() => {
+		setIsLoaded(() => true);
+	}, []);
+
 	const totalCartProducts = useCart((state) => state.cart.length);
 	const clearCart = useCart((state) => state.clearCart);
 	const cartProducts = useCart((state) => state.cart);
@@ -15,6 +22,11 @@ const Checkout = () => {
 	const formartAmount = formartAmountSum(getPriceTotal);
 
 	return (
+		!isLoaded ? (
+			<p className="px-[3%] py-12">
+				Loading content, please wait...
+			</p>
+		) :
 		<div className="relative">
 			<div
 				className="absolute grid inset-0"
@@ -123,65 +135,67 @@ const Checkout = () => {
 				</div>
 
 				{totalCartProducts > 0 && (
-					<div className="lg:grid gap-8 pt-8 lg:col-span-4 lg:py-[6%] lg:px-[10%]">
-						<div className="divide-y divide-slate-200">
-							<div className="grid place-items-center place-content-center gap-4 pb-4">
-								<p className="font-semibold text-lg">
-									Cart total amount
-								</p>
+					<div className="pt-8 lg:col-span-4 lg:py-[6%] lg:px-[10%]">
+						<div className="sticky top-24 lg:grid gap-8">
+							<div className="divide-y divide-slate-200">
+								<div className="grid place-items-center place-content-center gap-4 pb-4">
+									<p className="font-semibold text-lg">
+										Cart total amount
+									</p>
 
-								<div className="text-3xl slashed-zero">
-									<span className="font-bold">
-										${formartAmount.wholeNumber}
-									</span>
-									{formartAmount.hasFractions === true && (
-										<small className="font-medium">
-											.{formartAmount.fractions}
-										</small>
-									)}
+									<div className="text-3xl slashed-zero">
+										<span className="font-bold">
+											${formartAmount.wholeNumber}
+										</span>
+										{formartAmount.hasFractions === true && (
+											<small className="font-medium">
+												.{formartAmount.fractions}
+											</small>
+										)}
+									</div>
 								</div>
-							</div>
 
-							<div className="py-4 space-y-4">
-								<h3 className="header font-semibold text-center text-lg">
-									Promo code
-								</h3>
+								<div className="py-4 space-y-4">
+									<h3 className="header font-semibold text-center text-lg">
+										Promo code
+									</h3>
 
-								<div className="grid gap-4">
-									<label
-										className="w-full"
-										htmlFor="promo-code"
-									>
-										<input
-											className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] w-full"
-											type="text"
-											name="promo-code"
-											id="promo-code"
-											placeholder="Promo code"
-										/>
-									</label>
+									<div className="grid gap-4">
+										<label
+											className="w-full"
+											htmlFor="promo-code"
+										>
+											<input
+												className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] w-full"
+												type="text"
+												name="promo-code"
+												id="promo-code"
+												placeholder="Promo code"
+											/>
+										</label>
 
-									<button
-										className="bg-slate-200 pointer-events-none select-none py-2.5 px-4 text-center hover:bg-brand-dark-rose rounded-lg"
-										disabled
-									>
-										Apply promo code
-									</button>
+										<button
+											className="bg-slate-200 pointer-events-none select-none py-2.5 px-4 text-center hover:bg-brand-dark-rose rounded-lg"
+											disabled
+										>
+											Apply promo code
+										</button>
+									</div>
 								</div>
-							</div>
 
-							<div className="py-4 space-y-1">
-								<Link
-									className="bg-brand-red text-white py-2.5 px-4 text-center hover:bg-brand-dark-rose rounded-lg shadow-card hover:shadow-none w-full block"
-									href="/checkout"
-								>
-									<i className="fr fi-rr-lock text-base top-0.5 pr-2"></i>
-									Secure Checkout
-								</Link>
+								<div className="py-4 space-y-1">
+									<Link
+										className="bg-brand-red text-white py-2.5 px-4 text-center hover:bg-brand-dark-rose rounded-lg shadow-card hover:shadow-none w-full block"
+										href="/checkout"
+									>
+										<i className="fr fi-rr-lock text-base top-0.5 pr-2"></i>
+										Secure Checkout
+									</Link>
 
-								<p className="text-center text-sm">
-									100% money back guarantee
-								</p>
+									<p className="text-center text-sm">
+										100% money back guarantee
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
