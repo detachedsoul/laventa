@@ -45,7 +45,7 @@ const Checkout = () => {
 					}`}
 				>
 					<div
-						className={`flex items-center justify-between gap-2 flex-wrap ${
+						className={`flex items-start justify-between gap-2 flex-wrap ${
 							totalCartProducts > 0 &&
 							"border-b border-slate-200 pb-4"
 						}`}

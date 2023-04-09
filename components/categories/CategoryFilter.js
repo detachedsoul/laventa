@@ -9,7 +9,7 @@ const CategoryFilter = ({products, productFilterOptions}) => {
     const { data } = products;
     const { meta } = products;
 
-    const [filterIsOpen, setFilterOpen] = useState(true);
+    const [filterIsOpen, setFilterOpen] = useState(false);
 
     const handleFilterToggle = () => {
         setFilterOpen(() => !filterIsOpen);
