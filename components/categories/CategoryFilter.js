@@ -5,7 +5,7 @@ import useSearchContent from "@store/useSearchContent";
 import { useState } from "react";
 import CategoryFilterOptions from "@components/categories/CategoryFilterOptions";
 
-const CategoryFilter = ({products}) => {
+const CategoryFilter = ({products, productCount}) => {
     const { data } = products;
     const { meta } = products;
 
@@ -15,11 +15,14 @@ const CategoryFilter = ({products}) => {
         setFilterOpen(() => !filterIsOpen);
     };
 
-    // Value to sort by order (descending or ascending)
+    // Sort categories
     const order = useFilterOrder((state) => state.order);
     const setOrder = useFilterOrder((state) => state.setOrder);
     const currentOrder = useFilterOrder((state) => state.currentOrder);
     const setCurrentOrder = useFilterOrder((state) => state.setCurrentOrder);
+    const setFilteredContent = useSearchContent((state) => state.setSearchContent);
+    const searchValue = useSearchContent((state) => state.searchValue);
+    const setSearchValue = useSearchContent((state) => state.setSearchValue);
 
     const handleOrderChange = (e) => {
         if (e.target.value === "Newest") {
@@ -32,8 +35,6 @@ const CategoryFilter = ({products}) => {
             setOrder("asc");
         }
     };
-
-    const setFilteredContent = useSearchContent((state) => state.setSearchContent);
 
     const handleSearchChange = (e) => {
         const filterContent = data.filter((params) => {
@@ -51,6 +52,7 @@ const CategoryFilter = ({products}) => {
         }
 
         setOrder(order);
+        setSearchValue(e.target.value);
     };
 
     return (
@@ -69,7 +71,7 @@ const CategoryFilter = ({products}) => {
 
                     <form className="flex flex-nowrap border border-slate-200 rounded-lg focus-within:border-brand-dark-rose/[0.2] lg:col-span-7">
                         <label className="py-0.5 px-1 w-full" htmlFor="search">
-                            <input className="bg-white py-2.5 input-form w-full lg:py-2" type="search" id="search" placeholder="Search collection" onChange={(e) => handleSearchChange(e)} />
+                            <input className="bg-white py-2.5 input-form w-full lg:py-2" type="search" id="search" value={searchValue} placeholder="Search collection" onChange={(e) => handleSearchChange(e)} />
                         </label>
                     </form>
 
@@ -90,7 +92,7 @@ const CategoryFilter = ({products}) => {
                     </div>
                 </div>
 
-                <CategoryFilterOptions filterIsOpen={filterIsOpen} />
+                <CategoryFilterOptions filterIsOpen={filterIsOpen} productCount={productCount} />
             </div>
         </div>
     );

@@ -1,6 +1,8 @@
 import useFetch from "@helpers/useFetch";
 import useFilterInStock from "@store/useFilterInStock";
 import useFilterIsDiscount from "@store/useFilterIsDiscount";
+import useFilterProductCategory from "@store/useFilterProductCategory";
+import {usePathname} from "next/navigation";
 
 const fetchCategories = async (url) => {
     const req = await fetch(url);
@@ -10,28 +12,27 @@ const fetchCategories = async (url) => {
     return data;
 };
 
-const CategoryFilterOptions = ({ filterIsOpen }) => {
+const CategoryFilterOptions = ({ filterIsOpen, productCount }) => {
+    const pathname = usePathname();
+
     const filterInStock = useFilterInStock((state) => state.filterInStock);
     const setInStockOption = useFilterInStock((state) => state.setFilterInStock);
 
     const filterIsDiscount = useFilterIsDiscount((state) => state.filterIsDiscount);
     const setIsDiscount = useFilterIsDiscount((state) => state.setIsDiscount);
 
+    const filterCategory = useFilterProductCategory((state) => state.filterCategory);
+    const setFilterCategory = useFilterProductCategory((state) => state.setFilterCategory);
+
     const categories = useFetch(`${process.env.NEXT_PUBLIC_API_URL}categories`, fetchCategories).data;
     const categoryFetchIsLoading = useFetch(`${process.env.NEXT_PUBLIC_API_URL}categories`, fetchCategories).isLoading;
     const categoryFetchError = useFetch(`${process.env.NEXT_PUBLIC_API_URL}categories`, fetchCategories).error;
 
-    // countTotalCategoryProducts = useFetch(`${process.env.NEXT_PUBLIC_API_URL}products?filter=[category][categoryName]=${category}`, fetchCategories).data;
-
-    const countTotalCategoryProducts = useFetch(`${process.env.NEXT_PUBLIC_API_URL}products`, fetchCategories).data;
-
-    const countTotalIsInStockProducts = useFetch(`${process.env.NEXT_PUBLIC_API_URL}products?filters[inStock][$eqi]=1`, fetchCategories).data;
-
-    const countTotalNotInStockProducts = useFetch(`${process.env.NEXT_PUBLIC_API_URL}products?filters[inStock][$eqi]=0`, fetchCategories).data;
-
-    const countTotalIsDiscountProducts = useFetch(`${process.env.NEXT_PUBLIC_API_URL}products?filters[isDiscount][$eqi]=1`, fetchCategories).data;
-
-    const countTotalIsNotDiscountProducts = useFetch(`${process.env.NEXT_PUBLIC_API_URL}products?filters[isDiscount][$eqi]=0`, fetchCategories).data;
+    if (categoryFetchError) return (
+        <p>
+            There was an error fetching this resource. Please try again later!
+        </p>
+    );
 
     return (
 		<div
@@ -52,38 +53,59 @@ const CategoryFilterOptions = ({ filterIsOpen }) => {
 					<h3 className="header text-lg">Categories</h3>
 
 					<div className="grid gap-4">
-                        {countTotalCategoryProducts && (
-                            <div className="flex items-center justify-between">
-                                <label
-                                    className="flex items-center gap-2 cursor-pointer"
-                                    htmlFor="categories"
-                                >
-                                    <input
-                                        className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
-                                        type="checkbox"
-                                        id="categories"
-                                    />
-                                    All Categories
-                                </label>
+						{productCount?.countTotalProducts && (
+							<div className="flex items-center justify-between">
+								<label
+									className="flex items-center gap-2 cursor-pointer"
+									htmlFor="categories"
+								>
+									<input
+										className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
+										type="checkbox"
+										id="categories"
+										checked={
+											filterCategory === "" ? true : false
+										}
+										onChange={() => {
+											setFilterCategory("");
+										}}
+									/>
+									All Categories
+								</label>
 
-                                <span>{countTotalCategoryProducts.length}</span>
-                            </div>
-                        )}
+								<span>{productCount?.countTotalProducts?.length}</span>
+							</div>
+						)}
 
-						{categoryFetchIsLoading ? (
-                            <p className="font-bold text-xl">
-                                Sorry, there are no product categories yet!.
-                            </p>
-                        ) : categories.length > 0 ? categories.map((category) => (
-								<div className="flex items-center justify-between" key={category.id}>
+						{pathname !== "/categories" ? null : categoryFetchIsLoading ? (
+							<p className="font-bold text-xl">
+								Fetching categories...
+							</p>
+						) : categories?.length > 0 ? (
+							categories.map((category) => (
+								<div
+									className="flex items-center justify-between"
+									key={category.id}
+								>
 									<label
 										className="flex items-center gap-2 cursor-pointer"
-										htmlFor="bags"
+										htmlFor={category?.attributes?.categoryName.toLowerCase()}
 									>
 										<input
 											className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
 											type="checkbox"
-											id="bags"
+											id={category?.attributes?.categoryName.toLowerCase()}
+											checked={
+												filterCategory ===
+												`filters[category][categoryName][$eqi]=${category?.attributes?.categoryName.toLowerCase()}&`
+													? true
+													: false
+											}
+											onChange={() => {
+												setFilterCategory(
+													`filters[category][categoryName][$eqi]=${category?.attributes?.categoryName.toLowerCase()}&`,
+												);
+											}}
 										/>
 										{category?.attributes?.categoryName}
 									</label>
@@ -92,12 +114,12 @@ const CategoryFilterOptions = ({ filterIsOpen }) => {
 
 									<span>50</span>
 								</div>
-							)) : (
-                                <p className="font-bold text-xl">
-                                    Sorry, there are no product categories yet!.
-                                </p>
-                            )
-                        }
+							))
+						) : (
+							<p className="font-bold text-xl">
+								Sorry, there are no product categories yet!
+							</p>
+						)}
 					</div>
 				</div>
 
@@ -105,71 +127,91 @@ const CategoryFilterOptions = ({ filterIsOpen }) => {
 					<h3 className="header text-lg">Product Status</h3>
 
 					<div className="grid gap-4">
-                        {countTotalCategoryProducts && (
-                            <div className="flex items-center justify-between">
-                                <label
-                                    className="flex items-center gap-2 cursor-pointer"
-                                    htmlFor="both"
-                                >
-                                    <input
-                                        className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
-                                        type="checkbox"
-                                        id="both"
-                                        checked={filterInStock === '' ? true : false}
-                                        onChange={() => {
-                                            setInStockOption('')
-                                        }}
-                                    />
-                                    Both
-                                </label>
+						{productCount?.countTotalProducts && (
+							<div className="flex items-center justify-between">
+								<label
+									className="flex items-center gap-2 cursor-pointer"
+									htmlFor="both"
+								>
+									<input
+										className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
+										type="checkbox"
+										id="both"
+										checked={
+											filterInStock === "" ? true : false
+										}
+										onChange={() => {
+											setInStockOption("");
+										}}
+									/>
+									Both
+								</label>
 
-                                <span>{countTotalCategoryProducts.length}</span>
-                            </div>
-                        )}
+								<span>{productCount?.countTotalProducts?.length}</span>
+							</div>
+						)}
 
-                        {countTotalIsInStockProducts && (
-                            <div className="flex items-center justify-between">
-                                <label
-                                    className="flex items-center gap-2 cursor-pointer"
-                                    htmlFor="in-stock"
-                                >
-                                    <input
-                                        className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
-                                        type="checkbox"
-                                        id="in-stock"
-                                        checked={filterInStock === 'filters[inStock][$eqi]=1&' ? true : false}
-                                        onChange={() => {
-                                            setInStockOption('filters[inStock][$eqi]=1&')
-                                        }}
-                                    />
-                                    In Stock
-                                </label>
+						{productCount?.countTotalIsInStockProducts && (
+							<div className="flex items-center justify-between">
+								<label
+									className="flex items-center gap-2 cursor-pointer"
+									htmlFor="in-stock"
+								>
+									<input
+										className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
+										type="checkbox"
+										id="in-stock"
+										checked={
+											filterInStock ===
+											"filters[inStock][$eqi]=1&"
+												? true
+												: false
+										}
+										onChange={() => {
+											setInStockOption(
+												"filters[inStock][$eqi]=1&",
+											);
+										}}
+									/>
+									In Stock
+								</label>
 
-                                <span>{countTotalIsInStockProducts.length}</span>
-                            </div>
-                        )}
+								<span>
+									{productCount?.countTotalIsInStockProducts?.length}
+								</span>
+							</div>
+						)}
 
-                        {countTotalNotInStockProducts && (
-                            <div className="flex items-center justify-between">
-                                <label
-                                    className="flex items-center gap-2 cursor-pointer"
-                                    htmlFor="out-of-stock"
-                                >
-                                    <input
-                                        className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
-                                        type="checkbox"
-                                        id="out-of-stock"
-                                        checked={filterInStock === 'filters[inStock][$eqi]=0&' ? true : false}
-                                        onChange={() => {
-                                            setInStockOption('filters[inStock][$eqi]=0&')
-                                        }}
-                                    />
-                                    Out of Stock
-                                </label>
+						{productCount?.countTotalNotInStockProducts && (
+							<div className="flex items-center justify-between">
+								<label
+									className="flex items-center gap-2 cursor-pointer"
+									htmlFor="out-of-stock"
+								>
+									<input
+										className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
+										type="checkbox"
+										id="out-of-stock"
+										checked={
+											filterInStock ===
+											"filters[inStock][$eqi]=0&"
+												? true
+												: false
+										}
+										onChange={() => {
+											setInStockOption(
+												"filters[inStock][$eqi]=0&",
+											);
+										}}
+									/>
+									Out of Stock
+								</label>
 
-                                <span>{countTotalNotInStockProducts.length}</span>
-                            </div>
-                        )}
+								<span>
+									{productCount?.countTotalNotInStockProducts?.length}
+								</span>
+							</div>
+						)}
 					</div>
 				</div>
 
@@ -177,71 +219,93 @@ const CategoryFilterOptions = ({ filterIsOpen }) => {
 					<h3 className="header text-lg">Discount Status</h3>
 
 					<div className="grid gap-4">
-                        {countTotalCategoryProducts && (
-                            <div className="flex items-center justify-between">
-                                <label
-                                    className="flex items-center gap-2 cursor-pointer"
-                                    htmlFor="is-discount"
-                                >
-                                    <input
-                                        className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
-                                        type="checkbox"
-                                        id="is-discount"
-                                        checked={filterIsDiscount === '' ? true : false}
-                                        onChange={() => {
-                                            setIsDiscount('')
-                                        }}
-                                    />
-                                    All Types
-                                </label>
+						{productCount?.countTotalProducts && (
+							<div className="flex items-center justify-between">
+								<label
+									className="flex items-center gap-2 cursor-pointer"
+									htmlFor="is-discount"
+								>
+									<input
+										className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
+										type="checkbox"
+										id="is-discount"
+										checked={
+											filterIsDiscount === ""
+												? true
+												: false
+										}
+										onChange={() => {
+											setIsDiscount("");
+										}}
+									/>
+									All Types
+								</label>
 
-                                <span>{countTotalCategoryProducts.length}</span>
-                            </div>
-                        )}
+								<span>{productCount?.countTotalProducts?.length}</span>
+							</div>
+						)}
 
-                        {countTotalIsDiscountProducts && (
-                            <div className="flex items-center justify-between">
-                                <label
-                                    className="flex items-center gap-2 cursor-pointer"
-                                    htmlFor="is-discount"
-                                >
-                                    <input
-                                        className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
-                                        type="checkbox"
-                                        id="is-discount"
-                                        checked={filterIsDiscount === 'filters[isDiscount][$eqi]=1&' ? true : false}
-                                        onChange={() => {
-                                            setIsDiscount('filters[isDiscount][$eqi]=1&')
-                                        }}
-                                    />
-                                    Is Discount
-                                </label>
+						{productCount?.countTotalIsDiscountProducts && (
+							<div className="flex items-center justify-between">
+								<label
+									className="flex items-center gap-2 cursor-pointer"
+									htmlFor="is-discount"
+								>
+									<input
+										className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
+										type="checkbox"
+										id="is-discount"
+										checked={
+											filterIsDiscount ===
+											"filters[isDiscount][$eqi]=1&"
+												? true
+												: false
+										}
+										onChange={() => {
+											setIsDiscount(
+												"filters[isDiscount][$eqi]=1&",
+											);
+										}}
+									/>
+									Is Discount
+								</label>
 
-                                <span>{countTotalIsDiscountProducts.length}</span>
-                            </div>
-                        )}
+								<span>
+									{productCount?.countTotalIsDiscountProducts?.length}
+								</span>
+							</div>
+						)}
 
-                        {countTotalIsNotDiscountProducts && (
-                            <div className="flex items-center justify-between">
-                                <label
-                                    className="flex items-center gap-2 cursor-pointer"
-                                    htmlFor="no-discount"
-                                >
-                                    <input
-                                        className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
-                                        type="checkbox"
-                                        id="no-discount"
-                                        checked={filterIsDiscount === 'filters[isDiscount][$eqi]=0&' ? true : false}
-                                        onChange={() => {
-                                            setIsDiscount('filters[isDiscount][$eqi]=0&')
-                                        }}
-                                    />
-                                    No Discount
-                                </label>
+						{productCount?.countTotalIsNotDiscountProducts && (
+							<div className="flex items-center justify-between">
+								<label
+									className="flex items-center gap-2 cursor-pointer"
+									htmlFor="no-discount"
+								>
+									<input
+										className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
+										type="checkbox"
+										id="no-discount"
+										checked={
+											filterIsDiscount ===
+											"filters[isDiscount][$eqi]=0&"
+												? true
+												: false
+										}
+										onChange={() => {
+											setIsDiscount(
+												"filters[isDiscount][$eqi]=0&",
+											);
+										}}
+									/>
+									No Discount
+								</label>
 
-                                <span>{countTotalIsNotDiscountProducts.length}</span>
-                            </div>
-                        )}
+								<span>
+									{productCount?.countTotalIsNotDiscountProducts?.length}
+								</span>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

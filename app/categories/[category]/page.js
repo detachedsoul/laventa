@@ -6,7 +6,10 @@ import Products from "@components/categories/Products";
 import ProductsLoadingSkeleton from "@components/ProductsLoadingSkeleton";
 import usePaginate from "@store/usePaginate";
 import useFilterOrder from "@store/useFilterOrder";
+import useFilterInStock from "@store/useFilterInStock";
 import useSearchContent from "@store/useSearchContent";
+import useFilterIsDiscount from "@store/useFilterIsDiscount";
+import useFilterProductCategory from "@store/useFilterProductCategory";
 import useFetch from "@helpers/useFetch";
 
 const fetchProducts = async (url) => {
@@ -29,6 +32,9 @@ const fetchCategoryName = async (url) => {
 const Page = ({params: {category}}) => {
     const categoryName = category.toString();
 	const order = useFilterOrder((state) => state.order);
+	const filterInStock = useFilterInStock((state) => state.filterInStock);
+	const filterIsDiscount = useFilterIsDiscount((state) => state.filterIsDiscount);
+	const filterCategory = useFilterProductCategory((state) => state.filterCategory);
 
 	// Fetch details for the partciular category and possible error messages
 	const categoryDetails = useFetch(
@@ -44,23 +50,41 @@ const Page = ({params: {category}}) => {
 	// Fetch products thats fall under the specified category
 	const page = usePaginate((state) => state.page);
 	const productsArr = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&sort=id%3A${order}&pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&sort=id%3A${order}&${filterCategory}${filterIsDiscount}${filterInStock}pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
 		fetchProducts,
 	).data;
 
 	const isLoading = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&sort=id%3A${order}&pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&sort=id%3A${order}&${filterCategory}${filterIsDiscount}${filterInStock}pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
 		fetchProducts,
 	).isLoading;
 
 	const productsError = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&sort=id%3A${order}&pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&sort=id%3A${order}&${filterCategory}${filterIsDiscount}${filterInStock}pagination[pageSize]=6&pagination[page]=${page}&populate=*`,
 		fetchProducts,
 	).error;
 
 	const nextPage = usePaginate((state) => state.nextPage);
     const prevPage = usePaginate((state) => state.prevPage);
     const toPage = usePaginate((state) => state.toPage);
+
+	const countTotalProducts = useFetch(`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}`, fetchCategoryName).data;
+
+    const countTotalIsInStockProducts = useFetch(`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&filters[inStock][$eqi]=1`, fetchCategoryName).data;
+
+    const countTotalNotInStockProducts = useFetch(`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&filters[inStock][$eqi]=0`, fetchCategoryName).data;
+
+    const countTotalIsDiscountProducts = useFetch(`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&filters[isDiscount][$eqi]=1`, fetchCategoryName).data;
+
+    const countTotalIsNotDiscountProducts = useFetch(`${process.env.NEXT_PUBLIC_API_URL}products?filters[category][categoryName][$eqi]=${categoryName}&filters[isDiscount][$eqi]=0`, fetchCategoryName).data;
+
+	const options = {
+		countTotalProducts,
+		countTotalIsInStockProducts,
+		countTotalNotInStockProducts,
+		countTotalIsDiscountProducts,
+		countTotalIsNotDiscountProducts
+	};
 
 	const filteredContent = useSearchContent((state) => state.searchContent);
 
@@ -72,7 +96,7 @@ const Page = ({params: {category}}) => {
 				categoryName={categoryDetails?.attributes?.categoryName}
 			/>
 
-			{!isLoading && <CategoryFilter products={productsArr} />}
+			{!isLoading && <CategoryFilter products={productsArr} productCount={options} />}
 
 			<main className="space-y-20 py-12 px-[3%]">
 				{isLoading ? (
