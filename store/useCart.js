@@ -8,14 +8,14 @@ const useCart = create(
 			removeFromCart: (product) =>
 				set((state) => ({
 					cart: state.cart.filter(
-						(item) => item.product.id !== product.product.id,
+						(item) => item.id !== product.id,
 					),
 				})),
 			clearCart: () => set((state) => ({ cart: [] })),
 			cartTotal: () =>
 				set((state) => ({
 					cart: state.cart.reduce(
-						(acc, item) => acc + item.product.currentPrice,
+						(acc, item) => acc + item.currentPrice,
 						0,
 					),
 				})),

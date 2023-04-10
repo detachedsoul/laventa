@@ -1,13 +1,181 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import acceptedCards from "@assets/img/cards-alt.png";
 import Link from "next/link";
 import useCart from "@store/useCart";
 import formartAmountSum from "@helpers/formartAmountSum";
+import {useState, useEffect} from "react";
+import Stripe from "stripe";
 
 const Checkout = () => {
+	const stripeInstance = Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
+
+	const[firstName, setFirstName] = useState("");
+	const[lastName, setLastName] = useState("");
+	const[email, setEmail] = useState("");
+	const[billingAddress, setBillingAddress] = useState("");
+	const[cardNumber, setCardNumber] = useState("");
+	const[phoneNumber, setPhoneNumber] = useState("");
+	const[expMonth, setExpMonth] = useState("");
+	const[expYear, setExpYear] = useState("");
+	const[expiration, setExpiration] = useState("");
+	const[cvv, setCVV] = useState("");
+
+	const handleExpirationDetails = (e) => {
+		const month = e.target.value.toString().split("/")[0];
+		const year = e.target.value.toString().split("/")[1];
+
+		setExpMonth(() => month);
+		setExpYear(() => year);
+
+		setExpiration(() => e.target.value);
+
+		console.log(month);
+	}
+
+	const handleCVVChange = (e) => {
+		if (typeof e.target.value !== "string") {
+			return;
+		}
+
+		const convertedNumber = Number(e.target.value);
+
+		if (isNaN(convertedNumber)) {
+			return;
+		}
+
+		const numDigits = convertedNumber.toString().length
+
+		if (numDigits > 3) {
+			return;
+		}
+
+		setCVV(() => e.target.value);
+	};
+
+	const handlePhoneNumberChange = (e) => {
+		if (typeof e.target.value !== "string") {
+			return;
+		}
+
+		const convertedNumber = Number(e.target.value);
+
+		if (isNaN(convertedNumber)) {
+			return;
+		}
+
+		const numDigits = convertedNumber.toString().length
+
+		if (numDigits > 11) {
+			return;
+		}
+
+		setPhoneNumber(() => e.target.value);
+	};
+
+	const handleCardNumberChange = (e) => {
+		if (typeof e.target.value !== "string") {
+			return;
+		}
+
+		const convertedNumber = Number(e.target.value);
+
+		if (isNaN(convertedNumber)) {
+			return;
+		}
+
+		const numDigits = convertedNumber.toString().length
+
+		if (numDigits > 16) {
+			return;
+		}
+
+		setCardNumber(() => e.target.value);
+	};
+
+	const handleFirstNameChange = (e) => {
+		if (!/^[a-zA-Z]*$/.test(e.target.value)) {
+			return;
+		}
+
+		setFirstName(() => e.target.value);
+	};
+
+	const handleLastNameChange = (e) => {
+		if (!/^[a-zA-Z]*$/.test(e.target.value)) {
+			return;
+		}
+
+		setLastName(() => e.target.value);
+	};
+
+	const handleEmailChange = (e) => {
+		if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value)) {
+			return;
+		}
+
+		setEmail(() => e.target.value);
+	};
+
+	const handleBillingAddressChange = (e) => {
+		setBillingAddress(() => e.target.value);
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		const values = [
+			firstName,
+			lastName,
+			email,
+			billingAddress,
+			cardNumber,
+			cvv,
+			expYear,
+			expMonth
+		];
+
+		values.forEach(value => {
+			if(value === "") {
+				console.log("Please fill in all the required fields");
+
+				return;
+			}
+		});
+
+		const token = await stripeInstance.tokens.create({
+			card: {
+				number: cardNumber.toString(),
+				exp_month: expMonth,
+				exp_year: expYear,
+				cvc: cvv.toString(),
+				name: `${firstName} ${lastName}`,
+				address_line1: billingAddress.toString(),
+			},
+		});
+
+		const charge = await stripeInstance.charges.create({
+			amount: Math.round((getPriceTotal+9.30) * 100),
+			currency: 'usd',
+			source: token.id,
+			description: 'Payment For Goods',
+			receipt_email: email.toString(),
+			metadata: {
+				email: email.toString(),
+				phone: phoneNumber.toString()
+			}
+		});
+
+		console.log(token, charge);
+
+	};
+
+	const[isLoaded, setIsLoaded] = useState(false);
+	useEffect(() => {
+		setIsLoaded(() => true);
+	}, []);
+
 	const togglePaymentMethod = (e) => {
 		const accordionContainerHiddenClasses = ["accordion-container-hidden"];
 
@@ -97,7 +265,12 @@ const Checkout = () => {
 	const formartTotalPayableAmount = formartAmountSum(getPriceTotal + 9.30);
 
 	return (
-		<div className="relative">
+		!isLoaded ? (
+			<p className="px-[3%] py-12">
+				Loading checkout form, please wait...
+			</p>
+		) :
+		 <div className="relative">
 			<div
 				className="absolute grid inset-0"
 				aria-hidden="true"
@@ -106,14 +279,14 @@ const Checkout = () => {
 				<div className="bg-white dark:bg-brand-black"></div>
 			</div>
 
-			<div className="bg-white text-slate-900 py-[3%] px-[2%] mx-[3%] rounded-lg z-30 shadow-card relative grid gap-8 mb-12 lg:grid-cols-12 items-start lg:gap-0 divide-y lg:divide-y-0 lg:divide-x lg:divide-slate-200 lg:p-0">
+			<div className="bg-white text-slate-900 p-[3%] mx-[3%] rounded-lg z-30 shadow-card relative grid gap-8 mb-12 lg:grid-cols-12 items-start divide-y lg:divide-y-0 lg:divide-x lg:divide-slate-200">
 				<div
-					className={`grid gap-4 lg:py-[3%] lg:px-[5%] ${totalCartProducts < 1 ? 'lg:col-span-12' : 'lg:col-span-8'}`}
+					className={`grid gap-4 items-center ${totalCartProducts < 1 ? 'lg:col-span-12' : 'lg:col-span-8'}`}
 				>
 					<div
 						className={`${
 							totalCartProducts < 1
-								? "flex items-center gap-4"
+								? "flex items-center gap-4 flex-wrap"
 								: "block border-b border-slate-200 pb-2"
 						}`}
 					>
@@ -135,21 +308,21 @@ const Checkout = () => {
 						</div>
 
 						{totalCartProducts < 1 &&
-							<p>You don’t have any item in your cart yet</p>
+							<p className="font-bold">You don’t have any item in your cart yet.</p>
 						}
 					</div>
 
 					{totalCartProducts > 0 && (
 						<>
-							<h2 className="header text-xl">Billing details</h2>
+							<h2 className="header text-xl mb-4">Billing details</h2>
 
-							<form className="grid gap-4 lg:grid-cols-2">
+							<form className="grid gap-4 lg:grid-cols-2" onSubmit={handleSubmit}>
 								<label
 									className="grid gap-1.5"
 									htmlFor="first-name"
 								>
 									<span className="font-semibold block">
-										First name{" "}
+										First Name{" "}
 										<span className="text-brand-red">
 											*
 										</span>
@@ -159,6 +332,8 @@ const Checkout = () => {
 										className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2]"
 										type="text"
 										name="first-name"
+										value={firstName}
+										onChange={(e) => handleFirstNameChange(e)}
 										id="first-name"
 									/>
 								</label>
@@ -168,7 +343,7 @@ const Checkout = () => {
 									htmlFor="last-name"
 								>
 									<span className="font-semibold block">
-										Last name{" "}
+										Last Name{" "}
 										<span className="text-brand-red">
 											*
 										</span>
@@ -178,16 +353,18 @@ const Checkout = () => {
 										className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2]"
 										type="text"
 										name="last-name"
+										value={lastName}
+										onChange={(e) => handleLastNameChange(e)}
 										id="last-name"
 									/>
 								</label>
 
 								<label
-									className="grid gap-1.5 lg:col-span-2"
+									className="grid gap-1.5"
 									htmlFor="email-address"
 								>
 									<span className="font-semibold block">
-										Email address{" "}
+										Email Address{" "}
 										<span className="text-brand-red">
 											*
 										</span>
@@ -197,7 +374,53 @@ const Checkout = () => {
 										className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2]"
 										type="email"
 										name="email-address"
+										value={email}
+										onChange={(e) => handleEmailChange(e)}
 										id="email-address"
+									/>
+								</label>
+
+								<label
+									className="grid gap-1.5"
+									htmlFor="phone-number"
+								>
+									<span className="font-semibold block">
+										Phone Number{" "}
+										<span className="text-brand-red">
+											*
+										</span>
+									</span>
+
+									<input
+										className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2]"
+										type="number"
+										inputMode="numeric"
+										name="phone-number"
+										patter="[0-9]{11}"
+										value={phoneNumber}
+										onChange={(e) => handlePhoneNumberChange(e)}
+										id="phone-number"
+									/>
+								</label>
+
+								<label
+									className="grid gap-1.5 lg:col-span-2"
+									htmlFor="address"
+								>
+									<span className="font-semibold block">
+										Billing Address{" "}
+										<span className="text-brand-red">
+											*
+										</span>
+									</span>
+
+									<input
+										className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2]"
+										type="text"
+										name="address"
+										value={billingAddress}
+										onChange={(e) => handleBillingAddressChange(e)}
+										id="address"
 									/>
 								</label>
 
@@ -371,28 +594,20 @@ const Checkout = () => {
 
 												<div className="grid gap-4 lg:grid-cols-2">
 													<label
-														className="w-full"
+														className="w-full lg:col-span-2"
 														htmlFor="card-number"
 													>
 														<input
 															className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] w-full"
 															type="number"
+															inputMode="numeric"
 															name="card-number"
 															id="card-number"
+															maxLength={16}
+															pattern="[0-9.]+{16}"
+															value={cardNumber}
+															onChange={(e) => handleCardNumberChange(e)}
 															placeholder="Card Number"
-														/>
-													</label>
-
-													<label
-														className="w-full"
-														htmlFor="fullname"
-													>
-														<input
-															className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] w-full"
-															type="text"
-															name="fullname"
-															id="fullname"
-															placeholder="Full Name"
 														/>
 													</label>
 
@@ -406,6 +621,10 @@ const Checkout = () => {
 																type="text"
 																name="expiry-date"
 																id="expiry-date"
+																maxLength={7}
+																pattern="[0-9]{2}/[0-9]{2}"
+																value={expiration}
+																onChange={(e) => handleExpirationDetails(e)}
 																placeholder="MM/YY"
 															/>
 														</label>
@@ -416,20 +635,25 @@ const Checkout = () => {
 														>
 															<input
 																className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] w-full"
-																type="text"
+																type="number"
 																name="cvc"
 																id="cvc"
+																inputMode="numeric"
+																maxLength={3}
+																pattern="[0-9]{3}"
+																value={cvv}
+																onChange={(e) => handleCVVChange(e)}
 																placeholder="CVC"
 															/>
 														</label>
 													</div>
 
-													<Link
-														className="bg-brand-red text-white py-2 px-4 text-center hover:bg-brand-dark-rose rounded-lg"
-														href="/"
+													<button
+														className="bg-brand-red text-white py-2.5 px-4 text-center hover:bg-brand-dark-rose rounded-lg"
+														type="submit"
 													>
-														Place order
-													</Link>
+														Pay for products
+													</button>
 												</div>
 											</div>
 										</div>
@@ -479,104 +703,106 @@ const Checkout = () => {
 				</div>
 
 				{totalCartProducts > 0 && (
-					<div className="hidden lg:grid gap-8 lg:col-span-4 lg:py-[6%] lg:px-[10%]">
-						<h2 className="header text-xl text-center">
-							Order summary
-						</h2>
+					<div className="hidden lg:grid lg:col-span-4 lg:px-[10%] sticky top-20">
+						<div className="lg:grid gap-8">
+							<h2 className="header text-xl text-center">
+								Order summary
+							</h2>
 
-						<div className="divide-y divide-slate-200">
-							{cartProducts.map(({ product, id }) => (
-								<div
-									className="flex items-center gap-4 pb-2"
-									key={id}
-								>
-									<Image
-										className="object-cover aspect-square rounded-md"
-										src={
-											product.indexImage.data
-												.attributes.url
-										}
-										height={60}
-										width={60}
-										quality={100}
-										alt={product.productName}
-									/>
+							<div className="divide-y divide-slate-200">
+								{cartProducts.map(({ product, id }) => (
+									<div
+										className="flex items-center gap-4 pb-2"
+										key={id}
+									>
+										<Image
+											className="object-cover aspect-square rounded-md"
+											src={
+												product.indexImage.data
+													.attributes.url
+											}
+											height={60}
+											width={60}
+											quality={100}
+											alt={product.productName}
+										/>
 
-									<div className="grid gap-0.5">
-										<h3 className="font-semibold leading-0">
-											{product.productName}
-										</h3>
+										<div className="grid gap-0.5">
+											<h3 className="font-semibold leading-0">
+												{product.productName}
+											</h3>
 
-										<p className="text-brand-red slashed-zero">
-											<span className="font-medium">
-												$
-												{
-													formartAmountSum(
-														product.currentPrice,
-													).wholeNumber
-												}
-											</span>
-
-											{formartAmountSum(
-												product.currentPrice,
-											).hasFractions === true && (
-												<small>
-													.
+											<p className="text-brand-red slashed-zero">
+												<span className="font-medium">
+													$
 													{
 														formartAmountSum(
 															product.currentPrice,
-														).fractions
+														).wholeNumber
 													}
+												</span>
+
+												{formartAmountSum(
+													product.currentPrice,
+												).hasFractions === true && (
+													<small>
+														.
+														{
+															formartAmountSum(
+																product.currentPrice,
+															).fractions
+														}
+													</small>
+												)}
+											</p>
+										</div>
+									</div>
+								))}
+
+								<div className="py-4 grid gap-0.5 slashed-zero">
+									<div className="flex items-center gap-4 justify-between">
+										<p className="font-medium">Subtotal:</p>
+
+										<p>
+											<span className="font-medium">
+												${formartAmount.wholeNumber}
+											</span>
+											{formartAmount.hasFractions ===
+												true && (
+												<small>
+													.{formartAmount.fractions}
 												</small>
 											)}
 										</p>
 									</div>
-								</div>
-							))}
 
-							<div className="py-4 grid gap-0.5 slashed-zero">
-								<div className="flex items-center gap-4 justify-between">
-									<p className="font-medium">Subtotal:</p>
+									<div className="flex items-center gap-4 justify-between">
+										<p className="font-medium">Taxes:</p>
 
-									<p>
-										<span className="font-medium">
-											${formartAmount.wholeNumber}
-										</span>
-										{formartAmount.hasFractions ===
-											true && (
-											<small>
-												.{formartAmount.fractions}
-											</small>
-										)}
-									</p>
+										<p>
+											$
+											<span className="font-medium">
+												9.
+											</span>
+											<small>30</small>
+										</p>
+									</div>
 								</div>
 
-								<div className="flex items-center gap-4 justify-between">
-									<p className="font-medium">Taxes:</p>
-
-									<p>
-										$
-										<span className="font-medium">
-											9.
-										</span>
-										<small>30</small>
-									</p>
+								<div className="flex place-content-center py-4 text-3xl slashed-zero">
+									<span className="font-bold">
+										${formartTotalPayableAmount.wholeNumber}
+									</span>
+									{formartTotalPayableAmount.hasFractions ===
+										true && (
+										<small className="font-medium">
+											.
+											{
+												formartTotalPayableAmount.fractions
+											}
+										</small>
+									)}
 								</div>
-							</div>
-
-							<div className="flex place-content-center py-4 text-3xl slashed-zero">
-								<span className="font-bold">
-									${formartTotalPayableAmount.wholeNumber}
-								</span>
-								{formartTotalPayableAmount.hasFractions ===
-									true && (
-									<small className="font-medium">
-										.
-										{
-											formartTotalPayableAmount.fractions
-										}
-									</small>
-								)}
 							</div>
 						</div>
 					</div>

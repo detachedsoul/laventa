@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import useCart from "@store/useCart";
 import formartAmountSum from "@helpers/formartAmountSum";
-import {useState, useEffect, useId} from "react";
+import {useState, useEffect} from "react";
 
 const Checkout = () => {
 	const[isLoaded, setIsLoaded] = useState(false);
@@ -24,7 +24,7 @@ const Checkout = () => {
 	return (
 		!isLoaded ? (
 			<p className="px-[3%] py-12">
-				Loading content, please wait...
+				Loading cart content, please wait...
 			</p>
 		) :
 		<div className="relative">
@@ -36,16 +36,16 @@ const Checkout = () => {
 				<div className="bg-white dark:bg-brand-black"></div>
 			</div>
 
-			<div className="bg-white text-slate-900 py-[3%] px-[2%] mx-[3%] rounded-lg z-30 shadow-card relative grid gap-8 mb-12 lg:grid-cols-12 lg:gap-0 divide-y lg:divide-y-0 lg:divide-x lg:divide-slate-200 lg:p-0">
+			<div className="bg-white text-slate-900 p-[3%] mx-[3%] rounded-lg z-30 shadow-card relative grid items-start gap-8 mb-12 lg:grid-cols-12 lg:gap-0 divide-y lg:divide-y-0 lg:divide-x lg:divide-slate-200">
 				<div
-					className={`grid gap-4 lg:py-[3%] lg:px-[5%] ${
+					className={`grid gap-4 ${
 						totalCartProducts < 1
 							? "lg:col-span-12"
 							: "lg:col-span-8"
 					}`}
 				>
 					<div
-						className={`flex items-start justify-between gap-2 flex-wrap ${
+						className={`flex items-center justify-between gap-2 flex-wrap ${
 							totalCartProducts > 0 &&
 							"border-b border-slate-200 pb-4"
 						}`}
@@ -135,8 +135,8 @@ const Checkout = () => {
 				</div>
 
 				{totalCartProducts > 0 && (
-					<div className="pt-8 lg:col-span-4 lg:py-[6%] lg:px-[10%]">
-						<div className="sticky top-24 lg:grid gap-8">
+					<div className="pt-8 lg:col-span-4 lg:py-[6%] lg:px-[10%] sticky top-16">
+						<div className="lg:grid gap-8">
 							<div className="divide-y divide-slate-200">
 								<div className="grid place-items-center place-content-center gap-4 pb-4">
 									<p className="font-semibold text-lg">

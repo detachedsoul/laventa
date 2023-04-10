@@ -135,7 +135,7 @@ const CategoryFilterOptions = ({ filterIsOpen, productFilterOptions }) => {
 									</label>
 
 									<span>
-                                        {productFilterOptions?.countTotalProducts.filter(categoryName => categoryName.attributes.category.data.attributes.categoryName === category?.attributes?.categoryName).length}
+                                        {productFilterOptions?.countTotalProducts?.filter(categoryName => categoryName.attributes.category.data.attributes.categoryName === category?.attributes?.categoryName).length}
                                     </span>
 								</div>
 							))
