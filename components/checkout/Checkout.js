@@ -5,22 +5,29 @@ import acceptedCards from "@assets/img/cards-alt.png";
 import Link from "next/link";
 import useCart from "@store/useCart";
 import formartAmountSum from "@helpers/formartAmountSum";
-import {useState, useEffect} from "react";
+import Popup from "@components/checkout/Popup";
+import { useState, useEffect } from "react";
 import Stripe from "stripe";
 
 const Checkout = () => {
+	const [isActive, setIsActive] = useState(false);
+	const [isSuccess, setIsSuccess] = useState(false);
+	const [message, setMessage] = useState("");
+	const [isProcessing, setIsProcessing] = useState(false);
+	const [receiptURL, setReceiptURL] = useState(null);
+
 	const stripeInstance = Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
 
-	const[firstName, setFirstName] = useState("");
-	const[lastName, setLastName] = useState("");
-	const[email, setEmail] = useState("");
-	const[billingAddress, setBillingAddress] = useState("");
-	const[cardNumber, setCardNumber] = useState("");
-	const[phoneNumber, setPhoneNumber] = useState("");
-	const[expMonth, setExpMonth] = useState("");
-	const[expYear, setExpYear] = useState("");
-	const[expiration, setExpiration] = useState("");
-	const[cvv, setCVV] = useState("");
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [email, setEmail] = useState("");
+	const [billingAddress, setBillingAddress] = useState("");
+	const [cardNumber, setCardNumber] = useState("");
+	const [phoneNumber, setPhoneNumber] = useState("");
+	const [expMonth, setExpMonth] = useState("");
+	const [expYear, setExpYear] = useState("");
+	const [expiration, setExpiration] = useState("");
+	const [cvv, setCVV] = useState("");
 
 	const handleExpirationDetails = (e) => {
 		const month = e.target.value.toString().split("/")[0];
@@ -30,9 +37,7 @@ const Checkout = () => {
 		setExpYear(() => year);
 
 		setExpiration(() => e.target.value);
-
-		console.log(month);
-	}
+	};
 
 	const handleCVVChange = (e) => {
 		if (typeof e.target.value !== "string") {
@@ -45,7 +50,7 @@ const Checkout = () => {
 			return;
 		}
 
-		const numDigits = convertedNumber.toString().length
+		const numDigits = convertedNumber.toString().length;
 
 		if (numDigits > 3) {
 			return;
@@ -65,7 +70,7 @@ const Checkout = () => {
 			return;
 		}
 
-		const numDigits = convertedNumber.toString().length
+		const numDigits = convertedNumber.toString().length;
 
 		if (numDigits > 11) {
 			return;
@@ -85,7 +90,7 @@ const Checkout = () => {
 			return;
 		}
 
-		const numDigits = convertedNumber.toString().length
+		const numDigits = convertedNumber.toString().length;
 
 		if (numDigits > 16) {
 			return;
@@ -111,10 +116,6 @@ const Checkout = () => {
 	};
 
 	const handleEmailChange = (e) => {
-		if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value)) {
-			return;
-		}
-
 		setEmail(() => e.target.value);
 	};
 
@@ -125,6 +126,8 @@ const Checkout = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		setIsProcessing(() => true);
+
 		const values = [
 			firstName,
 			lastName,
@@ -133,45 +136,80 @@ const Checkout = () => {
 			cardNumber,
 			cvv,
 			expYear,
-			expMonth
+			expMonth,
 		];
 
-		values.forEach(value => {
-			if(value === "") {
-				console.log("Please fill in all the required fields");
+		for (const value of values) {
+			if (value === "") {
+				setIsActive(() => true);
+				setIsSuccess(() => false);
+				setMessage(
+					() =>
+						"Oops! Looks like you forgot to provide some needed information. 😔",
+				);
 
 				return;
 			}
-		});
+		}
 
-		const token = await stripeInstance.tokens.create({
-			card: {
-				number: cardNumber.toString(),
-				exp_month: expMonth,
-				exp_year: expYear,
-				cvc: cvv.toString(),
-				name: `${firstName} ${lastName}`,
-				address_line1: billingAddress.toString(),
-			},
-		});
+		// Check if the typed string is a valid email
+		const isValidEmail = /^[^\s@]*@[^\s@]+\.[^\s@]+$/.test(email);
 
-		const charge = await stripeInstance.charges.create({
-			amount: Math.round((getPriceTotal+9.30) * 100),
-			currency: 'usd',
-			source: token.id,
-			description: 'Payment For Goods',
-			receipt_email: email.toString(),
-			metadata: {
-				email: email.toString(),
-				phone: phoneNumber.toString()
+		if (!isValidEmail) {
+			setIsActive(() => true);
+			setIsSuccess(() => false);
+			setMessage(() => "Please enter a valid email address. 😒")
+
+			return;
+		}
+
+		try {
+			const token = await stripeInstance.tokens.create({
+				card: {
+					number: cardNumber.toString(),
+					exp_month: expMonth,
+					exp_year: expYear,
+					cvc: cvv.toString(),
+					name: `${firstName} ${lastName}`,
+					address_line1: billingAddress.toString(),
+				},
+			});
+
+			const charge = await stripeInstance.charges.create({
+				amount: Math.round((getPriceTotal + 9.3) * 100),
+				currency: "usd",
+				source: token.id,
+				description: "Payment For Goods",
+				receipt_email: email.toString(),
+				metadata: {
+					email: email.toString(),
+					phone: phoneNumber.toString(),
+				},
+			});
+
+			console.log(token, charge);
+
+			if (charge.status === "succeeded" && charge.paid === true) {
+				setIsActive(() => true);
+				setIsSuccess(() => true);
+				setMessage(() => "Your transaction was successful! 🎉");
+				setReceiptURL(() => charge.receipt_url);
+			} else {
+				setIsActive(() => true);
+				setIsSuccess(() => false);
+				setMessage(
+					() =>
+						"There was a problem performing this transaction. Please again later. 😔",
+				);
 			}
-		});
-
-		console.log(token, charge);
-
+		} catch (e) {
+			setIsActive(() => true);
+			setIsSuccess(() => false);
+			setMessage(() => `${e.message} 😔`)
+		}
 	};
 
-	const[isLoaded, setIsLoaded] = useState(false);
+	const [isLoaded, setIsLoaded] = useState(false);
 	useEffect(() => {
 		setIsLoaded(() => true);
 	}, []);
@@ -262,15 +300,12 @@ const Checkout = () => {
 	);
 	const formartAmount = formartAmountSum(getPriceTotal);
 
-	const formartTotalPayableAmount = formartAmountSum(getPriceTotal + 9.30);
+	const formartTotalPayableAmount = formartAmountSum(getPriceTotal + 9.3);
 
-	return (
-		!isLoaded ? (
-			<p className="px-[3%] py-12">
-				Loading checkout form, please wait...
-			</p>
-		) :
-		 <div className="relative">
+	return !isLoaded ? (
+		<p className="px-[3%] py-12">Loading checkout form, please wait...</p>
+	) : (
+		<div className="relative">
 			<div
 				className="absolute grid inset-0"
 				aria-hidden="true"
@@ -281,7 +316,11 @@ const Checkout = () => {
 
 			<div className="bg-white text-slate-900 p-[3%] mx-[3%] rounded-lg z-30 shadow-card relative grid gap-8 mb-12 lg:grid-cols-12 items-start divide-y lg:divide-y-0 lg:divide-x lg:divide-slate-200">
 				<div
-					className={`grid gap-4 items-center ${totalCartProducts < 1 ? 'lg:col-span-12' : 'lg:col-span-8'}`}
+					className={`grid gap-4 items-center ${
+						totalCartProducts < 1
+							? "lg:col-span-12"
+							: "lg:col-span-8"
+					}`}
 				>
 					<div
 						className={`${
@@ -302,21 +341,27 @@ const Checkout = () => {
 								<i className="fr fi-rr-angle-left text-base top-0.5 pr-0.5"></i>
 								{totalCartProducts < 1
 									? "Continue shopping"
-									: "Back to cart"
-								}
+									: "Back to cart"}
 							</Link>
 						</div>
 
-						{totalCartProducts < 1 &&
-							<p className="font-bold">You don’t have any item in your cart yet.</p>
-						}
+						{totalCartProducts < 1 && (
+							<p className="font-bold">
+								You don’t have any item in your cart yet.
+							</p>
+						)}
 					</div>
 
 					{totalCartProducts > 0 && (
 						<>
-							<h2 className="header text-xl mb-4">Billing details</h2>
+							<h2 className="header text-xl mb-4">
+								Billing details
+							</h2>
 
-							<form className="grid gap-4 lg:grid-cols-2" onSubmit={handleSubmit}>
+							<form
+								className="grid gap-4 lg:grid-cols-2"
+								method="POST"
+							>
 								<label
 									className="grid gap-1.5"
 									htmlFor="first-name"
@@ -333,7 +378,9 @@ const Checkout = () => {
 										type="text"
 										name="first-name"
 										value={firstName}
-										onChange={(e) => handleFirstNameChange(e)}
+										onChange={(e) =>
+											handleFirstNameChange(e)
+										}
 										id="first-name"
 									/>
 								</label>
@@ -354,7 +401,9 @@ const Checkout = () => {
 										type="text"
 										name="last-name"
 										value={lastName}
-										onChange={(e) => handleLastNameChange(e)}
+										onChange={(e) =>
+											handleLastNameChange(e)
+										}
 										id="last-name"
 									/>
 								</label>
@@ -398,7 +447,9 @@ const Checkout = () => {
 										name="phone-number"
 										patter="[0-9]{11}"
 										value={phoneNumber}
-										onChange={(e) => handlePhoneNumberChange(e)}
+										onChange={(e) =>
+											handlePhoneNumberChange(e)
+										}
 										id="phone-number"
 									/>
 								</label>
@@ -419,7 +470,9 @@ const Checkout = () => {
 										type="text"
 										name="address"
 										value={billingAddress}
-										onChange={(e) => handleBillingAddressChange(e)}
+										onChange={(e) =>
+											handleBillingAddressChange(e)
+										}
 										id="address"
 									/>
 								</label>
@@ -429,133 +482,121 @@ const Checkout = () => {
 										Order summary
 									</h2>
 
-										<div className="divide-y divide-slate-200">
-											{cartProducts.map(
-												({ product, id }) => (
-													<div
-														className="flex items-center gap-4 pb-2"
-														key={id}
-													>
-														<Image
-															className="object-cover aspect-square rounded-md"
-															src={
-																product
-																	.indexImage
-																	.data
-																	.attributes
-																	.url
-															}
-															height={60}
-															width={60}
-															quality={100}
-															alt={
-																product.productName
-															}
-														/>
+									<div className="divide-y divide-slate-200">
+										{cartProducts.map(({ product, id }) => (
+											<div
+												className="flex items-center gap-4 pb-2"
+												key={id}
+											>
+												<Image
+													className="object-cover aspect-square rounded-md"
+													src={
+														product.indexImage.data
+															.attributes.url
+													}
+													height={60}
+													width={60}
+													quality={100}
+													alt={product.productName}
+												/>
 
-														<div className="grid gap-0.5">
-															<h3 className="font-semibold leading-0">
-																{
-																	product.productName
-																}
-															</h3>
+												<div className="grid gap-0.5">
+													<h3 className="font-semibold leading-0">
+														{product.productName}
+													</h3>
 
-															<p className="text-brand-red slashed-zero">
-																<span className="font-medium">
-																	$
-																	{
-																		formartAmountSum(
-																			product.currentPrice,
-																		)
-																			.wholeNumber
-																	}
-																</span>
-
-																{formartAmountSum(
-																	product.currentPrice,
-																)
-																	.hasFractions ===
-																	true && (
-																	<small>
-																		.
-																		{
-																			formartAmountSum(
-																				product.currentPrice,
-																			)
-																				.fractions
-																		}
-																	</small>
-																)}
-															</p>
-														</div>
-													</div>
-												),
-											)}
-
-											<div className="py-4 grid gap-0.5 slashed-zero">
-												<div className="flex items-center gap-4 justify-between">
-													<p className="font-medium">
-														Subtotal:
-													</p>
-
-													<p>
+													<p className="text-brand-red slashed-zero">
 														<span className="font-medium">
 															$
 															{
-																formartAmount.wholeNumber
+																formartAmountSum(
+																	product.currentPrice,
+																).wholeNumber
 															}
 														</span>
-														{formartAmount.hasFractions ===
+
+														{formartAmountSum(
+															product.currentPrice,
+														).hasFractions ===
 															true && (
 															<small>
 																.
 																{
-																	formartAmount.fractions
-																}
-															</small>
-														)}
-													</p>
-												</div>
-
-												<div className="flex items-center gap-4 justify-between">
-													<p className="font-medium">
-														Taxes:
-													</p>
-
-													<p>
-														$
-														<span className="font-medium">
-															9.
-														</span>
-														<small>30</small>
-													</p>
-												</div>
-
-												<div className="flex items-center gap-4 justify-between text-xl">
-													<p className="font-medium">
-														Total:
-													</p>
-
-													<p>
-														<span className="font-bold">
-															$
-															{
-																formartTotalPayableAmount.wholeNumber
-															}
-														</span>
-														{formartTotalPayableAmount.hasFractions ===
-															true && (
-															<small className="font-medium">
-																.
-																{
-																	formartTotalPayableAmount.fractions
+																	formartAmountSum(
+																		product.currentPrice,
+																	).fractions
 																}
 															</small>
 														)}
 													</p>
 												</div>
 											</div>
+										))}
+
+										<div className="py-4 grid gap-0.5 slashed-zero">
+											<div className="flex items-center gap-4 justify-between">
+												<p className="font-medium">
+													Subtotal:
+												</p>
+
+												<p>
+													<span className="font-medium">
+														$
+														{
+															formartAmount.wholeNumber
+														}
+													</span>
+													{formartAmount.hasFractions ===
+														true && (
+														<small>
+															.
+															{
+																formartAmount.fractions
+															}
+														</small>
+													)}
+												</p>
+											</div>
+
+											<div className="flex items-center gap-4 justify-between">
+												<p className="font-medium">
+													Taxes:
+												</p>
+
+												<p>
+													$
+													<span className="font-medium">
+														9.
+													</span>
+													<small>30</small>
+												</p>
+											</div>
+
+											<div className="flex items-center gap-4 justify-between text-xl">
+												<p className="font-medium">
+													Total:
+												</p>
+
+												<p>
+													<span className="font-bold">
+														$
+														{
+															formartTotalPayableAmount.wholeNumber
+														}
+													</span>
+													{formartTotalPayableAmount.hasFractions ===
+														true && (
+														<small className="font-medium">
+															.
+															{
+																formartTotalPayableAmount.fractions
+															}
+														</small>
+													)}
+												</p>
+											</div>
 										</div>
+									</div>
 								</div>
 
 								<div className="border border-slate-200 rounded-lg divide-y divide-slate-200 lg:col-span-2">
@@ -606,7 +647,11 @@ const Checkout = () => {
 															maxLength={16}
 															pattern="[0-9.]+{16}"
 															value={cardNumber}
-															onChange={(e) => handleCardNumberChange(e)}
+															onChange={(e) =>
+																handleCardNumberChange(
+																	e,
+																)
+															}
 															placeholder="Card Number"
 														/>
 													</label>
@@ -623,8 +668,14 @@ const Checkout = () => {
 																id="expiry-date"
 																maxLength={7}
 																pattern="[0-9]{2}/[0-9]{2}"
-																value={expiration}
-																onChange={(e) => handleExpirationDetails(e)}
+																value={
+																	expiration
+																}
+																onChange={(e) =>
+																	handleExpirationDetails(
+																		e,
+																	)
+																}
 																placeholder="MM/YY"
 															/>
 														</label>
@@ -642,17 +693,41 @@ const Checkout = () => {
 																maxLength={3}
 																pattern="[0-9]{3}"
 																value={cvv}
-																onChange={(e) => handleCVVChange(e)}
+																onChange={(e) =>
+																	handleCVVChange(
+																		e,
+																	)
+																}
 																placeholder="CVC"
 															/>
 														</label>
 													</div>
 
 													<button
-														className="bg-brand-red text-white py-2.5 px-4 text-center hover:bg-brand-dark-rose rounded-lg"
-														type="submit"
+														className={`bg-brand-red text-white py-2.5 px-4 text-center relative hover:bg-brand-dark-rose rounded-lg ${
+														isProcessing
+															? "font-medium bg-brand-dark-rose/90 select-none disabled:cursor-not-allowed  animate-pulse pointer-events-none"
+															: ""
+														}`}
+														disabled={isProcessing}
+														onClick={(e) => {
+															handleSubmit(e)
+														}}
+														type="button"
 													>
-														Pay for products
+														{isProcessing ? (
+															<>
+																<i
+																	className="fi fi-rr-loading top-0.5 mr-3 relative animate-spin"
+																></i>
+
+																<span className="animate-bounce">
+																	Processing...
+																</span>
+															</>
+														) : (
+															"Pay for products"
+														)}
 													</button>
 												</div>
 											</div>
@@ -808,6 +883,15 @@ const Checkout = () => {
 					</div>
 				)}
 			</div>
+
+			<Popup
+				isSuccess={isSuccess}
+				message={message}
+				isActive={isActive}
+				setIsActive={setIsActive}
+				receiptURL={receiptURL}
+				setIsProcessing={setIsProcessing}
+			/>
 		</div>
 	);
 };

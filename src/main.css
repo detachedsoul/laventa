@@ -76,7 +76,11 @@
     }
 
     .view-more-btn {
-        @apply py-2 px-3 focus:ring-1 focus:ring-slate-200 focus:ring-offset-2 border border-slate-200 rounded-md hover:bg-[#434343] hover:text-white focus:border-slate-200 focus:ring-offset-white dark:border-slate-100/[0.06] dark:ring-offset-brand-black dark:bg-brand-light-black dark:hover:bg-[#434343] dark:focus:ring-brand-light-black transition-all ease-linear duration-75
+        @apply py-2 px-3 hover:ring-1 focus:ring-1 focus:ring-slate-200 focus:ring-offset-2 border border-slate-200 rounded-md hover:bg-[#434343] hover:text-white focus:border-slate-200 focus:ring-offset-white dark:border-slate-100/[0.06] dark:ring-offset-brand-black dark:bg-brand-light-black dark:hover:bg-[#434343] dark:focus:ring-brand-light-black transition-all ease-linear duration-75
+    }
+
+    .popup-btn {
+        @apply view-more-btn ring-offset-2 hover:ring-offset-2 text-white dark:ring-offset-white
     }
 
     .accordion-container {

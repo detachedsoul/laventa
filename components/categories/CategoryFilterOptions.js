@@ -90,7 +90,7 @@ const CategoryFilterOptions = ({ filterIsOpen, productFilterOptions }) => {
 										}}
 									/>
 									{pathname !== "/categories" ? (
-                                        pathname.split("/")[2].split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                                        pathname?.split("/")[2].split(" ")?.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
                                     ) : "All Categories"}
 								</label>
 
@@ -106,28 +106,28 @@ const CategoryFilterOptions = ({ filterIsOpen, productFilterOptions }) => {
 								Fetching categories...
 							</p>
 						) : categories?.length > 0 ? (
-							categories.map((category) => (
+							categories?.map((category) => (
 								<div
 									className="flex items-center justify-between"
-									key={category.id}
+									key={category?.id}
 								>
 									<label
 										className="flex items-center gap-2 cursor-pointer"
-										htmlFor={category?.attributes?.categoryName.toLowerCase()}
+										htmlFor={category?.attributes?.categoryName?.toLowerCase()}
 									>
 										<input
 											className="form-checkbox cursor-pointer rounded-md p-2.5 border border-slate-200 lg:p-2 focus:ring-1 focus:brand-dark-rose/[0.2] focus:ring-brand-dark-rose/[0.2] focus:ring-offset-2 text-brand-red lg;rounded-rounded"
 											type="checkbox"
-											id={category?.attributes?.categoryName.toLowerCase()}
+											id={category?.attributes?.categoryName?.toLowerCase()}
 											checked={
 												filterCategory ===
-												`filters[category][categoryName][$eqi]=${category?.attributes?.categoryName.toLowerCase()}&`
+												`filters[category][categoryName][$eqi]=${category?.attributes?.categoryName?.toLowerCase()}&`
 													? true
 													: false
 											}
 											onChange={() => {
 												setFilterCategory(
-													`filters[category][categoryName][$eqi]=${category?.attributes?.categoryName.toLowerCase()}&`,
+													`filters[category][categoryName][$eqi]=${category?.attributes?.categoryName?.toLowerCase()}&`,
 												);
 											}}
 										/>
@@ -135,7 +135,7 @@ const CategoryFilterOptions = ({ filterIsOpen, productFilterOptions }) => {
 									</label>
 
 									<span>
-                                        {productFilterOptions?.countTotalProducts?.filter(categoryName => categoryName.attributes.category.data.attributes.categoryName === category?.attributes?.categoryName).length}
+                                        {productFilterOptions?.countTotalProducts?.filter(categoryName => categoryName?.attributes?.category?.data?.attributes?.categoryName === category?.attributes?.categoryName).length}
                                     </span>
 								</div>
 							))
