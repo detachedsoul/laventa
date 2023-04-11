@@ -187,13 +187,12 @@ const Checkout = () => {
 				},
 			});
 
-			console.log(token, charge);
-
 			if (charge.status === "succeeded" && charge.paid === true) {
 				setIsActive(() => true);
 				setIsSuccess(() => true);
 				setMessage(() => "Your transaction was successful! 🎉");
 				setReceiptURL(() => charge.receipt_url);
+				clearCart();
 			} else {
 				setIsActive(() => true);
 				setIsSuccess(() => false);
@@ -292,6 +291,7 @@ const Checkout = () => {
 
 	const totalCartProducts = useCart((state) => state.cart.length);
 	const cartProducts = useCart((state) => state.cart);
+	const clearCart = useCart((state) => state.clearCart);
 
 	const getPriceTotal = cartProducts.reduce(
 		(accumulator, currentValue) =>
