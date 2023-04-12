@@ -8,6 +8,7 @@ import formartAmountSum from "@helpers/formartAmountSum";
 import Popup from "@components/checkout/Popup";
 import { useState, useEffect } from "react";
 import Stripe from "stripe";
+import CardFormatter from "creditcardutils";
 
 const Checkout = () => {
 	const [isActive, setIsActive] = useState(false);
@@ -33,10 +34,12 @@ const Checkout = () => {
 		const month = e.target.value.toString().split("/")[0];
 		const year = e.target.value.toString().split("/")[1];
 
-		setExpMonth(() => month);
-		setExpYear(() => year);
+		setExpMonth(() => Number(month));
+		setExpYear(() => Number(year));
 
-		setExpiration(() => e.target.value);
+		const formartCardExpiration = CardFormatter.formatCardExpiry(e.target.value);
+
+		setExpiration(() => formartCardExpiration);
 	};
 
 	const handleCVVChange = (e) => {
@@ -52,7 +55,7 @@ const Checkout = () => {
 
 		const numDigits = convertedNumber.toString().length;
 
-		if (numDigits > 3) {
+		if (numDigits > 4) {
 			return;
 		}
 
@@ -84,19 +87,9 @@ const Checkout = () => {
 			return;
 		}
 
-		const convertedNumber = Number(e.target.value);
+		const formartCard = CardFormatter.formatCardNumber(e.target.value);
 
-		if (isNaN(convertedNumber)) {
-			return;
-		}
-
-		const numDigits = convertedNumber.toString().length;
-
-		if (numDigits > 16) {
-			return;
-		}
-
-		setCardNumber(() => e.target.value);
+		setCardNumber(() => formartCard);
 	};
 
 	const handleFirstNameChange = (e) => {
@@ -152,6 +145,26 @@ const Checkout = () => {
 			}
 		}
 
+		// Check if CVV is valid for a particular card type
+		const cardNumberType = CardFormatter.parseCardType(cardNumber);
+		const isValidCVV = CardFormatter.validateCardCVC(cvv, cardNumberType);
+		if (!isValidCVV) {
+			setIsActive(() => true);
+			setIsSuccess(() => false);
+			setMessage(() => "Invalid CVV. 😒");
+
+			return;
+		}
+
+		// Check if card number is valid
+		if (!CardFormatter.validateCardNumber(cardNumber)) {
+			setIsActive(() => true);
+			setIsSuccess(() => false);
+			setMessage(() => "Invalid card number. 😒");
+
+			return;
+		}
+
 		// Check if the typed string is a valid email
 		const isValidEmail = /^[^\s@]*@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -190,7 +203,7 @@ const Checkout = () => {
 			if (charge.status === "succeeded" && charge.paid === true) {
 				setIsActive(() => true);
 				setIsSuccess(() => true);
-				setMessage(() => "Your transaction was successful! 🎉");
+				setMessage(() => "Click the link below to view the receipt for your transaction.");
 				setReceiptURL(() => charge.receipt_url);
 				clearCart();
 			} else {
@@ -640,12 +653,12 @@ const Checkout = () => {
 													>
 														<input
 															className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] w-full"
-															type="number"
+															type="text"
 															inputMode="numeric"
 															name="card-number"
 															id="card-number"
-															maxLength={16}
-															pattern="[0-9.]+{16}"
+															maxLength={19}
+															pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}"
 															value={cardNumber}
 															onChange={(e) =>
 																handleCardNumberChange(
@@ -690,8 +703,8 @@ const Checkout = () => {
 																name="cvc"
 																id="cvc"
 																inputMode="numeric"
-																maxLength={3}
-																pattern="[0-9]{3}"
+																maxLength={4}
+																pattern="[0-9]{4}"
 																value={cvv}
 																onChange={(e) =>
 																	handleCVVChange(

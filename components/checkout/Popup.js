@@ -59,18 +59,11 @@ const Popup = ({
 							}`}
 						>
 							{isSuccess
-								? "Transaction Successful"
+								? "Transaction Successful 🎉"
 								: "Transaction Failed"}
 						</h1>
 
 						<p>{message}</p>
-
-						{isSuccess && (
-							<p>
-								Click the link below to view the receipt for the
-								transaction.
-							</p>
-						)}
 					</div>
 
 					{isSuccess ? (
@@ -78,26 +71,26 @@ const Popup = ({
 							className="popup-btn inline-block bg-emerald-500 dark:bg-emerald-500 hover:bg-emerald-600 focus:bg-emerald-600 hover:ring-emerald-500 focus:ring-emerald-500 dark:hover:bg-emerald-600 dark:focus:bg-emerald-600 dark:focus:ring-emerald-500 dark:hover:ring-emerald-500 border-emerald-500 focus:border-emerald-500 hover:border-emerald-500"
 							href={receiptURL}
 							onClick={() => {
-                                setIsActive(() => false);
-                                setIsProcessing(() => false);
-                            }}
-                            target="_blank"
-                            rel="noopener noreferrer"
+								setIsActive(() => false);
+								setIsProcessing(() => false);
+							}}
+							target="_blank"
+							rel="noopener noreferrer"
 						>
 							View receipt
 						</Link>
 					) : (
-                        <button
+						<button
 							className="popup-btn bg-brand-red dark:bg-brand-red hover:bg-brand-dark-rose focus:bg-brand-dark-rose hover:ring-brand-red focus:ring-brand-red dark:hover:bg-brand-dark-rose dark:focus:bg-brand-dark-rose dark:focus:ring-brand-red dark:hover:ring-brand-red border-brand-red focus:border-brand-red hover:border-brand-red"
 							type="button"
 							onClick={() => {
-                                setIsActive(() => false);
-                                setIsProcessing(() => false);
-                            }}
+								setIsActive(() => false);
+								setIsProcessing(() => false);
+							}}
 						>
 							Try again
 						</button>
-                    )}
+					)}
 				</div>
 			</div>
 		</div>
