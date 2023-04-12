@@ -9,7 +9,7 @@ const SplitNewsletter = () => {
 				<div className="bg-slate-800 dark:bg-brand-light-black"></div>
 			</div>
 
-			<div className="bg-white text-slate-900 px-[6%] mx-[3%] py-12 rounded-lg grid place-content-center z-30 shadow-card relative">
+			<div className="bg-white text-slate-900 px-[6%] mx-4 sm:mx-8 py-12 rounded-lg grid place-content-center z-30 shadow-card relative">
 				<div className="text-center grid gap-8">
 					<div className="grid gap-3">
 						<h3 className="header text-3xl">Never miss a drop!</h3>

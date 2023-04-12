@@ -2,7 +2,7 @@ import NewArrivalsProductListing from "@components/new-arrivals/NewArrivalsProdu
 
 const NewArrivals = () => {
 	return (
-		<section className="space-y-12 bg-white shadow-card rounded-xl pt-[5%] px-[5%] pb-[10%] relative -top-[8vh] lg:-top-[10vh] -mb-[calc(10vh)] lg:px-[3%] lg:pt-[3%] lg:pb-[5%] dark:bg-[#f3f5f9] dark:text-slate-900">
+		<section className="space-y-12 bg-white shadow-card rounded-xl pt-[5%] px-4 sm:px-8 pb-[10%] relative -top-[8vh] lg:-top-[10vh] -mb-[calc(10vh)] lg:pt-[3%] lg:pb-[5%] dark:bg-[#f3f5f9] dark:text-slate-900">
 			<div className="text-center place-items-center place-content-center grid gap-1">
 				<h2 className="header text-3xl">New Arrivals</h2>
 				<p>

@@ -6,7 +6,7 @@ const Page = () => {
         <>
             <ContactHero />
 
-            <main className="grid place-content-center px-[3%]">
+            <main className="grid place-content-center px-4 sm:px-8">
                 <ContactForm />
             </main>
         </>

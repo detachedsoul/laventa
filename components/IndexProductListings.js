@@ -17,7 +17,6 @@ const fetcher = async (url) => {
 
 const IndexProductListings = () => {
 	const filter = useFilterCategory((state) => state.filter);
-
 	const setFilterValue = useFilterCategory((state) => state.setFilter);
 
 	const categories = useFetch(
@@ -47,7 +46,7 @@ const IndexProductListings = () => {
 
 	if (error || categoryError)
 		return (
-			<p className="px-[3%] font-bold text-center text-brand-red dark:text-rose-500 text-xl mx-auto md:w-1/2 py-12">
+			<p className="px-4 sm:px-8 font-bold text-center text-brand-red dark:text-rose-500 text-xl mx-auto sm:w-3/5 md:w-1/2 py-12">
 				There was an error fetching the requested resource. Please try
 				again later.
 			</p>
@@ -64,7 +63,7 @@ const IndexProductListings = () => {
 			{isLoading ? (
 					<ProductsLoadingSkeleton />
 				) : productsArr?.length > 0 ? (
-					<div className="grid gap-8 lg:grid-cols-3">
+					<div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 						{productsArr.map((products) => (
 							<ProductListings
 								id={products.id}
@@ -74,7 +73,7 @@ const IndexProductListings = () => {
 						))}
 					</div>
 				) : (
-					<p className="font-bold text-center text-xl mx-auto md:w-1/2">
+					<p className="font-bold text-center text-xl mx-auto sm:w-3/5 md:w-1/2">
 						There are no products available yet. Please check
 							back at a later time.
 					</p>

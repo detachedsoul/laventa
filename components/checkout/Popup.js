@@ -36,7 +36,7 @@ const Popup = ({
 				isActive ? "translate-y-0" : "-translate-y-full"
 			}`}
 		>
-			<div className="relative top-1/4 custom-scrollbar overflow-y-auto grid lg:w-1/3 lg:left-[calc(33.333333%)] place-content-center px-[3%]">
+			<div className="relative top-1/4 custom-scrollbar overflow-y-auto grid sm:w-3/5 sm:left-[20%] md:w-1/2 md:left-1/4 lg:w-1/3 lg:left-[calc(33.333333%)] place-content-center px-4">
 				<div className="bg-white shadow-card rounded-xl p-8 text-brand-black text-center space-y-4">
 					<Image
 						className="aspect-sqaure mx-auto"
@@ -50,7 +50,7 @@ const Popup = ({
 						height={70}
 					/>
 
-					<div className="space-y-2">
+					<div className="space-y-3">
 						<h1
 							className={`text-2xl text-center font-medium ${
 								isSuccess

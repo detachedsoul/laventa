@@ -314,9 +314,9 @@ const Checkout = () => {
 				<div className="bg-white dark:bg-brand-black"></div>
 			</div>
 
-			<div className="bg-white text-slate-900 p-[3%] mx-[3%] rounded-lg z-30 shadow-card relative grid gap-8 mb-12 lg:grid-cols-12 items-start divide-y lg:divide-y-0 lg:divide-x lg:divide-slate-200">
+			<div className="bg-white text-slate-900 p-4 mx-[3%] sm:mx-8 rounded-lg z-30 shadow-card relative grid gap-8 mb-12 lg:grid-cols-12 items-start divide-y lg:divide-y-0 lg:divide-x lg:divide-slate-200 lg:gap-4">
 				<div
-					className={`grid gap-4 items-center ${
+					className={`grid gap-4 ${
 						totalCartProducts < 1
 							? "lg:col-span-12"
 							: "lg:col-span-8"
@@ -326,7 +326,7 @@ const Checkout = () => {
 						className={`${
 							totalCartProducts < 1
 								? "flex items-center gap-4 flex-wrap"
-								: "block border-b border-slate-200 pb-2"
+								: "block border-b border-slate-200 pb-4"
 						}`}
 					>
 						<div className="inline-block">
@@ -354,12 +354,12 @@ const Checkout = () => {
 
 					{totalCartProducts > 0 && (
 						<>
-							<h2 className="header text-xl mb-4">
+							<h2 className="header text-xl mb-4 lg:px-8">
 								Billing details
 							</h2>
 
 							<form
-								className="grid gap-4 lg:grid-cols-2"
+								className="grid gap-4 sm:grid-cols-2 items-start lg:px-8"
 								method="POST"
 							>
 								<label
@@ -455,7 +455,7 @@ const Checkout = () => {
 								</label>
 
 								<label
-									className="grid gap-1.5 lg:col-span-2"
+									className="grid gap-1.5 sm:col-span-2"
 									htmlFor="address"
 								>
 									<span className="font-semibold block">
@@ -477,7 +477,7 @@ const Checkout = () => {
 									/>
 								</label>
 
-								<div className="grid gap-4 lg:hidden lg:not-sr-only">
+								<div className="grid gap-4 sm:col-span-2 lg:hidden lg:not-sr-only">
 									<h2 className="header text-xl">
 										Order summary
 									</h2>
@@ -485,7 +485,7 @@ const Checkout = () => {
 									<div className="divide-y divide-slate-200">
 										{cartProducts.map(({ product, id }) => (
 											<div
-												className="flex items-center gap-4 pb-2"
+												className="flex items-center gap-4 py-2"
 												key={id}
 											>
 												<Image
@@ -599,7 +599,7 @@ const Checkout = () => {
 									</div>
 								</div>
 
-								<div className="border border-slate-200 rounded-lg divide-y divide-slate-200 lg:col-span-2">
+								<div className="border border-slate-200 rounded-lg divide-y divide-slate-200 sm:col-span-2">
 									<div className="p-4">
 										<button
 											className="flex items-center justify-between gap-4 w-full font-semibold hover:text-brand-red"
@@ -633,9 +633,9 @@ const Checkout = () => {
 													/>
 												</div>
 
-												<div className="grid gap-4 lg:grid-cols-2">
+												<div className="grid gap-4 sm:grid-cols-2">
 													<label
-														className="w-full lg:col-span-2"
+														className="w-full sm:col-span-2"
 														htmlFor="card-number"
 													>
 														<input
@@ -656,7 +656,7 @@ const Checkout = () => {
 														/>
 													</label>
 
-													<div className="grid gap-4 lg:grid-cols-2">
+													<div className="grid gap-4 sm:grid-cols-2">
 														<label
 															className="w-full"
 															htmlFor="expiry-date"
@@ -778,7 +778,7 @@ const Checkout = () => {
 				</div>
 
 				{totalCartProducts > 0 && (
-					<div className="hidden lg:grid lg:col-span-4 lg:px-[10%] sticky top-20">
+					<div className="hidden lg:grid lg:col-span-4 sticky top-20 lg:px-8">
 						<div className="lg:grid gap-8">
 							<h2 className="header text-xl text-center">
 								Order summary
@@ -787,7 +787,7 @@ const Checkout = () => {
 							<div className="divide-y divide-slate-200">
 								{cartProducts.map(({ product, id }) => (
 									<div
-										className="flex items-center gap-4 pb-2"
+										className="flex items-center gap-4 py-2"
 										key={id}
 									>
 										<Image

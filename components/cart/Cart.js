@@ -23,7 +23,7 @@ const Checkout = () => {
 
 	return (
 		!isLoaded ? (
-			<p className="px-[3%] py-12">
+			<p className="px-4 sm:px-8 py-12">
 				Loading cart content, please wait...
 			</p>
 		) :
@@ -36,12 +36,12 @@ const Checkout = () => {
 				<div className="bg-white dark:bg-brand-black"></div>
 			</div>
 
-			<div className="bg-white text-slate-900 p-[3%] mx-[3%] rounded-lg z-30 shadow-card relative grid items-start gap-8 mb-12 lg:grid-cols-12 lg:gap-0 divide-y lg:divide-y-0 lg:divide-x lg:divide-slate-200">
+			<div className="bg-white text-slate-900 p-4 mx-[3%] sm:mx-8 rounded-lg z-30 shadow-card relative grid items-start gap-8 mb-12 md:grid-cols-12 md:gap-0 divide-y md:divide-y-0 md:divide-x lg:divide-slate-200 md:pr-0">
 				<div
-					className={`grid gap-4 ${
+					className={`grid gap-4 md:pr-4 ${
 						totalCartProducts < 1
 							? "lg:col-span-12"
-							: "lg:col-span-8"
+							: "md:col-span-7 lg:col-span-8"
 					}`}
 				>
 					<div
@@ -78,10 +78,10 @@ const Checkout = () => {
 						<div className="divide-y divide-slate-200">
 							{cartProducts.map(({ product, id }) => (
 								<div
-									className="grid lg:grid-cols-12 items-center gap-4 pb-4 pt-4 first:pt-0 last:pb-0"
+									className="grid sm:grid-cols-2 md:grid-cols-12 items-center gap-4 pb-4 pt-4 first:pt-0 last:pb-0"
 									key={id}
 								>
-									<div className="relative h-[200px] lg:h-[150px] lg:col-span-4">
+									<div className="relative h-[200px] md:h-[130px] lg:h-[150px] md:col-span-5">
 										<Image
 											className="object-cover object-center aspect-square rounded-md"
 											src={
@@ -105,7 +105,7 @@ const Checkout = () => {
 										</button>
 									</div>
 
-									<div className="grid gap-0.5 lg:col-span-8">
+									<div className="grid gap-0.5 md:col-span-7">
 										<h3 className="font-semibold leading-0 text-2xl">
 											{product.productName}
 										</h3>
@@ -135,7 +135,7 @@ const Checkout = () => {
 				</div>
 
 				{totalCartProducts > 0 && (
-					<div className="pt-8 lg:col-span-4 lg:py-[6%] lg:px-[10%] sticky top-16">
+					<div className="pt-8 md:col-span-5 lg:col-span-4 md:px-[10%] sm:w-3/5 sm:mx-auto md:w-full md:mx-0 sticky top-16">
 						<div className="lg:grid gap-8">
 							<div className="divide-y divide-slate-200">
 								<div className="grid place-items-center place-content-center gap-4 pb-4">

@@ -1,6 +1,6 @@
 const ProductsLoadingSkeleton = () => {
     return (
-		<div className="grid gap-8 lg:grid-cols-3">
+		<div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 			<div className="animate-pulse">
 				<div className="h-[250px] rounded-lg lg:h-[220px] bg-gray-400 w-full"></div>
 
@@ -41,7 +41,7 @@ const ProductsLoadingSkeleton = () => {
 				</div>
 			</div>
 
-			<div className="animate-pulse">
+			<div className="animate-pulse sm:hidden sm:not-sr-only lg:block">
 				<div className="h-[250px] rounded-lg lg:h-[220px] bg-gray-400 w-full"></div>
 
 				<div className="flex flex-col gap-6 p-3">

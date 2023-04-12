@@ -5,7 +5,7 @@ const ContactForm = () => {
                 Get in touch. We’ll love to hear from you
             </h2>
 
-			<form className="grid gap-4 lg:grid-cols-2">
+			<form className="grid gap-4 sm:grid-cols-2">
 				<label
 					className="grid gap-1.5"
 					htmlFor="name"
@@ -75,7 +75,7 @@ const ContactForm = () => {
 				</label>
 
 				<label
-					className="grid gap-1.5 lg:col-span-2"
+					className="grid gap-1.5 sm:col-span-2"
 					htmlFor="message"
 				>
 					<span className="font-semibold block">

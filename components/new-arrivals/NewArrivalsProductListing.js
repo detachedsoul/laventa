@@ -7,7 +7,7 @@ import useFetch from "@helpers/useFetch";
 
 const NewArrivalsScrollIndicator = dynamic(() =>
     import("./NewArrivalsScrollIndicator"),
-    { ssr: false }
+    { ssr: true }
 );
 
 const fetchProducts = async (url) => {
@@ -53,7 +53,7 @@ const NewArrivalsProductListing = () => {
 					>
 						{data.map((products) => (
 							<div
-								className="min-w-full snap-always lg:min-w-[calc(33.3333333%-1.34rem)] snap-center"
+								className="min-w-full snap-always sm:min-w-[calc(50%-1.34rem)] lg:min-w-[calc(33.3333333%-1.34rem)] snap-center"
 								key={products.id}
 							>
 								<ProductListings

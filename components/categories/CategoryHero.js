@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const CategoryHero = () => {
     return (
-        <div className="flex flex-wrap justify-between gap-6 items-center px-[3%] py-12 bg-brand-red text-white">
+        <div className="flex flex-wrap justify-between gap-6 items-center px-4 sm:px-8 py-12 bg-brand-red text-white">
             <h1 className="header text-2xl">
                 Catalog of Products
             </h1>

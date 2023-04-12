@@ -33,7 +33,7 @@ const IndexBlog = () => {
 
 
 	if (error) return (
-		<p className="font-bold text-brand-red text-xl text-center mx-auto dark:text-rose-500">
+		<p className="font-bold text-brand-red text-xl text-center mx-auto sm:w-3/5 md:w-1/2 dark:text-rose-500">
 			There was an error fetching articles. Please try again later.
 		</p>
 	);
@@ -62,7 +62,7 @@ const IndexBlog = () => {
 					</div>
 				</>
 			) : (
-				<p className="font-bold text-center text-xl mx-auto">
+				<p className="font-bold text-center text-xl mx-auto sm:w-3/5 md:w-1/2">
 					There are no blog articles available yet. Please check
 					back at a later time.
 				</p>

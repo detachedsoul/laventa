@@ -6,8 +6,8 @@ import iOS from "@assets/img/download-ios.svg";
 const About = () => {
 	return (
 		<>
-			<section className="grid items-center lg:grid-cols-2">
-				<div className="relative h-[50vh] lg:h-screen">
+			<section className="grid items-center sm:grid-cols-2">
+				<div className="relative h-[50vh] sm:h-screen">
 					<Image
 						className="w-full h-full object-cover object-center"
 						src="/img/01.jpg"
@@ -17,7 +17,7 @@ const About = () => {
 					/>
 				</div>
 
-				<div className="space-y-4 grid place-content-center order-1 p-4 lg:order-none lg:p-12">
+				<div className="space-y-4 grid place-content-center order-1 p-4 sm:order-none lg:p-12">
 					<h2 className="header text-2xl">
 						Search, Select, Buy online
 					</h2>
@@ -47,8 +47,8 @@ const About = () => {
 				</div>
 			</section>
 
-			<section className="grid items-center lg:grid-cols-2">
-				<div className="space-y-4 grid place-content-center order-1 p-4 lg:order-none lg:p-12">
+			<section className="grid items-center sm:grid-cols-2">
+				<div className="space-y-4 grid place-content-center order-1 p-4 sm:order-none lg:p-12">
 					<h2 className="header text-2xl">Fast delivery worldwide</h2>
 
 					<p>
@@ -75,7 +75,7 @@ const About = () => {
 					</div>
 				</div>
 
-				<div className="relative h-[50vh] lg:h-screen">
+				<div className="relative h-[50vh] sm:h-screen">
 					<Image
 						className="w-full h-full object-cover object-center"
 						src="/img/02.jpg"
@@ -86,8 +86,8 @@ const About = () => {
 				</div>
 			</section>
 
-			<section className="grid items-center lg:grid-cols-2">
-				<div className="relative h-[50vh] lg:h-screen">
+			<section className="grid items-center sm:grid-cols-2">
+				<div className="relative h-[50vh] sm:h-screen">
 					<Image
 						className="w-full h-full object-cover object-center"
 						src="/img/03.jpg"
@@ -97,7 +97,7 @@ const About = () => {
 					/>
 				</div>
 
-				<div className="space-y-4 grid place-content-center order-1 p-4 lg:order-none lg:p-12">
+				<div className="space-y-4 grid place-content-center order-1 p-4 sm:order-none lg:p-12">
 					<h2 className="header text-2xl">
 						Great mobile app. Shop on the go
 					</h2>
@@ -138,8 +138,8 @@ const About = () => {
 				</div>
 			</section>
 
-			<section className="grid items-center lg:grid-cols-2">
-				<div className="space-y-4 grid place-content-center order-1 p-4 lg:order-none lg:p-12">
+			<section className="grid items-center sm:grid-cols-2">
+				<div className="space-y-4 grid place-content-center order-1 p-4 sm:order-none lg:p-12">
 					<h2 className="header text-2xl">
 						Shop offline. Cozy outlet stores
 					</h2>
@@ -168,7 +168,7 @@ const About = () => {
 					</div>
 				</div>
 
-				<div className="relative h-[50vh] lg:h-screen">
+				<div className="relative h-[50vh] sm:h-screen">
 					<Image
 						className="w-full h-full object-cover object-center"
 						src="/img/04.jpg"

@@ -1,6 +1,6 @@
 const BlogPostLoadingSkeleton = () => {
     return (
-        <div className="animate-pulse grid gap-8 lg:grid-cols-3">
+        <div className="animate-pulse grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             <div>
                 <div className="h-[250px] rounded-lg lg:h-[220px] bg-gray-400"></div>
 
@@ -41,7 +41,7 @@ const BlogPostLoadingSkeleton = () => {
                 </div>
             </div>
 
-            <div>
+            <div className="sm:hidden lg:block">
                 <div className="h-[250px] rounded-lg lg:h-[220px] bg-gray-400"></div>
 
                 <div className="rounded-b-lg border-x border-gray-200 border-b p-4 grid space-y-4 dark:border-brand-light-black">

@@ -91,7 +91,7 @@ const Header = () => {
 	}
 
 	return (
-		<header className="flex items-center gap-4 justify-between bg-white py-5 sticky top-0 z-[1024] border-b border-slate-200 lg:py-4 px-[3%] dark:bg-brand-black dark:text-white dark:border-slate-50/[0.06]">
+		<header className="flex items-center gap-4 justify-between bg-white py-5 sticky top-0 z-[1024] border-b border-slate-200 lg:py-4 px-4 sm:px-8 dark:bg-brand-black dark:text-white dark:border-slate-50/[0.06]">
 			<button
 				className="lg:hidden lg:not-sr-only"
 				aria-label="Navbar toggle button"
@@ -114,7 +114,7 @@ const Header = () => {
 			</Link>
 
 			<nav
-				className={`bg-white absolute top-0 left-0 flex flex-col gap-4 p-4 w-full z-[1024] transition-transform duration-500 ease-linear lg:static lg:p-0 lg:bg-transparent lg:w-auto min-h-screen lg:min-h-0 dark:bg-brand-black ${
+				className={`bg-white absolute top-0 left-0 flex flex-col gap-4 p-4 sm:px-8 w-full z-[1024] transition-transform duration-500 ease-linear lg:static lg:p-0 lg:bg-transparent lg:w-auto min-h-screen lg:min-h-0 dark:bg-brand-black ${
 					isOpen
 						? "translate-y-0"
 						: "-translate-y-full lg:translate-y-0"

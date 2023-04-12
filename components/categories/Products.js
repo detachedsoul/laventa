@@ -8,7 +8,7 @@ const Products = ({productData, page, nextPage, prevPage, toPage}) => {
 
     return (
 		<section className="space-y-4">
-			<div className="grid gap-8 pb-8 border-b border-slate-200 dark:border-brand-light-black md:grid-cols-2 lg:grid-cols-3">
+			<div className="grid gap-8 pb-8 border-b border-slate-200 dark:border-brand-light-black sm:grid-cols-2 lg:grid-cols-3">
 				{data.map((products) => (
 					<ProductListings
 						id={products.id}

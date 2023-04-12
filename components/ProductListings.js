@@ -1,6 +1,5 @@
 "use client";
 
-import ProductOverviewModal from "@components/ProductOverviewModal";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -15,7 +14,7 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 	if (isAddedToCart) {
         setTimeout(() => {
             setIsAddedToCart(() => false);
-         }, 3000);
+         }, 2000);
     }
 
 
@@ -34,7 +33,7 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 				<div className="relative h-[250px] rounded-lg group lg:h-[220px]">
 					<Image
 						className="rounded-lg object-center aspect-square object-cover"
-						src={product?.indexImage?.data?.attributes.url}
+						src={product?.indexImage?.data?.attributes?.url}
 						fill
 						quality={100}
 						alt={product?.productName}
@@ -72,9 +71,9 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 							className={`transition-colors duration-500 ease-in-out hover:text-brand-red dark:hover:text-rose-500 ${
 								isNewArrival && "dark:hover:text-brand-red"
 							}`}
-							href={`/categories/${product?.category?.data?.attributes.slug}`}
+							href={`/categories/${product?.category?.data?.attributes?.slug}`}
 						>
-							{product?.category?.data?.attributes.categoryName}
+							{product?.category?.data?.attributes?.categoryName}
 						</Link>
 
 						<Link
@@ -230,13 +229,12 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 						</div>
 
 						<div className="grid gap-4 lg:grid-cols-2 lg:gap-6 px-4">
-							<div className="space-y-4">
-								<div className="h-[200px] relative rounded-lg lg:h-[300px]">
+							<div className="space-y-4 sm:space-y-0 gap-4 sm:grid sm:grid-cols-2 sm:items-start lg:block lg:space-y-4">
+								<div className="h-[200px] sm:h-full relative rounded-lg lg:h-[300px]">
 									<Image
 										className="rounded-lg object-cover aspect-square object-center"
 										src={
-											product?.indexImage?.data?.attributes
-												.url
+											product?.indexImage?.data?.attributes?.url
 										}
 										fill
 										alt={product?.productName}
@@ -245,12 +243,12 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 								</div>
 
 								<div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-									<div className="h-[100px] relative rounded-lg">
+									<div className="h-[100px] sm:h-[150px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
 											src={
 												product?.indexImage?.data
-													?.attributes.url
+													?.attributes?.url
 											}
 											fill
 											alt={product?.productName}
@@ -258,12 +256,12 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 										/>
 									</div>
 
-									<div className="h-[100px] relative rounded-lg">
+									<div className="h-[100px] sm:h-[150px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
 											src={
 												product?.productImageOne?.data
-													?.attributes.url
+													?.attributes?.url
 											}
 											fill
 											alt={product?.productName}
@@ -271,12 +269,12 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 										/>
 									</div>
 
-									<div className="h-[100px] relative rounded-lg">
+									<div className="h-[100px] sm:h-[150px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
 											src={
 												product?.productImageTwo?.data
-													?.attributes.url
+													?.attributes?.url
 											}
 											fill
 											alt={product?.productName}
@@ -284,12 +282,12 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 										/>
 									</div>
 
-									<div className="h-[100px] relative rounded-lg">
+									<div className="h-[100px] sm:h-[150px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
 											src={
 												product?.productImageThree?.data
-													?.attributes.url
+													?.attributes?.url
 											}
 											fill
 											alt={product?.productName}
@@ -316,7 +314,7 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 												</span>
 											</>
 										) : (
-											<p className="text-green-600">
+											<span className="text-green-600">
 												<span>
 													$
 													{
@@ -338,7 +336,7 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 														}
 													</small>
 												)}
-											</p>
+											</span>
 										)}
 									</p>
 

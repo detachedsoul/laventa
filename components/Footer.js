@@ -60,9 +60,9 @@ const Footer = () => {
 	return (
 		<>
 			<footer className="bg-slate-800 text-slate-200 pt-20 dark:bg-brand-light-black">
-				<div className="grid gap-12 pb-20 px-[3%]">
-					<div className="grid gap-8 items-start lg:grid-cols-12 lg:justify-items-end lg:gap-[2fr]">
-						<div className="grid gap-4 lg:col-span-4">
+				<div className="grid gap-12 pb-20 px-4 lg:px-8">
+					<div className="grid gap-8 items-start sm:grid-cols-12 sm:justify-items-end sm:gap-[2fr]">
+						<div className="grid gap-4 sm:col-span-6 lg:col-span-4">
 							<h4 className="header text-xl text-white">
 								Stay informed
 							</h4>
@@ -103,7 +103,7 @@ const Footer = () => {
 							</small>
 						</div>
 
-						<div className="grid gap-8 items-start lg:col-span-6 lg:grid-cols-2 lg:gap-12">
+						<div className="grid gap-8 items-start sm:col-span-6 lg:col-span-6 sm:justify-between sm:justify-items-end sm:grid-cols-2 lg:gap-12">
 							<div className="grid gap-4">
 								<h3 className="header text-xl text-white">
 									Company
@@ -214,7 +214,7 @@ const Footer = () => {
 						</Link>
 					</p>
 
-					<div className="text-center mx-auto lg:mx-0">
+					<div className="text-center mx-auto sm:mx-0">
 						<Image
 							src={paymentPlatforms}
 							alt="Accepted payments platforms"

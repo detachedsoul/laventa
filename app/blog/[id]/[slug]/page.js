@@ -17,7 +17,7 @@ const Page = async ({params: { id }}) => {
 		<>
 			<BlogPostHero articleDetails={data.attributes} />
 
-			<main className="py-12 px-[3%]">
+			<main className="py-12 px-4 sm:px-8">
 				<section>
 					<BlogPost articleDetails={data.attributes} />
 				</section>

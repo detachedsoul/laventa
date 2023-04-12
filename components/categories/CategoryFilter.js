@@ -40,7 +40,6 @@ const CategoryFilter = ({products, productFilterOptions}) => {
         const filterContent = data.filter((params) => {
             if (e.target.value === "") return products;
 
-
             return params.id.toString().toLowerCase().includes(e.target.value.toLowerCase()) || params.attributes.productName.toLowerCase().includes(e.target.value.toLowerCase()) || params.attributes.details.toLowerCase().includes(e.target.value.toLowerCase()) || params.attributes.highlights.toLowerCase().includes(e.target.value.toLowerCase())
         });
 
@@ -62,25 +61,25 @@ const CategoryFilter = ({products, productFilterOptions}) => {
                 <div className="bg-white dark:bg-brand-black"></div>
             </div>
 
-            <div className="bg-white text-slate-900 p-[3%] mx-[3%] rounded-lg z-30 shadow-card relative grid">
-                <div className="grid gap-4 lg:grid-cols-12">
-                    <button className={ `border border-slate-200 rounded-md py-2.5 px-3 transition-colors duration-200 ease-in-out lg:col-span-2 lg:py-2 hover:bg-brand-red hover:text-white ${filterIsOpen && 'bg-brand-red text-white'}`} type="button" onClick={ handleFilterToggle }>
+            <div className="bg-white text-slate-900 p-4 mx-[3%] sm:mx-8 rounded-lg z-30 shadow-card relative grid">
+                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-12">
+                    <button className={ `border border-slate-200 rounded-md py-2.5 px-3 transition-colors duration-200 ease-in-out md:col-span-2 lg:py-2 hover:bg-brand-red hover:text-white ${filterIsOpen && 'bg-brand-red text-white'}`} type="button" onClick={ handleFilterToggle }>
                         <i className="fr fi-rr-filters text-base top-0.5 pr-1"></i>
                         Filters
                     </button>
 
-                    <form className="flex flex-nowrap border border-slate-200 rounded-lg focus-within:border-brand-dark-rose/[0.2] lg:col-span-7">
+                    <form className="flex flex-nowrap border border-slate-200 rounded-lg focus-within:border-brand-dark-rose/[0.2] md:col-span-7 sm:order-2 sm:col-span-2">
                         <label className="py-0.5 px-1 w-full" htmlFor="search">
                             <input className="bg-white py-2.5 input-form w-full lg:py-2" type="search" id="search" value={searchValue} placeholder="Search collection" onChange={(e) => handleSearchChange(e)} />
                         </label>
                     </form>
 
-                    <div className="items-center lg:col-span-3 lg:grid lg:grid-cols-3">
+                    <div className="items-center md:col-span-3 md:grid lg:grid-cols-3 md:order-2">
                         <span className="hidden lg:inline-block lg:col-span-1" id="sort-by">
                             Sort by:
                         </span>
 
-                        <select className="select dark:focus:ring-slate-200 dark:focus:ring-offset-white dark:bg-white dark:text-slate-900 dark:border-slate-200 w-full py-2.5 lg:col-span-2 lg:py-2" aria-describedby="sort-by" value={currentOrder} onChange={(e) => handleOrderChange(e)}>
+                        <select className="select dark:focus:ring-slate-200 dark:focus:ring-offset-white dark:bg-white dark:text-slate-900 dark:border-slate-200 w-full py-2.5 lg:col-span-2 md:py-2" aria-describedby="sort-by" value={currentOrder} onChange={(e) => handleOrderChange(e)}>
                             <option value="Newest">
                                 Newest
                             </option>

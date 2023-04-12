@@ -77,7 +77,7 @@ const Page = () => {
 
 	if (productsError)
 		return (
-			<p className="px-[3%] font-bold text-center text-brand-red dark:text-rose-500 text-xl mx-auto md:w-1/2 py-12">
+			<p className="px-[3%] font-bold text-center text-brand-red dark:text-rose-500 text-xl mx-auto sm:w-3/5 md:w-1/2 py-12">
 				There was an error fetching the requested resource. Please try
 				again later.
 			</p>
@@ -89,7 +89,7 @@ const Page = () => {
 
 			{!isLoading && <CategoryFilter products={productsArr} productFilterOptions={options} />}
 
-			<main className="space-y-20 py-12 px-[3%]">
+			<main className="space-y-20 py-12 px-4 sm:px-8">
 				{isLoading ? (
 					<ProductsLoadingSkeleton />
 				) : productsArr?.data?.length > 0 ? (
@@ -101,7 +101,7 @@ const Page = () => {
 						toPage={toPage}
 					/>
 				) : (
-					<p className="font-bold text-center text-xl mx-auto md:w-1/2">
+					<p className="font-bold text-center text-xl mx-auto sm:w-3/5 md:w-1/2">
 						There are no products under this category available yet.
 						Please check back at a later time.
 					</p>

@@ -1,5 +1,3 @@
-"use client";
-
 import ScrollIndicator from "@components/ScrollIndicator";
 
 const NewArrivalsScrollIndicator = ({data}) => {
@@ -15,9 +13,21 @@ const NewArrivalsScrollIndicator = ({data}) => {
 		if (typeof window !== "undefined") {
 			if (window.matchMedia("(min-width: 1024px)").matches) {
 				return 3;
-			} else {
+			} else if (window.matchMedia("(min-width: 640px)").matches) {
+                return 2;
+            } else {
 				return 1;
 			}
+
+            window.addEventListener("resize", () => {
+                if (window.matchMedia("(min-width: 1024px)").matches) {
+                    return 3;
+                } else if (window.matchMedia("(min-width: 640px)").matches) {
+                    return 2;
+                } else {
+                    return 1;
+                }
+            });
 		}
 	};
 

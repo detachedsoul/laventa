@@ -56,16 +56,16 @@ const BlogPostFilter = ({articles}) => {
 			</div>
 
 			<div className="bg-white text-slate-900 p-[3%] mx-[3%] rounded-lg z-30 shadow-card relative grid">
-				<div className="grid gap-4 lg:gap-8 lg:grid-cols-12">
+				<div className="grid gap-4 lg:gap-8 sm:grid-cols-12">
 					<form
-						className="flex flex-nowrap border border-slate-200 rounded-lg focus-within:border-brand-dark-rose/[0.2] lg:col-span-8"
+						className="flex flex-nowrap border border-slate-200 rounded-lg focus-within:border-brand-dark-rose/[0.2] sm:col-span-8"
 					>
 						<label
 							className="py-0.5 px-1 w-full"
 							htmlFor="search"
 						>
 							<input
-								className="bg-white py-2.5 input-form w-full lg:py-2"
+								className="bg-white py-2.5 input-form w-full sm:py-2"
 								type="search"
 								id="search"
 								placeholder="Search for blog posts"
@@ -74,7 +74,7 @@ const BlogPostFilter = ({articles}) => {
 						</label>
 					</form>
 
-					<div className="items-center lg:col-span-4 lg:grid lg:grid-cols-3">
+					<div className="items-center sm:col-span-4 lg:grid lg:grid-cols-3">
 						<span
 							className="hidden lg:inline-block lg:col-span-1"
 							id="sort-by"

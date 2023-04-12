@@ -48,9 +48,9 @@ const Page = () => {
 
 			{!isLoading && <BlogPostFilter articles={blogPosts} />}
 
-			<main className="space-y-20 py-12 px-[3%]">
+			<main className="space-y-20 py-12 px-4 sm:px-8">
                 {error && (
-                    <p className="font-bold text-brand-red text-xl text-center mx-auto dark:text-rose-500">
+                    <p className="font-bold text-brand-red text-xl text-center mx-auto dark:text-rose-500 sm:w-3/5">
                         There was an error fetching articles. Please try
                         again later.
                     </p>
@@ -152,7 +152,7 @@ const Page = () => {
 							</div>
 						</>
 					) : (
-						<p className="font-bold text-center text-xl mx-auto">
+						<p className="font-bold text-center text-xl mx-auto sm:w-3/5">
 							There are no blog articles available yet. Please
 							check back at a later time.
 						</p>
