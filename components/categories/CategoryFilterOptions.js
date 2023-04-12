@@ -90,7 +90,7 @@ const CategoryFilterOptions = ({ filterIsOpen, productFilterOptions }) => {
 										}}
 									/>
 									{pathname !== "/categories" ? (
-                                        pathname?.split("/")[2].split(" ")?.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                                        pathname?.split("/")[2]?.split(" ")?.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
                                     ) : "All Categories"}
 								</label>
 

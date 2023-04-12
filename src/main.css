@@ -3,6 +3,36 @@
 @tailwind utilities;
 
 @layer components {
+    i[class*="fi-rr-"]:before,
+    i[class^=fi-rr-]:before,
+    span[class*=fi-rr-]:before,
+    span[class^=fi-rr-]:before {
+        font-family: uicons-regular-rounded !important;
+        font-style: normal;
+        font-weight: 400 !important;
+        font-variant: normal;
+        font-display: swap;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
+
+    i[class*="fi-brands-"]:before,
+    i[class^=fi-brands-]:before,
+    span[class*=fi-brands-]:before,
+    span[class^=fi-brands-]:before {
+        font-family: uicons-brands !important;
+        font-style: normal;
+        font-weight: 400 !important;
+        font-variant: normal;
+        font-display: swap;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
+
     select option {
         @apply text-lg;
         font-family: inherit;

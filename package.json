@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx purgecss --config purgecss.config.js -o ./assets/uicons/css/uicons.css && next build",
+    "buildIcons": "npx purgecss --config purgecss.config.js -o ./assets/uicons/css/uicons.css",
     "start": "next start",
     "lint": "next lint",
     "compile": "npx tailwindcss -i ./src/main.css -o ./app/globals.css --watch --minify"

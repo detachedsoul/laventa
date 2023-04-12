@@ -1,5 +1,4 @@
-import "@assets/uicons-regular-rounded/css/uicons-regular-rounded.min.css";
-import "@assets/uicons-brands/css/uicons-brands.min.css";
+import "@assets/uicons/css/uicons.css";
 import "./globals.css";
 
 import Header from "@components/Header";
