@@ -678,6 +678,7 @@ const Checkout = () => {
 																className="input-form border border-slate-200 rounded-lg border-solid focus:border-brand-dark-rose/[0.2] w-full"
 																type="text"
 																name="expiry-date"
+																inputMode="numeric"
 																id="expiry-date"
 																maxLength={7}
 																pattern="[0-9]{2}/[0-9]{2}"
