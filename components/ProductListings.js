@@ -1,6 +1,6 @@
 "use client";
 
-import DOMPurify from 'dompurify';
+import DOMPurify from "dompurify";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -13,11 +13,10 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 	const [isAddedToCart, setIsAddedToCart] = useState(false);
 
 	if (isAddedToCart) {
-        setTimeout(() => {
-            setIsAddedToCart(() => false);
-         }, 2000);
-    }
-
+		setTimeout(() => {
+			setIsAddedToCart(() => false);
+		}, 2000);
+	}
 
 	const handleClick = () => {
 		setModalIsActive(() => true);
@@ -28,7 +27,10 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 
 	return (
 		<>
-			<AddedToCartPopup item={product?.productName} isActive={isAddedToCart} />
+			<AddedToCartPopup
+				item={product?.productName}
+				isActive={isAddedToCart}
+			/>
 
 			<article>
 				<div className="relative h-[250px] rounded-lg group lg:h-[220px]">
@@ -57,8 +59,8 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 							className="bg-white rounded-lg py-2.5 px-4 transition-colors ease-in-out duration-500 hover:text-brand-red"
 							aria-label="Add product to cart"
 							onClick={() => {
-								setIsAddedToCart(() => true)
-								addtoCart({id, product});
+								setIsAddedToCart(() => true);
+								addtoCart({ id, product });
 							}}
 						>
 							<i className="fr fi-rr-shopping-cart text-base top-0.5"></i>
@@ -131,9 +133,8 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 											}
 										</span>
 
-										{formartAmountSum(
-											product?.currentPrice,
-										).hasFractions === true && (
+										{formartAmountSum(product?.currentPrice)
+											.hasFractions === true && (
 											<small>
 												.
 												{
@@ -175,8 +176,8 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 							}`}
 							type="button"
 							onClick={() => {
-								setIsAddedToCart(() => true)
-								addtoCart({id, product});
+								setIsAddedToCart(() => true);
+								addtoCart({ id, product });
 							}}
 						>
 							{product?.inStock && (
@@ -235,7 +236,8 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 									<Image
 										className="rounded-lg object-cover aspect-square object-center"
 										src={
-											product?.indexImage?.data?.attributes?.url
+											product?.indexImage?.data
+												?.attributes?.url
 										}
 										fill
 										alt={product?.productName}
@@ -375,7 +377,14 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 										Highlights
 									</h4>
 
-									<div className="list-inside space-y-1.5 text-gray-500 dark:text-gray-200" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(product?.highlights)}} />
+									<div
+										className="list-inside space-y-1.5 text-gray-500 dark:text-gray-200"
+										dangerouslySetInnerHTML={{
+											__html: DOMPurify.sanitize(
+												product?.highlights,
+											),
+										}}
+									/>
 								</div>
 
 								<div className="text-sm space-y-4">
@@ -383,7 +392,14 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 										Details
 									</h4>
 
-									<div className="space-y-2" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(product?.details)}} />
+									<div
+										className="space-y-2"
+										dangerouslySetInnerHTML={{
+											__html: DOMPurify.sanitize(
+												product?.details,
+											),
+										}}
+									/>
 								</div>
 
 								{product?.inStock && (
@@ -392,7 +408,7 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 										type="button"
 										onClick={() => {
 											setIsAddedToCart(() => true);
-											addtoCart({id, product});
+											addtoCart({ id, product });
 										}}
 									>
 										Add to cart

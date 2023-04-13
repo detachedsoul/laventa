@@ -17,7 +17,10 @@ const ProductDetails = ({product, id}) => {
 
     return (
 		<>
-			<AddedToCartPopup item={product?.attributes?.productName} isActive={isAddedToCart} />
+			<AddedToCartPopup
+				item={product?.attributes?.productName}
+				isActive={isAddedToCart}
+			/>
 
 			<div className="bg-white text-slate-900 p-[3%] rounded-lg grid space-y-4 dark:bg-brand-light-black dark:text-white lg:space-y-8">
 				<div className="grid gap-4 items-stretch lg:grid-cols-2">
@@ -130,18 +133,26 @@ const ProductDetails = ({product, id}) => {
 						</div>
 					</div>
 
-					<div className="text-sm">
+					<div className="text-sm space-y-4">
 						<h4 className="header text-2xl mb-2">Highlights</h4>
 
-						<ul className="list-inside list-disc space-y-2">
-							{product?.attributes?.highlights}
-						</ul>
+						<div
+							className="list-inside space-y-2 text-gray-500 dark:text-gray-200"
+							dangerouslySetInnerHTML={{
+								__html: product?.attributes?.highlights
+							}}
+						/>
 					</div>
 
 					<div>
 						<h4 className="header text-2xl mb-2">Details</h4>
 
-						<p>{product?.attributes?.details}</p>
+						<div
+							className="space-y-2"
+							dangerouslySetInnerHTML={{
+								__html: product?.attributes?.details
+							}}
+						/>
 					</div>
 
 					{product?.attributes?.inStock && (
