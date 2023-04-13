@@ -38,37 +38,44 @@ const BlogPost = ({ articleDetails }) => {
 				/>
 			</div>
 
-			<div className="space-y-2">
-				<p>{fullDate}</p>
-
-				<h1 className="header text-4xl">{articleDetails.title}</h1>
-			</div>
-
 			<div className="grid gap-8 lg:grid-cols-12 items-start">
-				<div className="flex gap-4 items-center text-lg lg:col-span-4 sticky lg:top-[15%]">
-					<div>
-						<Image
-							className="h-full w-full aspect-square object-cover object-center rounded-full"
-							src={articleDetails?.authorImage?.data?.attributes?.url}
-							alt={articleDetails.author}
-							title={articleDetails.author}
-							quality={100}
-							height={50}
-							width={50}
-						/>
-					</div>
-
-					<p className="border-l border-gray-300 dark:border-gray-200 pl-4 w-full block">
-						{articleDetails.author}
-					</p>
-				</div>
-
-
-				<div className="space-y-4 lg:col-span-8">
+				<div className="lg:col-span-4 space-y-4 sticky lg:top-[15%]">
 					<div className="space-y-2">
-						<p>{articleDetails.articleContent}</p>
+						<p>{fullDate}</p>
+
+						<h1 className="header text-4xl">
+							{articleDetails?.title}
+						</h1>
+					</div>
+
+					<div className="flex gap-4 items-center text-lg">
+						<div>
+							<Image
+								className="h-full w-full aspect-square object-cover object-center rounded-full"
+								src={
+									articleDetails?.authorImage?.data?.attributes
+										?.url
+								}
+								alt={articleDetails?.author}
+								title={articleDetails?.author}
+								quality={100}
+								height={50}
+								width={50}
+							/>
+						</div>
+
+						<p className="border-l border-gray-300 dark:border-gray-200 pl-4 w-full block">
+							{articleDetails?.author}
+						</p>
 					</div>
 				</div>
+
+				<div
+					className="space-y-2 lg:col-span-8"
+					dangerouslySetInnerHTML={{
+						__html: articleDetails?.articleContent,
+					}}
+				/>
 			</div>
 		</article>
 	);

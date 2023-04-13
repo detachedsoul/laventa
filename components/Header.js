@@ -180,8 +180,8 @@ const Header = () => {
 
 										{isLoading && <DropdownLoadingSkeleton />}
 
-										{error && (
-												<p className="font-bold text-brand-red dark:text-rose-500 mx-auto md:w-1/2">
+										{error && !isLoading && (
+												<p className="font-bold text-brand-red dark:text-rose-500">
 													There was an error fetching categories.
 												</p>
 											)

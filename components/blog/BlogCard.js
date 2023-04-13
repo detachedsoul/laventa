@@ -1,3 +1,4 @@
+import DOMPurify from "dompurify";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -54,9 +55,7 @@ const BlogCard = ({blogPosts}) => {
 
 				<div className="grid gap-4">
 					<div className="border-b border-gray-200 pb-3 dark:border-brand-light-black space-y-4">
-						<div className="space-y-1.5">
-							<p>{story.attributes.summary}</p>
-						</div>
+						<div className="space-y-1.5" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(story.attributes.summary)}} />
 
 						<div className="inline-block">
 							<Link

@@ -1,5 +1,6 @@
 "use client";
 
+import DOMPurify from 'dompurify';
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -369,24 +370,20 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 									</div>
 								</div>
 
-								<div className="text-sm">
+								<div className="text-sm space-y-4">
 									<h4 className="header text-base mb-2">
 										Highlights
 									</h4>
 
-									<ul className="list-inside space-y-2">
-										<li className="text-gray-500 dark:text-gray-200">
-											{product?.highlights}
-										</li>
-									</ul>
+									<div className="list-inside space-y-1.5 text-gray-500 dark:text-gray-200" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(product?.highlights)}} />
 								</div>
 
-								<div className="text-sm">
+								<div className="text-sm space-y-4">
 									<h4 className="header text-base mb-2">
 										Details
 									</h4>
 
-									{product?.details}
+									<div className="space-y-2" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(product?.details)}} />
 								</div>
 
 								{product?.inStock && (
