@@ -15,7 +15,7 @@ const fetchArticles = async (url) => {
 
 const IndexBlog = () => {
 	const blogPosts = useFetch(
-		`${process.env.NEXT_PUBLIC_API_URL}articles?sort=id%3Adesc&populate=*`,
+		`${process.env.NEXT_PUBLIC_API_URL}articles?sort=id%3Adesc&pagination[pageSize]=6&populate=*`,
 		fetchArticles,
 	).data;
 
@@ -48,7 +48,9 @@ const IndexBlog = () => {
 			{!isLoading && blogPosts?.length > 0 && !error ? (
 				<>
 					<div className="grid gap-8 lg:grid-cols-3">
-						<BlogCard blogPosts={blogPosts} />
+						{blogPosts && (
+							<BlogCard blogPosts={blogPosts} />
+						)}
 					</div>
 
 					<div className="grid place-content-center">

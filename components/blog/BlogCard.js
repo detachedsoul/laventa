@@ -2,10 +2,7 @@ import DOMPurify from "dompurify";
 import Image from "next/image";
 import Link from "next/link";
 
-const BlogCard = ({blogPosts}) => {
-	// Convert the date the blog post was posted to the format Jan 1, 2023
-	const rawDate = blogPosts.map(date => date.attributes.datePublished.toString().split("-"));
-
+const BlogCard = ({ blogPosts }) => {
 	const months = [
 		"Jan",
 		"Feb",
@@ -20,18 +17,6 @@ const BlogCard = ({blogPosts}) => {
 		"Nov",
 		"Dec",
 	];
-
-	const dateDetils = rawDate.map(dateDetails => {
-		const tempDate = new Date(dateDetails);
-
-		const month = months[tempDate.getMonth()];
-		const date = tempDate.getDate();
-		const year = tempDate.getFullYear();
-
-		const fullDate = `${month} ${date}, ${year}`;
-
-		return fullDate;
-	})
 
 	return blogPosts?.map((story, id) => (
 		<article key={story.id}>
@@ -55,7 +40,14 @@ const BlogCard = ({blogPosts}) => {
 
 				<div className="grid gap-4">
 					<div className="border-b border-gray-200 pb-3 dark:border-brand-light-black space-y-4">
-						<div className="space-y-1.5" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(story.attributes.summary)}} />
+						<div
+							className="space-y-1.5"
+							dangerouslySetInnerHTML={{
+								__html: DOMPurify.sanitize(
+									story.attributes.summary,
+								),
+							}}
+						/>
 
 						<div className="inline-block">
 							<Link
@@ -80,7 +72,22 @@ const BlogCard = ({blogPosts}) => {
 							height={50}
 						/>
 
-						<p>{dateDetils[id]}</p>
+						<p>{`${
+							story.attributes.datePublished.split("-")[1] < 10
+								? months[
+										story.attributes.datePublished
+											.split("-")[1]
+											.toString()
+											.split("0")[1] - 1
+								  ]
+								: months[
+										story.attributes.datePublished.split(
+											"-",
+										)[1] - 1
+								  ]
+						} ${story.attributes.datePublished.split("-")[2]}, ${
+							story.attributes.datePublished.split("-")[0]
+						}`}</p>
 					</div>
 				</div>
 			</div>

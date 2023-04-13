@@ -244,7 +244,7 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 								</div>
 
 								<div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-									<div className="h-[100px] sm:h-[150px] relative rounded-lg">
+									<div className="h-[100px] sm:h-[150px] lg:h-[100px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
 											src={
@@ -257,7 +257,7 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 										/>
 									</div>
 
-									<div className="h-[100px] sm:h-[150px] relative rounded-lg">
+									<div className="h-[100px] sm:h-[150px] lg:h-[100px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
 											src={
@@ -270,7 +270,7 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 										/>
 									</div>
 
-									<div className="h-[100px] sm:h-[150px] relative rounded-lg">
+									<div className="h-[100px] sm:h-[150px] lg:h-[100px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
 											src={
@@ -283,7 +283,7 @@ const ProductListings = ({ product, id, isNewArrival = false }) => {
 										/>
 									</div>
 
-									<div className="h-[100px] sm:h-[150px] relative rounded-lg">
+									<div className="h-[100px] sm:h-[150px] lg:h-[100px] relative rounded-lg">
 										<Image
 											className="rounded-lg object-cover aspect-square object-center"
 											src={
