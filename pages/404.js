@@ -1,9 +1,9 @@
 import "app/globals.css";
 
+import localFont from "next/font/local";
 import Head from "next/head";
 import Link from "next/link";
-import localFont from "@next/font/local";
-import {useEffect} from "react";
+import { useEffect } from "react";
 
 const GTWalsheimPro = localFont({
 	src: "../assets/fonts/GTWalsheimPro.ttf",

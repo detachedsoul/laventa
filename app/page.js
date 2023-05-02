@@ -1,7 +1,7 @@
-import IndexHero from "@components/IndexHero";
-import NewArrivals from "@components/NewArrivals";
-import IndexProductListings from "@components/IndexProductListings";
 import IndexBlog from "@components/IndexBlog";
+import IndexHero from "@components/IndexHero";
+import IndexProductListings from "@components/IndexProductListings";
+import NewArrivals from "@components/NewArrivals";
 
 const Page = () => {
     return (

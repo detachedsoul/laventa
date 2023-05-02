@@ -1,10 +1,10 @@
 import "@assets/uicons/css/uicons.css";
 import "./globals.css";
 
-import Header from "@components/Header";
 import Footer from "@components/Footer";
+import Header from "@components/Header";
 import SplitNewsletter from "@components/SplitNewsletter";
-import localFont from "@next/font/local";
+import localFont from "next/font/local";
 
 const GTWalsheimPro = localFont({
 	src: "../assets/fonts/GTWalsheimPro.ttf",

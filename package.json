@@ -11,17 +11,17 @@
     "compile": "npx tailwindcss -i ./src/main.css -o ./app/globals.css --watch --minify"
   },
   "dependencies": {
-    "@next/font": "^13.0.6",
     "@stripe/react-stripe-js": "^2.1.0",
     "@stripe/stripe-js": "^1.52.0",
     "@tailwindcss/forms": "^0.5.3",
     "creditcardutils": "^1.0.0",
     "dompurify": "^3.0.1",
     "eslint": "8.29.0",
-    "eslint-config-next": "^13.1.2",
-    "next": "^13.1.2",
+    "eslint-config-next": "^13.3.4",
+    "next": "^13.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sharp": "^0.32.1",
     "stripe": "^12.0.0",
     "swr": "^2.1.2",
     "zustand": "^4.3.2"

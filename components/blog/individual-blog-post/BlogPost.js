@@ -49,7 +49,7 @@ const BlogPost = ({ articleDetails }) => {
 					</div>
 
 					<div className="flex gap-4 items-center text-lg">
-						<div>
+						<div className="w-[70px]">
 							<Image
 								className="h-full w-full aspect-square object-cover object-center rounded-full"
 								src={
@@ -58,9 +58,9 @@ const BlogPost = ({ articleDetails }) => {
 								}
 								alt={articleDetails?.author}
 								title={articleDetails?.author}
-								quality={100}
-								height={50}
-								width={50}
+								quality={ 100 }
+								width={100}
+								height={100}
 							/>
 						</div>
 
