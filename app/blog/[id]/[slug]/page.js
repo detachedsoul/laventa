@@ -1,5 +1,20 @@
-import BlogPostHero from "@components/blog/individual-blog-post/BlogPostHero";
 import BlogPost from "@components/blog/individual-blog-post/BlogPost";
+import BlogPostHero from "@components/blog/individual-blog-post/BlogPostHero";
+
+export const generateMetadata = async ({params: {id}}) => {
+    const blogArticleId = id.toString();
+
+	const endpoint = `articles/${blogArticleId}`;
+	const url = process.env.NEXT_PUBLIC_API_URL + endpoint;
+	const res = await fetch(`${url}`);
+
+	const {data} = await res.json();
+
+    return {
+		title: `Laventa | ${data?.attributes?.title}`,
+		description: `${data?.attributes?.author}`
+	};
+};
 
 const Page = async ({params: { id }}) => {
 	const articleId = id.toString();
@@ -15,11 +30,11 @@ const Page = async ({params: { id }}) => {
 
 	return (
 		<>
-			<BlogPostHero articleDetails={data.attributes} />
+			<BlogPostHero articleDetails={data?.attributes} />
 
 			<main className="py-12 px-4 sm:px-8">
 				<section>
-					<BlogPost articleDetails={data.attributes} />
+					<BlogPost articleDetails={data?.attributes} />
 				</section>
 			</main>
 		</>

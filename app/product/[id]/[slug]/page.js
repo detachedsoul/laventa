@@ -1,5 +1,24 @@
-import ProductDetailsHero from "@components/product-details/ProductDetailsHero";
 import ProductDetails from "@components/product-details/ProductDetails";
+import ProductDetailsHero from "@components/product-details/ProductDetailsHero";
+
+export const generateMetadata = async ({params: {id}}) => {
+    const productId = id.toString();
+
+	const endpoint = `products/${productId}`;
+	const url = process.env.NEXT_PUBLIC_API_URL + endpoint;
+	const res = await fetch(`${url}`);
+
+	if (!res.ok) {
+		return `There was an error fetching the requested resource. Please make sure that the API endpoint ${endpoint} is correct.`;
+	}
+
+	const {data} = await res.json();
+
+    return {
+		title: `Laventa | ${data?.attributes?.productName}`,
+		description: `${data?.attributes?.highlights}`
+	};
+};
 
 const Page = async ({ params: { id }}) => {
 	const productId = id.toString();

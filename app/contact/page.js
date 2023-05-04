@@ -1,5 +1,10 @@
-import ContactHero from "@components/contact/ContactHero";
 import ContactForm from "@components/contact/ContactForm";
+import ContactHero from "@components/contact/ContactHero";
+
+export const metadata = {
+    title: "Laventa | Contact Us",
+    description: "Get in touch with us"
+};
 
 const Page = () => {
     return (

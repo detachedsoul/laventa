@@ -3,6 +3,11 @@ import IndexHero from "@components/IndexHero";
 import IndexProductListings from "@components/IndexProductListings";
 import NewArrivals from "@components/NewArrivals";
 
+export const metadata = {
+	title: "Laventa | Home",
+	description: "Laventa e-Commerce platform",
+};
+
 const Page = () => {
     return (
 		<>

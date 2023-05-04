@@ -49,7 +49,7 @@ const BlogPost = ({ articleDetails }) => {
 					</div>
 
 					<div className="flex gap-4 items-center text-lg">
-						<div className="w-[70px]">
+						<div className="w-[60px]">
 							<Image
 								className="h-full w-full aspect-square object-cover object-center rounded-full"
 								src={

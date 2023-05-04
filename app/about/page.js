@@ -1,5 +1,10 @@
 import About from "@components/about/About";
 
+export const metadata = {
+	title: "Laventa | About Us",
+	description: "About Laventa, our mission, and vision",
+};
+
 const Page = () => {
 	return (
 		<>
